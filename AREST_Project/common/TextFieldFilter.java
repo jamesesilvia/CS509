@@ -2,6 +2,9 @@ package cs509.grp8.arest.common;
 
 import java.awt.event.KeyEvent;
 
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.JTextComponent;
+
 public class TextFieldFilter {
 
 	public static final int ALL = 1;
@@ -125,5 +128,6 @@ public class TextFieldFilter {
 	public void setMaximumSize(int maximumSize) {
 		this.maximumSize = maximumSize;
 	}
+	
 	
 }

@@ -56,8 +56,7 @@ public class ReporterGUI extends JPanel {
 	private JFormattedTextField firstNameTextField;
 	private JFormattedTextField lastNameTextField;
 	private JFormattedTextField phoneAreaCode, phoneFirstThree, phoneLastFour;
-	
-	private JButton nextButton, cancelButton;
+	private DocumentSizeFilter filter;
 	
 	private Reporter reporter;
 	
@@ -65,6 +64,8 @@ public class ReporterGUI extends JPanel {
 	 * Create the panel.
 	 */
 	public ReporterGUI() {
+		// Used for setupTextField
+		filter = new DocumentSizeFilter(10);
 		
 		reporterLbl = new JLabel("Reporter");
 		reporterLbl.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -72,19 +73,19 @@ public class ReporterGUI extends JPanel {
 		firstNameLbl = new JLabel("Name:");
 		
 		firstNameTextField = new JFormattedTextField();
-		setupTextField(firstNameTextField, DocumentSizeFilter.CHAR, 16);
+		filter.setupTextField(firstNameTextField, DocumentSizeFilter.CHAR, 16);
 		
 		lastNameLbl = new JLabel("Last Name:");
 		
 		lastNameTextField = new JFormattedTextField();
-		setupTextField(lastNameTextField, DocumentSizeFilter.CHAR, 16);
+		filter.setupTextField(lastNameTextField, DocumentSizeFilter.CHAR, 16);
 		
 		addrLbl = new JLabel("Address:");
 		
 		addrTextArea = new JTextArea();
 		addrTextArea.setLineWrap(true);
 		addrTextArea.setWrapStyleWord(true);
-		setupTextField(addrTextArea, DocumentSizeFilter.ANY, 50);
+		filter.setupTextField(addrTextArea, DocumentSizeFilter.ANY, 50);
 		
 		mandatedCB = new JCheckBox("Mandated");
 		
@@ -121,29 +122,24 @@ public class ReporterGUI extends JPanel {
 		relationshipLbl = new JLabel("Relationship to Alleged Victim:");
 			
 		relationshipTextField = new JFormattedTextField();
-		setupTextField(relationshipTextField, DocumentSizeFilter.ANY, 20);
+		filter.setupTextField(relationshipTextField, DocumentSizeFilter.ANY, 20);
 		
 		telephoneLbl = new JLabel("Daytime Telephone:");
 		
 		phoneAreaCode = new JFormattedTextField();
-		setupTextField(phoneAreaCode, DocumentSizeFilter.NO, 3);
+		filter.setupTextField(phoneAreaCode, DocumentSizeFilter.NO, 3);
 		
 		phoneFirstThree = new JFormattedTextField();
-		setupTextField(phoneFirstThree, DocumentSizeFilter.NO, 3);
+		filter.setupTextField(phoneFirstThree, DocumentSizeFilter.NO, 3);
 		
 		phoneLastFour = new JFormattedTextField();
-		setupTextField(phoneLastFour, DocumentSizeFilter.NO, 4);
+		filter.setupTextField(phoneLastFour, DocumentSizeFilter.NO, 4);
 		
 		hyphon = new JTextField();
 		hyphon.setHorizontalAlignment(SwingConstants.CENTER);
 		hyphon.setEditable(false);
 		hyphon.setText("-");
 		hyphon.setColumns(10);
-		
-		nextButton = new JButton("Next");
-
-		
-		cancelButton = new JButton("Cancel");
 		//FIXME: Add action listener for this
 		
 		firstNameNotSetWarning = new JTextField();
@@ -196,7 +192,7 @@ public class ReporterGUI extends JPanel {
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 								.addGroup(groupLayout.createSequentialGroup()
@@ -228,7 +224,7 @@ public class ReporterGUI extends JPanel {
 								.addComponent(mandatedCB)
 								.addComponent(lastNameTextField, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.RELATED, 12, Short.MAX_VALUE))
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(relationshipLbl)
@@ -248,11 +244,7 @@ public class ReporterGUI extends JPanel {
 									.addComponent(phoneFirstThree, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(phoneLastFour, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
-								.addComponent(relationshipTextField, GroupLayout.PREFERRED_SIZE, 301, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-							.addComponent(nextButton, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(cancelButton, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(relationshipTextField, GroupLayout.PREFERRED_SIZE, 301, GroupLayout.PREFERRED_SIZE))))
 					.addGap(14))
 		);
 		groupLayout.setVerticalGroup(
@@ -297,78 +289,12 @@ public class ReporterGUI extends JPanel {
 						.addComponent(relationshipLbl)
 						.addComponent(relationshipTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(relationshipNotSetWarning, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(nextButton)
-						.addComponent(cancelButton))
-					.addGap(43))
+					.addGap(84))
 		);
 		setLayout(groupLayout);
-		
-		nextButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				reporter = new Reporter();
-				if(firstNameTextField.getDocument().getLength() == 0) {
-					firstNameNotSetWarning.setVisible(true);
-				} else {
-					firstNameNotSetWarning.setVisible(false);
-					reporter.setFirstName(firstNameTextField.getText());
-				}
-				if(lastNameTextField.getDocument().getLength() == 0) {
-					lastNameNotSetWarning.setVisible(true);
-				} else {
-					lastNameNotSetWarning.setVisible(false);
-					reporter.setLastName(lastNameTextField.getText());
-				}
-				if(addrTextArea.getDocument().getLength() == 0) {
-					addrNotSetWarning.setVisible(true);
-				} else {
-					addrNotSetWarning.setVisible(false);
-					try {
-						reporter.setAddress(addrTextArea.getDocument().getText(0, addrTextArea.getDocument().getLength()));
-					} catch (BadLocationException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
-				if(mandatedCB.isSelected()) {
-					reporter.setMandated(true);
-				} else {
-					reporter.setMandated(false);
-				}
-				if((phoneAreaCode.getDocument().getLength() != 3) || (phoneFirstThree.getDocument().getLength() != 3) || (phoneLastFour.getDocument().getLength() != 4)) {
-					phoneNotSetWarning.setVisible(true);
-				} else {
-					try {
-						reporter.setTelephone(phoneAreaCode.getDocument().getText(0, phoneAreaCode.getDocument().getLength()).concat(phoneFirstThree.getDocument().getText(0,  phoneFirstThree.getDocument().getLength()).concat(phoneLastFour.getDocument().getText(0, phoneLastFour.getDocument().getLength()))));
-						phoneNotSetWarning.setVisible(false);
-					} catch (BadLocationException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
-				if(relationshipTextField.getDocument().getLength() == 0) {
-					relationshipNotSetWarning.setVisible(true);
-				} else {
-					try {
-						reporter.setRelationshipToVictim(relationshipTextField.getDocument().getText(0, relationshipTextField.getDocument().getLength()));
-					} catch (BadLocationException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				} 
-			}
-		});
 
 	}
 	
-	private void setupTextField(JTextComponent comp, int acceptedType, int maxSize){
-		AbstractDocument abstDoc = (AbstractDocument) comp.getDocument();
-		DocumentSizeFilter filter = new DocumentSizeFilter(maxSize);
-		filter.setAcceptedType(acceptedType);
-		abstDoc.setDocumentFilter(filter);
-	}
+	
 	
 }

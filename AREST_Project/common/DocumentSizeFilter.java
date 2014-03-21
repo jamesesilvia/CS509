@@ -1,8 +1,10 @@
 package cs509.grp8.arest.common;
 
+import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
+import javax.swing.text.JTextComponent;
 
 /**
  * This class is created to help format text fields in any JPanel.
@@ -129,6 +131,21 @@ public class DocumentSizeFilter extends DocumentFilter {
 	 */
 	public void setAcceptedType(int acceptedType) {
 		this.acceptedType = acceptedType;
+	}
+	
+	/**
+	 * Accept a JTextComponent and filter to the acceptedType and maxSize parameters.
+	 * Text will not be accepted if the acceptedType does not match, or if the maxSize
+	 * has been reached.
+	 * @param comp
+	 * @param acceptedType
+	 * @param maxSize
+	 */
+	public void setupTextField(JTextComponent comp, int acceptedType, int maxSize){
+		AbstractDocument abstDoc = (AbstractDocument) comp.getDocument();
+		DocumentSizeFilter filter = new DocumentSizeFilter(maxSize);
+		filter.setAcceptedType(acceptedType);
+		abstDoc.setDocumentFilter(filter);
 	}
 	
 }
