@@ -1,29 +1,29 @@
 package cs509.grp8.arest.report;
 
-import javax.swing.JPanel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-
 import java.awt.Font;
 
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JFormattedTextField;
-import javax.swing.JTextArea;
-import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JCheckBox;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 import cs509.grp8.arest.common.DocumentSizeFilter;
 
-public class VictimGUI extends JPanel{
+// FIXME MOrsini: Add in warnings after fixing the reporter warnings
+
+public class VictimGUI extends JPanel implements CreateReportInterface {
 	
-	private JTextField txtMm;
-	private JTextField txtDd;
-	private JTextField txtYyyy;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField monthText;
+	private JTextField dayText;
+	private JTextField yearText;
+	private JTextField ageText;
+	private JTextField maritalStatusText;
 	
 	private DocumentSizeFilter filter;
 	
@@ -31,51 +31,57 @@ public class VictimGUI extends JPanel{
 		// To configure JTextComponents
 		filter = new DocumentSizeFilter(10);
 		
-		JLabel lblAllegedVictim = new JLabel("Alleged Victim");
-		lblAllegedVictim.setFont(new Font("Tahoma", Font.BOLD, 15));
+		JLabel allegedVictimLabel = new JLabel("Alleged Victim");
+		allegedVictimLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		
-		JLabel label = new JLabel("Name:");
+		JLabel firstNameLabel = new JLabel("First Name:");
 		
-		JFormattedTextField formattedTextField = new JFormattedTextField();
+		JFormattedTextField firstNameText = new JFormattedTextField();
 		
-		JLabel label_1 = new JLabel("Last Name:");
+		JLabel lastNameLabel = new JLabel("Last Name:");
 		
-		JFormattedTextField formattedTextField_1 = new JFormattedTextField();
+		JFormattedTextField lastNameText = new JFormattedTextField();
 		
-		JLabel label_2 = new JLabel("Address:");
+		JLabel addressLabel = new JLabel("Address:");
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setWrapStyleWord(true);
-		textArea.setLineWrap(true);
+		JTextArea addressTextArea = new JTextArea();
+		addressTextArea.setWrapStyleWord(true);
+		addressTextArea.setLineWrap(true);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"<Select One>", "Male", "Female"}));
+		JComboBox sexCombo = new JComboBox();
+		sexCombo.setModel(new DefaultComboBoxModel(new String[] {"<Select One>", "Male", "Female"}));
 		
-		JLabel lblSex = new JLabel("Sex:");
+		JLabel sexLabel = new JLabel("Sex:");
 		
-		JLabel lblDob = new JLabel("DOB: ");
+		JLabel dobLabel = new JLabel("DOB: ");
 		
-		txtMm = new JTextField();
-		txtMm.setText("MM");
-		txtMm.setColumns(10);
+		monthText = new JTextField();
+		monthText.setText("MM");
+		monthText.setColumns(10);
+		filter.setupTextField(monthText, DocumentSizeFilter.NO, 2);
+
+		dayText = new JTextField();
+		dayText.setText("DD");
+		dayText.setColumns(10);
+		filter.setupTextField(dayText, DocumentSizeFilter.NO, 2);
 		
-		txtDd = new JTextField();
-		txtDd.setText("DD");
-		txtDd.setColumns(10);
+		yearText = new JTextField();
+		yearText.setText("YYYY");
+		yearText.setColumns(10);
+		filter.setupTextField(yearText, DocumentSizeFilter.NO, 4);
 		
-		txtYyyy = new JTextField();
-		txtYyyy.setText("YYYY");
-		txtYyyy.setColumns(10);
+		ageText = new JTextField();
+		ageText.setColumns(10);
+		filter.setupTextField(ageText, DocumentSizeFilter.NO, 3);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		JLabel ageLabel = new JLabel("Age:");
 		
-		JLabel lblAge = new JLabel("Age:");
+		JLabel maritalStatusLabel = new JLabel("Marital Status:");
 		
-		JLabel lblMaritalStatus = new JLabel("Marital Status:");
+		maritalStatusText = new JTextField();
+		maritalStatusText.setColumns(10);
+		filter.setupTextField(maritalStatusText, DocumentSizeFilter.CHAR, 10);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -84,90 +90,102 @@ public class VictimGUI extends JPanel{
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblAllegedVictim)
+								.addComponent(allegedVictimLabel)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(label, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
+											.addComponent(firstNameLabel, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
 											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(formattedTextField, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
+											.addComponent(firstNameText, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 											.addGap(18)
-											.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE))
+											.addComponent(lastNameLabel, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE))
 										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
+											.addComponent(addressLabel, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
 											.addPreferredGap(ComponentPlacement.RELATED)
 											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE)
+												.addComponent(addressTextArea, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE)
 												.addGroup(groupLayout.createSequentialGroup()
-													.addComponent(txtMm, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+													.addComponent(monthText, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 													.addPreferredGap(ComponentPlacement.UNRELATED)
-													.addComponent(txtDd, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+													.addComponent(dayText, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 													.addPreferredGap(ComponentPlacement.UNRELATED)
-													.addComponent(txtYyyy, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
+													.addComponent(yearText, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
 													.addPreferredGap(ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-													.addComponent(lblAge)
+													.addComponent(ageLabel)
 													.addGap(12)))))
 									.addPreferredGap(ComponentPlacement.UNRELATED)
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(ageText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(comboBox, 0, 114, Short.MAX_VALUE)
-												.addComponent(formattedTextField_1, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE))
+												.addComponent(sexCombo, 0, 114, Short.MAX_VALUE)
+												.addComponent(lastNameText, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE))
 											.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-												.addComponent(lblSex)
+												.addComponent(sexLabel)
 												.addGap(48))))))
 							.addContainerGap(20, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblDob)
+							.addComponent(dobLabel)
 							.addContainerGap(412, Short.MAX_VALUE))))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(129)
-					.addComponent(lblMaritalStatus)
+					.addComponent(maritalStatusLabel)
 					.addGap(18)
-					.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
+					.addComponent(maritalStatusText, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(118, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(lblAllegedVictim)
+					.addComponent(allegedVictimLabel)
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(label)
-						.addComponent(formattedTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(label_1)
-						.addComponent(formattedTextField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(firstNameLabel)
+						.addComponent(firstNameText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lastNameLabel)
+						.addComponent(lastNameText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(18)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
-								.addComponent(label_2)))
+								.addComponent(addressTextArea, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+								.addComponent(addressLabel)))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(26)
-							.addComponent(lblSex)
+							.addComponent(sexLabel)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(sexCombo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(21)
-							.addComponent(lblDob))
+							.addComponent(dobLabel))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(18)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(txtMm, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtDd, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtYyyy, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblAge))))
+								.addComponent(monthText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(dayText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(yearText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(ageText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(ageLabel))))
 					.addGap(27)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblMaritalStatus)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(maritalStatusLabel)
+						.addComponent(maritalStatusText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(64, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
+	}
+
+	@Override
+	public boolean isValidInfo() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Object commitInfo() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
