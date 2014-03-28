@@ -1,4 +1,4 @@
-package cs509.grp8.arest.report;
+package client.abuse_report;
 
 /** 
  * Individual describes the common attributes between all persons involved with

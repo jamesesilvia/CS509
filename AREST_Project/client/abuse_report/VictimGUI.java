@@ -1,45 +1,31 @@
-package cs509.grp8.arest.report;
+package client.abuse_report;
 
+import java.awt.Color;
+import java.awt.Container;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.SystemColor;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
-
-import cs509.grp8.arest.common.DocumentSizeFilter;
-
-import javax.swing.JCheckBox;
-
-import java.awt.Color;
-import java.awt.SystemColor;
-
-import javax.swing.SwingConstants;
 import javax.swing.JTextPane;
-
-import java.awt.Checkbox;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.InputMethodEvent;
-import java.awt.event.InputMethodListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.LineBorder;
 import javax.swing.text.JTextComponent;
 
-import java.awt.GridLayout;
+import common.DocumentSizeFilter;
 
 // FIXME MOrsini: Add in warnings after fixing the reporter warnings
 
@@ -75,6 +61,7 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 	private JLabel ethnicityLabel;
 	private JLabel lastNameLabel;
 	private JLabel lblTelephone;
+	private JLabel communicationNeedsLabel;
 	
 	private JTextPane firstNameNotSetWarning;
 	private JTextPane addrNotSetWarning;
@@ -91,14 +78,23 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 	private JFormattedTextField phoneAreaCode;
 	private JFormattedTextField phoneFirstThree;
 	private JFormattedTextField phoneLastFour;
+	private JTextPane lastNameNotSetWarning;
+	private JTextPane comNotSetWarning;
+	private JFormattedTextField otherEthnicityTextField;
+	private JTextPane phoneHyphon;
+	private JTextPane phoneNotSetWarning;
+	private JTextField otherComNeedsTextField;
+	
 	
 	private JPanel DisabilityPanel;
 	private JPanel VictimPanel;
 	private JPanel ethnicityPanel;
-	private JTextPane lastNameNotSetWarning;
+	private JPanel ComNeedsPanel;
+	private JPanel comNeedsCbPanel;
+	private JPanel ethnicityCbPanel;
+	private JPanel disabilityCbPanel;
 	
 	private JComboBox sexCombo;
-	private JPanel ethnicityCbPanel;
 	
 	private JCheckBox caucasianCheckBox;
 	private JCheckBox africanAmericanCheckBox;
@@ -106,14 +102,13 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 	private JCheckBox nativeAmericanCheckBox;
 	private JCheckBox asianCheckBox;
 	private JCheckBox otherEthnicityCheckBox;
-	private JFormattedTextField otherEthnicityTextField;
-	private JPanel disabilityCbPanel;
-	
-	private JCheckBox myCb;
-	private JTextPane phoneHyphon;
-	private JTextPane phoneNotSetWarning;
+	private JCheckBox ttyCheckBox;
+	private JCheckBox signInterCheckBox;
+	private JCheckBox otherComNeedsCheckBox;
+
 	
 	public VictimGUI() {
+		setToolTipText("Please enter information regarding the Alleged Victim.");
 		// To configure JTextComponents
 		filter = new DocumentSizeFilter(10);
 
@@ -127,16 +122,20 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 		ethnicityPanel = new JPanel();
 		ethnicityPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		
+		ComNeedsPanel = new JPanel();
+		ComNeedsPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
+				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(VictimPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
-						.addComponent(DisabilityPanel, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 575, Short.MAX_VALUE)
-						.addComponent(ethnicityPanel, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 581, GroupLayout.PREFERRED_SIZE))
-					.addGap(15))
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+						.addComponent(ComNeedsPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(ethnicityPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
+						.addComponent(VictimPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
+						.addComponent(DisabilityPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE))
+					.addContainerGap(15, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -146,9 +145,87 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(DisabilityPanel, GroupLayout.PREFERRED_SIZE, 172, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(ethnicityPanel, GroupLayout.PREFERRED_SIZE, 136, Short.MAX_VALUE)
-					.addGap(6))
+					.addComponent(ethnicityPanel, GroupLayout.PREFERRED_SIZE, 161, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(ComNeedsPanel, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(17, Short.MAX_VALUE))
 		);
+		
+		communicationNeedsLabel = new JLabel("Communication Needs:");
+		communicationNeedsLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		
+		comNeedsCbPanel = new JPanel();
+		
+		comNotSetWarning = new JTextPane();
+		comNotSetWarning.setBackground(SystemColor.menu);
+		comNotSetWarning.setEditable(false);
+		comNotSetWarning.setForeground(Color.RED);
+		comNotSetWarning.setText("*");
+		comNotSetWarning.setVisible(false);
+		GroupLayout gl_ComNeedsPanel = new GroupLayout(ComNeedsPanel);
+		gl_ComNeedsPanel.setHorizontalGroup(
+			gl_ComNeedsPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_ComNeedsPanel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_ComNeedsPanel.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(comNeedsCbPanel, GroupLayout.PREFERRED_SIZE, 679, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_ComNeedsPanel.createSequentialGroup()
+							.addComponent(communicationNeedsLabel)
+							.addGap(18)
+							.addComponent(comNotSetWarning, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap())
+		);
+		gl_ComNeedsPanel.setVerticalGroup(
+			gl_ComNeedsPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_ComNeedsPanel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_ComNeedsPanel.createParallelGroup(Alignment.TRAILING)
+						.addComponent(communicationNeedsLabel)
+						.addComponent(comNotSetWarning, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(comNeedsCbPanel, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		GridBagLayout gbl_comNeedsCbPanel = new GridBagLayout();
+		gbl_comNeedsCbPanel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_comNeedsCbPanel.rowHeights = new int[] {30};
+		gbl_comNeedsCbPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_comNeedsCbPanel.rowWeights = new double[]{0.0};
+		comNeedsCbPanel.setLayout(gbl_comNeedsCbPanel);
+		
+		ttyCheckBox = new JCheckBox("TTY");
+		GridBagConstraints gbc_ttyCheckBox = new GridBagConstraints();
+		gbc_ttyCheckBox.insets = new Insets(0, 0, 0, 5);
+		gbc_ttyCheckBox.gridx = 2;
+		gbc_ttyCheckBox.gridy = 0;
+		comNeedsCbPanel.add(ttyCheckBox, gbc_ttyCheckBox);
+		
+		signInterCheckBox = new JCheckBox("Sign Interpreter");
+		GridBagConstraints gbc_signInterCheckBox = new GridBagConstraints();
+		gbc_signInterCheckBox.insets = new Insets(0, 0, 0, 5);
+		gbc_signInterCheckBox.gridx = 5;
+		gbc_signInterCheckBox.gridy = 0;
+		comNeedsCbPanel.add(signInterCheckBox, gbc_signInterCheckBox);
+		
+		otherComNeedsCheckBox = new JCheckBox("Other (Specify):");
+		GridBagConstraints gbc_otherComNeedsCheckBox = new GridBagConstraints();
+		gbc_otherComNeedsCheckBox.insets = new Insets(0, 0, 0, 5);
+		gbc_otherComNeedsCheckBox.gridx = 8;
+		gbc_otherComNeedsCheckBox.gridy = 0;
+		comNeedsCbPanel.add(otherComNeedsCheckBox, gbc_otherComNeedsCheckBox);
+		
+		otherComNeedsTextField = new JTextField();
+		GridBagConstraints gbc_otherComNeedsTextField = new GridBagConstraints();
+		gbc_otherComNeedsTextField.gridwidth = 2;
+		gbc_otherComNeedsTextField.insets = new Insets(0, 0, 0, 5);
+		gbc_otherComNeedsTextField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_otherComNeedsTextField.gridx = 9;
+		gbc_otherComNeedsTextField.gridy = 0;
+		comNeedsCbPanel.add(otherComNeedsTextField, gbc_otherComNeedsTextField);
+		otherComNeedsTextField.setColumns(10);
+		filter.setupTextField(otherComNeedsTextField, DocumentSizeFilter.AL_NO, 30);
+		
+		ComNeedsPanel.setLayout(gl_ComNeedsPanel);
 		
 		ethnicityLabel = new JLabel("Client's Ethnicity");
 		ethnicityLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -167,12 +244,14 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 				.addGroup(gl_ethnicityPanel.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_ethnicityPanel.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(ethnicityCbPanel, GroupLayout.PREFERRED_SIZE, 557, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_ethnicityPanel.createSequentialGroup()
+							.addComponent(ethnicityCbPanel, GroupLayout.PREFERRED_SIZE, 679, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 						.addGroup(gl_ethnicityPanel.createSequentialGroup()
 							.addComponent(ethnicityLabel)
 							.addGap(18)
-							.addComponent(ethnicityNotSetWarning, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap())
+							.addComponent(ethnicityNotSetWarning, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
+							.addGap(414))))
 		);
 		gl_ethnicityPanel.setVerticalGroup(
 			gl_ethnicityPanel.createParallelGroup(Alignment.LEADING)
@@ -182,8 +261,8 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 						.addComponent(ethnicityLabel)
 						.addComponent(ethnicityNotSetWarning, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(ethnicityCbPanel, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addComponent(ethnicityCbPanel, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(81, Short.MAX_VALUE))
 		);
 		GridBagLayout gbl_ethnicityCbPanel = new GridBagLayout();
 		gbl_ethnicityCbPanel.columnWidths = new int[] {100, 100, 100, 100, 100};
@@ -246,7 +325,7 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 		
 		for(int i=0; i<ethnicityCbPanel.getComponents().length; i++) {
 			if(ethnicityCbPanel.getComponent(i) instanceof JCheckBox) {
-				myCb = new JCheckBox();
+				JCheckBox myCb = new JCheckBox();
 				myCb = (JCheckBox) ethnicityCbPanel.getComponent(i);
 				myCb.addItemListener(new ItemListener() {
 					
@@ -546,7 +625,7 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 		gl_DisabilityPanel.setHorizontalGroup(
 			gl_DisabilityPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_DisabilityPanel.createSequentialGroup()
-					.addGroup(gl_DisabilityPanel.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_DisabilityPanel.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(gl_DisabilityPanel.createSequentialGroup()
 							.addGap(14)
 							.addComponent(disabilityLabel)
@@ -554,8 +633,8 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 							.addComponent(disabilityNotSetWarning, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_DisabilityPanel.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(disabilityCbPanel, GroupLayout.PREFERRED_SIZE, 557, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+							.addComponent(disabilityCbPanel, GroupLayout.PREFERRED_SIZE, 679, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap())
 		);
 		gl_DisabilityPanel.setVerticalGroup(
 			gl_DisabilityPanel.createParallelGroup(Alignment.LEADING)
@@ -680,7 +759,12 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 	public boolean isValidInfo() {
 		boolean disabilitySelected = false;
 		boolean ethnicitySelected = false;
+		boolean comNeedsSelected = false;
 		boolean validInfo = true;
+		
+
+		int disabilityIndex = 0; // Need to get a sequential spot in the string.
+		
 		if(firstNameText.getText().equals("")){
 			firstNameNotSetWarning.setVisible(true);
 			validInfo = false;
@@ -762,8 +846,24 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 			ethnicityNotSetWarning.setVisible(false);
 		}
 		
+		// Iterate through comneeds panel to determine if something was set.
+		// FIXME: How do we handle the textfield in "other?" Same goes for similar
+		//        scenarios above.
+		for(int i=0; i<comNeedsCbPanel.getComponentCount(); i++) {
+			if(comNeedsCbPanel.getComponent(i) instanceof JCheckBox){
+				JCheckBox cb = (JCheckBox) comNeedsCbPanel.getComponent(i);
+				if(cb.isSelected()) {
+					comNeedsSelected = true;
+				}
+			}
+		}
+		if(!comNeedsSelected){
+			comNotSetWarning.setVisible(true);
+			validInfo = false;
+		} else {
+			comNotSetWarning.setVisible(false);
+		}
 		
-		repaint();
 		return validInfo;
 	}
 
@@ -772,6 +872,9 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 	 */
 	@Override
 	public Object commitInfo() {
+		int disabilityIndex  = 0; 
+		int comNeedsIndex    = 0;   
+		
 		Object obj;
 		Victim victim = new Victim();
 		
@@ -785,9 +888,56 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 		victim.setAge(ageText.getText());
 		victim.setMaritalStatus(maritalStatusText.getText());
 		
-		// FIXME: setdisabilities.
+		// Get the names of each checkbox to determine the disability to add to string.
+		for(int i=0; i<disabilityCbPanel.getComponentCount(); i++){
+			if(disabilityCbPanel.getComponent(i) instanceof JCheckBox) {
+				JCheckBox myCb = (JCheckBox) disabilityCbPanel.getComponent(i);
+				if(myCb.isSelected()) {
+					// Special case for the "other" option.
+					if(!myCb.equals(chckbxOtherspecify)) {
+						victim.setDisabilities(myCb.getText(), disabilityIndex++);
+					} else {
+						// Instead of grabbing text from the checkbox, grab it from the text field
+						// when "other" is selected.
+						victim.setDisabilities(disabilityOtherTextField.getText(), disabilityIndex++);
+					}
+				}
+			}
+		}
 		
-		return null;
+		// Disability and ethnicity are similar. If other is set, must take the other text field.
+		for(int i=0; i<ethnicityCbPanel.getComponentCount(); i++){
+			if(ethnicityCbPanel.getComponent(i) instanceof JCheckBox) {
+				JCheckBox myCb = (JCheckBox) ethnicityCbPanel.getComponent(i);
+				if(myCb.isSelected()) {
+					// Special case for the "other" option.
+					if(!myCb.equals(otherEthnicityCheckBox)) {
+						victim.setEthnicity(myCb.getText());
+					} else {
+						// Instead of grabbing text from the checkbox, grab it from the text field
+						// when "other" is selected.
+						victim.setEthnicity(otherEthnicityTextField.getText());
+					}
+				}
+			}
+		}
+		
+		for(int i=0; i<comNeedsCbPanel.getComponentCount(); i++) {
+			if(comNeedsCbPanel.getComponent(i) instanceof JCheckBox) {
+				JCheckBox cb = (JCheckBox) comNeedsCbPanel.getComponent(i);
+				if(cb.isSelected()) {
+					// Special case for "other" option.
+					if(!cb.equals(otherComNeedsCheckBox)) {
+						victim.setComNeeds(cb.getText(), comNeedsIndex++);
+					} else {
+						victim.setComNeeds(otherComNeedsTextField.getText(), comNeedsIndex++);
+					}
+				}
+			}
+		}
+		
+		obj = victim;
+		return victim;
 	}
 
 	
@@ -811,7 +961,6 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 				// Check to see if the textfield should be saved and not disabled. This is only true 
 				// when "other (please specify)" is selected.
 				if((container.getComponent(i) instanceof JTextComponent) && enableText){
-					System.out.println("Found the text field");
 					container.getComponent(i).setEnabled(true);
 				}
 			}

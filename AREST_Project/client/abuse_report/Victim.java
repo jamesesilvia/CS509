@@ -1,6 +1,7 @@
-package cs509.grp8.arest.report;
+package client.abuse_report;
 
-import com.sun.xml.internal.fastinfoset.util.StringArray;
+
+
 
 
 /**
@@ -10,13 +11,19 @@ import com.sun.xml.internal.fastinfoset.util.StringArray;
  */
 public class Victim extends Individual {
 
+	// Configurable? Probably not in Java.
+	private static final int MAX_NUM_COMMUNICATION_NEEDS = 3;
+	private static final int MAX_NUM_DISABILITIES        = 20;
+		
 	private boolean male;
 	private boolean female;
 	private String dateOfBirth;
 	private String age;
 	private String maritalStatus; 
 	
-	private StringArray disabilities = null;
+	private String[] disabilities = new String[MAX_NUM_DISABILITIES];
+	private String ethnicity;
+	private String[] comNeeds = new String [MAX_NUM_COMMUNICATION_NEEDS];
 
 	/**
 	 * Constructor for Victim. Superclass is an Individual.
@@ -111,25 +118,56 @@ public class Victim extends Individual {
 	 * @param disability  - the disability
 	 * @param n           - the index
 	 */
-	public void setDisabilities(StringArray disabilities, int n){
-		this.disabilities = disabilities;
+	public void setDisabilities(String disability, int n){
+		this.disabilities[n] = disability;
 	}
 	
 	/**
 	 * Gets all disabilities for this client.
-	 * @return
+	 * @return disabilities - the disability array.
 	 */
-	public StringArray getDisabilities() {
+	public String[] getDisabilities(){
 		return disabilities;
 	}
 	
 	/**
-	 * Returns the disability at a specified index.
-	 * @param n
-	 * @return
+	 * Gets the disability at the specified index.
+	 * @return disabilities[n] - the disability at the position n.
 	 */
 	public String getDisabilityAt(int n) {
-		return disabilities.get(n);
+		return disabilities[n];
 	}
 
+	/**
+	 * Get the ethnicity for this client.
+	 * @return ethnicity - the ethnicity of the client.
+	 */
+	public String getEthnicity() {
+		return ethnicity;
+	}
+
+	/**
+	 * Set the ethnicity for this client.
+	 * @param ethnicity - the ethnicity of the client.
+	 */
+	public void setEthnicity(String ethnicity) {
+		this.ethnicity = ethnicity;
+	}
+	
+	/**
+	 * Set the communication needs for thsi client.
+	 * @param comNeeds
+	 */
+	public void setComNeeds(String comNeeds, int n){
+		this.comNeeds[n] = comNeeds;
+	}
+	
+	/**
+	 * Get the communication needs for this client.
+	 */
+	public String[] getComNeeds() {
+		return comNeeds;
+	}
+	
+	
 }

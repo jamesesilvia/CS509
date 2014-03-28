@@ -1,19 +1,16 @@
-package cs509.grp8.arest.report;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+package client.abuse_report;
 
 import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
-import javax.swing.SpringLayout;
 
 /**
  * Controls the flow of Abuse Report creation. This class also commits changes

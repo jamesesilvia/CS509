@@ -1,4 +1,4 @@
-package cs509.grp8.arest.common;
+package common;
 
 import java.awt.event.KeyEvent;
 
