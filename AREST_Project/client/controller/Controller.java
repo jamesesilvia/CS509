@@ -49,6 +49,14 @@ public class Controller {
 	}
 
 	/**
+	 * Some components will need to create their own frames, which will set this invisible.
+	 * @param visibility
+	 */
+	/*public void setMainFrameVisibility(boolean visibility){
+		mframe.setVisible(visibility);
+	}*/
+	
+	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
@@ -68,11 +76,11 @@ public class Controller {
 					mframe.setVisible(false); // disable this frame for now. Another frame is constructed
 					try {
 						t.join();
+						mframe.setVisible(true);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					mframe.setVisible(true);
 				}
 			}
 		});

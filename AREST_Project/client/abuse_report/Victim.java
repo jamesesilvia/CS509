@@ -1,5 +1,7 @@
 package cs509.grp8.arest.report;
 
+import com.sun.xml.internal.fastinfoset.util.StringArray;
+
 
 /**
  * A victim is an Individual who has been allegedly abused by an Abuser.
@@ -11,8 +13,10 @@ public class Victim extends Individual {
 	private boolean male;
 	private boolean female;
 	private String dateOfBirth;
-	private int age;
+	private String age;
 	private String maritalStatus; 
+	
+	private StringArray disabilities = null;
 
 	/**
 	 * Constructor for Victim. Superclass is an Individual.
@@ -76,15 +80,15 @@ public class Victim extends Individual {
 	 * Returns the age of the Victim.
 	 * @return age
 	 */
-	public int getAge() {
+	public String getAge() {
 		return age;
 	}
 	/**
 	 * Set the age of the Victim.
-	 * @param age
+	 * @param string
 	 */
-	public void setAge(int age) {
-		this.age = age;
+	public void setAge(String string) {
+		this.age = string;
 	}
 
 	/**
@@ -101,7 +105,31 @@ public class Victim extends Individual {
 	public void setMaritalStatus(String maritalStatus) {
 		this.maritalStatus = maritalStatus;
 	}
-
-
+	
+	/**
+	 * Sets the disabilities for this client.
+	 * @param disability  - the disability
+	 * @param n           - the index
+	 */
+	public void setDisabilities(StringArray disabilities, int n){
+		this.disabilities = disabilities;
+	}
+	
+	/**
+	 * Gets all disabilities for this client.
+	 * @return
+	 */
+	public StringArray getDisabilities() {
+		return disabilities;
+	}
+	
+	/**
+	 * Returns the disability at a specified index.
+	 * @param n
+	 * @return
+	 */
+	public String getDisabilityAt(int n) {
+		return disabilities.get(n);
+	}
 
 }

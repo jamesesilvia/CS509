@@ -322,7 +322,6 @@ public class ReporterGUI extends JPanel implements CreateReportInterface {
 			relationshipNotSetWarning.setVisible(true);
 			validInfo = false;
 		}
-		repaint();
 		
 		return validInfo;
 	}

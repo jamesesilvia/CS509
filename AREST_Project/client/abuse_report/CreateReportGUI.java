@@ -106,11 +106,20 @@ public class CreateReportGUI extends JFrame implements Runnable {
 							// Commit changes to the model.
 							reporterGUI.commitInfo();
 						}
+					} else if (mCards.getComponent(componentIndex).getName() == VICTIM_PANEL) {
+						validInfo = victimGUI.isValidInfo();
+						if(validInfo) {
+							victimGUI.commitInfo();
+						}
 					}
-					
 					// Only proceed if the information is valid
 					if(validInfo){
 						clContainer.next(mCards);
+						if(componentIndex != mCards.getComponents().length) {
+							componentIndex++;
+						} else {
+							componentIndex = 0;
+						}
 					}
 				}
 			}
@@ -127,10 +136,11 @@ public class CreateReportGUI extends JFrame implements Runnable {
 						.addGroup(gl_containerPanel.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(previousButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGap(61)
 							.addComponent(nextButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(cancelButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)))
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(cancelButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)))
 					.addGap(0))
 		);
 		gl_containerPanel.setVerticalGroup(
@@ -143,8 +153,8 @@ public class CreateReportGUI extends JFrame implements Runnable {
 						.addGroup(gl_containerPanel.createSequentialGroup()
 							.addGap(1)
 							.addGroup(gl_containerPanel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(nextButton)
-								.addComponent(cancelButton)))))
+								.addComponent(cancelButton)
+								.addComponent(nextButton)))))
 		);
 		containerPanel.setLayout(gl_containerPanel);
 		//mFrame.getContentPane().setLayout(groupLayout);
