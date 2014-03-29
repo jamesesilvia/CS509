@@ -6,12 +6,24 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import cs509.grp8.arest.report.CreateReportGUI;
 import cs509.grp8.arest.report.ReporterGUI;
+
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.LayoutStyle.ComponentPlacement;
+
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Controller {
 
+	private static final String CREATE_REPORT = "CREATE_REPORT";
+	
 	private JFrame mframe;
-	private JPanel mCards;
+	private CreateReportGUI createReportGUI;
 
 	/**
 	 * Launch the application.
@@ -37,21 +49,58 @@ public class Controller {
 	}
 
 	/**
+	 * Some components will need to create their own frames, which will set this invisible.
+	 * @param visibility
+	 */
+	/*public void setMainFrameVisibility(boolean visibility){
+		mframe.setVisible(visibility);
+	}*/
+	
+	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
 		mframe = new JFrame();
-		mframe.setBounds(100, 100, 450, 300);
 		mframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		ReporterGUI createReport = new ReporterGUI();
-		mCards = new JPanel(new CardLayout());
-		mCards.add(createReport, "Create Report");
+		// The following code kicks off a create report sequence in another thread.
+		JButton createReportButton = new JButton("Create Report");
+		createReportButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent action) {
+				if(action.getID() == ActionEvent.ACTION_PERFORMED) {
+					createReportGUI = new CreateReportGUI();
+					Thread t = new Thread(createReportGUI);
+					t.start();
+					mframe.setVisible(false); // disable this frame for now. Another frame is constructed
+					try {
+						t.join();
+						mframe.setVisible(true);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		});
 		
-		mframe.add(mCards);
+		GroupLayout groupLayout = new GroupLayout(mframe.getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(266)
+					.addComponent(createReportButton)
+					.addContainerGap(283, Short.MAX_VALUE))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(createReportButton)
+					.addContainerGap(348, Short.MAX_VALUE))
+		);
+		mframe.getContentPane().setLayout(groupLayout);
 		mframe.pack();
-		CardLayout c1 = (CardLayout)(mCards.getLayout());
-		c1.show(mCards, "Create Report");
 	}
-
 }

@@ -1,4 +1,4 @@
-package cs509.grp8.arest.report;
+package client.abuse_report;
 
 /**
  * The alleged abuser being accused of abusing the Victim.

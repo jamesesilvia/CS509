@@ -1,5 +1,5 @@
 
-package cs509.grp8.arest.report;
+package client.abuse_report;
 
 /**
  * A reporter is the individual who is reporting the incident. Superclass
