@@ -1,0 +1,25 @@
+package common;
+
+import javax.swing.text.JTextComponent;
+
+public class PanelChecker {
+
+	public PanelChecker() {
+		
+	}
+	
+	/**
+	 * Check if a text component contains enough contents to be considered "Valid," or 
+	 * satisfactory for this input from the user.
+	 * @param textComp
+	 * @param len
+	 * @return
+	 */
+	public boolean isTextComponentValid(JTextComponent textComp, int len) {
+		if (!(textComp.getText().length() == len))
+		
+		return false;
+		
+	}
+	
+}

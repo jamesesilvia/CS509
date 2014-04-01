@@ -871,11 +871,10 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 	 * Communicate with the report object to commit alleged victim changes.
 	 */
 	@Override
-	public Object commitInfo() {
+	public Object commitInfo(Object obj1) {
 		int disabilityIndex  = 0; 
 		int comNeedsIndex    = 0;   
 		
-		Object obj;
 		Victim victim = new Victim();
 		
 		victim.setFirstName(firstNameText.getText());
@@ -936,8 +935,8 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 			}
 		}
 		
-		obj = victim;
-		return victim;
+		obj1 = victim;
+		return obj1;
 	}
 
 	

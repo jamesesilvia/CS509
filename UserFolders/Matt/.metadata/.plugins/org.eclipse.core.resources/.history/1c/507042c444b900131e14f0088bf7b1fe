@@ -1,0 +1,678 @@
+package client.abuse_report;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JCheckBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
+
+import common.DocumentSizeFilter;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.border.LineBorder;
+import java.awt.Component;
+import javax.swing.JTextPane;
+import java.awt.SystemColor;
+
+public class ReporterGUI extends JPanel implements CreateReportInterface {
+	
+	private boolean mandated = false;
+	private boolean nonmandated = false;
+	
+	private JLabel reporterLbl;
+	private JLabel firstNameLbl;
+	private JLabel lastNameLbl;
+	private JLabel addrLbl;
+	private JLabel relationshipLbl;
+	private JLabel telephoneLbl;
+	
+	private JTextArea addrTextArea;
+	
+	private JCheckBox mandatedCB;
+	private JCheckBox notMandatedCB;
+	
+	private JFormattedTextField relationshipTextField;
+	private JFormattedTextField firstNameTextField;
+	private JFormattedTextField lastNameTextField;
+	private JFormattedTextField phoneAreaCode;
+	private DocumentSizeFilter filter;
+
+	// Bumper on left.
+	private Insets leftInsetBumper = new Insets(5, 10, 5, 5);
+	
+	// Bumper on top.
+	private Insets topInsetBumper = new Insets(10, 10, 5, 5); 
+	private JPanel AbuserPanel;
+	private JLabel abuserAddressLabel;
+	private JLabel abuserRelationshipToVictim;
+	private JTextArea abuserAddress;
+	private JFormattedTextField formattedTextField;
+	private JFormattedTextField abuserFirstName;
+	private JLabel abuserLastNameLabel;
+	private JFormattedTextField abuserLastName;
+	private JTextPane textPane;
+	private JTextPane textPane_1;
+	private JTextPane textPane_2;
+	private JTextPane textPane_3;
+	private JLabel lblSocialSecurity;
+	private JTextPane textPane_4;
+	private JFormattedTextField formattedTextField_1;
+	private JLabel lblDob;
+	private JFormattedTextField formattedTextField_2;
+	private JTextPane textPane_5;
+	private JLabel lblTelephone;
+	private JFormattedTextField formattedTextField_5;
+	private JPanel panel;
+	private JFormattedTextField phoneLastFour;
+	private JFormattedTextField phoneFirstThree;
+	private JTextPane firstNameNotSetWarning;
+	private JTextPane addrNotSetWarning;
+	private JTextPane phoneNotSetWarning;
+	private JTextPane lastNameNotSetWarning;
+	private JTextPane mandatedNotSetWarning;
+	private JTextPane relationshipNotSetWarning;
+	
+	/**
+	 * Create the panel.
+	 */
+	public ReporterGUI() {
+		// Used for setupTextField
+		filter = new DocumentSizeFilter(10);;
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.rowHeights = new int[]{237, 250};
+		setLayout(gridBagLayout);
+		
+		JPanel ReporterPanel = new JPanel();
+		ReporterPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		GridBagLayout gbl_ReporterPanel = new GridBagLayout();
+		gbl_ReporterPanel.columnWidths = new int[]{0, 73, 125, 0, 40, 0};
+		gbl_ReporterPanel.rowHeights = new int[]{0, 0, 0, 0, 0};
+		gbl_ReporterPanel.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0};
+		gbl_ReporterPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 1.0};
+		ReporterPanel.setLayout(gbl_ReporterPanel);
+		
+		reporterLbl = new JLabel("Reporter");
+		GridBagConstraints gbc_reporterLbl = new GridBagConstraints();
+		gbc_reporterLbl.gridwidth = 6;
+		gbc_reporterLbl.weightx = 1.0;
+		gbc_reporterLbl.anchor = GridBagConstraints.WEST;
+		gbc_reporterLbl.insets = new Insets(10, 10, 5, 0);//new Insets(10, 10, 5, 5);
+		gbc_reporterLbl.gridx = 0;
+		gbc_reporterLbl.gridy = 0;
+		ReporterPanel.add(reporterLbl, gbc_reporterLbl);
+		reporterLbl.setFont(new Font("Tahoma", Font.BOLD, 15));
+		
+		firstNameLbl = new JLabel("Name:");
+		GridBagConstraints gbc_firstNameLbl = new GridBagConstraints();
+		gbc_firstNameLbl.weightx = 0.5;
+		gbc_firstNameLbl.anchor = GridBagConstraints.WEST;
+		gbc_firstNameLbl.insets = leftInsetBumper;//new Insets(10, 0, 5, 5);
+		gbc_firstNameLbl.gridx = 0;
+		gbc_firstNameLbl.gridy = 1;
+		ReporterPanel.add(firstNameLbl, gbc_firstNameLbl);
+		
+		firstNameNotSetWarning = new JTextPane();
+		firstNameNotSetWarning.setText("*");
+		firstNameNotSetWarning.setForeground(Color.RED);
+		firstNameNotSetWarning.setEditable(false);
+		firstNameNotSetWarning.setBackground(SystemColor.menu);
+		GridBagConstraints gbc_firstNameNotSetWarning = new GridBagConstraints();
+		gbc_firstNameNotSetWarning.weighty = 0.5;
+		gbc_firstNameNotSetWarning.weightx = 0.5;
+		gbc_firstNameNotSetWarning.insets = new Insets(0, 0, 5, 5);
+		gbc_firstNameNotSetWarning.fill = GridBagConstraints.VERTICAL;
+		gbc_firstNameNotSetWarning.gridx = 1;
+		gbc_firstNameNotSetWarning.gridy = 1;
+		ReporterPanel.add(firstNameNotSetWarning, gbc_firstNameNotSetWarning);
+		
+		firstNameTextField = new JFormattedTextField();
+		GridBagConstraints gbc_firstNameTextField = new GridBagConstraints();
+		gbc_firstNameTextField.weightx = 0.5;
+		gbc_firstNameTextField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_firstNameTextField.insets = new Insets(0, 0, 5, 5);
+		gbc_firstNameTextField.gridx = 2;
+		gbc_firstNameTextField.gridy = 1;
+		ReporterPanel.add(firstNameTextField, gbc_firstNameTextField);
+		filter.setupTextField(firstNameTextField, DocumentSizeFilter.CHAR, 16);
+		
+		lastNameLbl = new JLabel("Last Name:");
+		GridBagConstraints gbc_lastNameLbl = new GridBagConstraints();
+		gbc_lastNameLbl.weightx = 0.5;
+		gbc_lastNameLbl.insets = new Insets(0, 0, 5, 5);
+		gbc_lastNameLbl.gridx = 3;
+		gbc_lastNameLbl.gridy = 1;
+		ReporterPanel.add(lastNameLbl, gbc_lastNameLbl);
+		
+		lastNameNotSetWarning = new JTextPane();
+		lastNameNotSetWarning.setText("*");
+		lastNameNotSetWarning.setForeground(Color.RED);
+		lastNameNotSetWarning.setEditable(false);
+		lastNameNotSetWarning.setBackground(SystemColor.menu);
+		GridBagConstraints gbc_lastNameNotSetWarning = new GridBagConstraints();
+		gbc_lastNameNotSetWarning.insets = new Insets(0, 0, 5, 5);
+		gbc_lastNameNotSetWarning.fill = GridBagConstraints.VERTICAL;
+		gbc_lastNameNotSetWarning.gridx = 4;
+		gbc_lastNameNotSetWarning.gridy = 1;
+		ReporterPanel.add(lastNameNotSetWarning, gbc_lastNameNotSetWarning);
+		
+		lastNameTextField = new JFormattedTextField();
+		GridBagConstraints gbc_lastNameTextField = new GridBagConstraints();
+		gbc_lastNameTextField.weightx = 0.5;
+		gbc_lastNameTextField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lastNameTextField.insets = new Insets(0, 0, 5, 10);
+		gbc_lastNameTextField.gridx = 5;
+		gbc_lastNameTextField.gridy = 1;
+		ReporterPanel.add(lastNameTextField, gbc_lastNameTextField);
+		filter.setupTextField(lastNameTextField, DocumentSizeFilter.CHAR, 16);
+		
+		addrLbl = new JLabel("Address:");
+		GridBagConstraints gbc_addrLbl = new GridBagConstraints();
+		gbc_addrLbl.weightx = 0.5;
+		gbc_addrLbl.weighty = 0.5;
+		gbc_addrLbl.anchor = GridBagConstraints.WEST;
+		gbc_addrLbl.insets = leftInsetBumper;//new Insets(0, 0, 5, 5);
+		gbc_addrLbl.gridx = 0;
+		gbc_addrLbl.gridy = 2;
+		ReporterPanel.add(addrLbl, gbc_addrLbl);
+		
+		addrNotSetWarning = new JTextPane();
+		addrNotSetWarning.setText("*");
+		addrNotSetWarning.setForeground(Color.RED);
+		addrNotSetWarning.setEditable(false);
+		addrNotSetWarning.setBackground(SystemColor.menu);
+		GridBagConstraints gbc_addrNotSetWarning = new GridBagConstraints();
+		gbc_addrNotSetWarning.insets = new Insets(0, 0, 5, 5);
+		gbc_addrNotSetWarning.fill = GridBagConstraints.VERTICAL;
+		gbc_addrNotSetWarning.gridx = 1;
+		gbc_addrNotSetWarning.gridy = 2;
+		ReporterPanel.add(addrNotSetWarning, gbc_addrNotSetWarning);
+		
+		addrTextArea = new JTextArea();
+		addrTextArea.setColumns(10);
+		addrTextArea.setLineWrap(true);
+		addrTextArea.setWrapStyleWord(true);
+		filter.setupTextField(addrTextArea, DocumentSizeFilter.ANY, 50);
+		
+				
+				JScrollPane addrTextScrollPane = new JScrollPane(addrTextArea);
+				GridBagConstraints gbc_addrTextScrollPane = new GridBagConstraints();
+				gbc_addrTextScrollPane.weighty = 0.5;
+				gbc_addrTextScrollPane.weightx = 0.5;
+				gbc_addrTextScrollPane.fill = GridBagConstraints.BOTH;
+				gbc_addrTextScrollPane.insets = new Insets(0, 0, 5, 5);
+				gbc_addrTextScrollPane.gridx = 2;
+				gbc_addrTextScrollPane.gridy = 2;
+				ReporterPanel.add(addrTextScrollPane, gbc_addrTextScrollPane);
+				addrTextScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+				
+				mandatedNotSetWarning = new JTextPane();
+				mandatedNotSetWarning.setText("*");
+				mandatedNotSetWarning.setForeground(Color.RED);
+				mandatedNotSetWarning.setEditable(false);
+				mandatedNotSetWarning.setBackground(SystemColor.menu);
+				GridBagConstraints gbc_mandatedNotSetWarning = new GridBagConstraints();
+				gbc_mandatedNotSetWarning.weighty = 0.5;
+				gbc_mandatedNotSetWarning.weightx = 0.5;
+				gbc_mandatedNotSetWarning.insets = new Insets(0, 0, 5, 5);
+				gbc_mandatedNotSetWarning.fill = GridBagConstraints.VERTICAL;
+				gbc_mandatedNotSetWarning.gridx = 4;
+				gbc_mandatedNotSetWarning.gridy = 2;
+				ReporterPanel.add(mandatedNotSetWarning, gbc_mandatedNotSetWarning);
+				
+				mandatedCB = new JCheckBox("Mandated");
+				GridBagConstraints gbc_mandatedCB = new GridBagConstraints();
+				gbc_mandatedCB.weighty = 0.5;
+				gbc_mandatedCB.weightx = 0.5;
+				gbc_mandatedCB.anchor = GridBagConstraints.WEST;
+				gbc_mandatedCB.insets = new Insets(0, 0, 5, 0);
+				gbc_mandatedCB.gridx = 5;
+				gbc_mandatedCB.gridy = 2;
+				ReporterPanel.add(mandatedCB, gbc_mandatedCB);
+				
+				mandatedCB.addItemListener(new ItemListener() {
+					
+					@Override
+					public void itemStateChanged(ItemEvent event) {
+						if(event.getStateChange() == ItemEvent.SELECTED) {
+							notMandatedCB.setEnabled(false);
+							mandated = true;
+						} else {
+							mandated = false;
+							notMandatedCB.setEnabled(true);
+						}
+					}
+				});
+				
+				telephoneLbl = new JLabel("Daytime Telephone:");
+				GridBagConstraints gbc_telephoneLbl = new GridBagConstraints();
+				gbc_telephoneLbl.weighty = 0.5;
+				gbc_telephoneLbl.weightx = 0.5;
+				gbc_telephoneLbl.anchor = GridBagConstraints.WEST;
+				gbc_telephoneLbl.insets = leftInsetBumper;//new Insets(0, 0, 5, 5);
+				gbc_telephoneLbl.gridx = 0;
+				gbc_telephoneLbl.gridy = 3;
+				ReporterPanel.add(telephoneLbl, gbc_telephoneLbl);
+				
+				phoneNotSetWarning = new JTextPane();
+				phoneNotSetWarning.setText("*");
+				phoneNotSetWarning.setForeground(Color.RED);
+				phoneNotSetWarning.setEditable(false);
+				phoneNotSetWarning.setBackground(SystemColor.menu);
+				GridBagConstraints gbc_phoneNotSetWarning = new GridBagConstraints();
+				gbc_phoneNotSetWarning.insets = new Insets(0, 0, 5, 5);
+				gbc_phoneNotSetWarning.fill = GridBagConstraints.VERTICAL;
+				gbc_phoneNotSetWarning.gridx = 1;
+				gbc_phoneNotSetWarning.gridy = 3;
+				ReporterPanel.add(phoneNotSetWarning, gbc_phoneNotSetWarning);
+				
+				panel = new JPanel();
+				GridBagConstraints gbc_panel = new GridBagConstraints();
+				gbc_panel.fill = GridBagConstraints.BOTH;
+				gbc_panel.insets = new Insets(0, 0, 5, 5);
+				gbc_panel.gridx = 2;
+				gbc_panel.gridy = 3;
+				ReporterPanel.add(panel, gbc_panel);
+				GridBagLayout gbl_panel = new GridBagLayout();
+				gbl_panel.rowHeights = new int[]{20, 0};
+				gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0};
+				gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+				panel.setLayout(gbl_panel);
+				
+				phoneAreaCode = new JFormattedTextField();
+				GridBagConstraints gbc_phoneAreaCode = new GridBagConstraints();
+				gbc_phoneAreaCode.weighty = 1.0;
+				gbc_phoneAreaCode.weightx = 0.2;
+				gbc_phoneAreaCode.insets = new Insets(0, 0, 0, 5);
+				gbc_phoneAreaCode.fill = GridBagConstraints.HORIZONTAL;
+				gbc_phoneAreaCode.gridx = 0;
+				gbc_phoneAreaCode.gridy = 0;
+				panel.add(phoneAreaCode, gbc_phoneAreaCode);
+				filter.setupTextField(phoneAreaCode, DocumentSizeFilter.NO, 3);
+				
+				phoneFirstThree = new JFormattedTextField();
+				GridBagConstraints gbc_phoneFirstThree = new GridBagConstraints();
+				gbc_phoneFirstThree.weighty = 1.0;
+				gbc_phoneFirstThree.weightx = 0.2;
+				gbc_phoneFirstThree.insets = new Insets(0, 0, 0, 5);
+				gbc_phoneFirstThree.fill = GridBagConstraints.HORIZONTAL;
+				gbc_phoneFirstThree.gridx = 1;
+				gbc_phoneFirstThree.gridy = 0;
+				panel.add(phoneFirstThree, gbc_phoneFirstThree);
+				
+				phoneLastFour = new JFormattedTextField();
+				GridBagConstraints gbc_phoneLastFour = new GridBagConstraints();
+				gbc_phoneLastFour.weighty = 1.0;
+				gbc_phoneLastFour.weightx = 0.3;
+				gbc_phoneLastFour.fill = GridBagConstraints.HORIZONTAL;
+				gbc_phoneLastFour.gridx = 2;
+				gbc_phoneLastFour.gridy = 0;
+				panel.add(phoneLastFour, gbc_phoneLastFour);
+				
+				notMandatedCB = new JCheckBox("Not Mandated");
+				GridBagConstraints gbc_notMandatedCB = new GridBagConstraints();
+				gbc_notMandatedCB.weighty = 0.5;
+				gbc_notMandatedCB.weightx = 0.5;
+				gbc_notMandatedCB.anchor = GridBagConstraints.WEST;
+				gbc_notMandatedCB.insets = new Insets(0, 0, 5, 0);
+				gbc_notMandatedCB.gridx = 5;
+				gbc_notMandatedCB.gridy = 3;
+				ReporterPanel.add(notMandatedCB, gbc_notMandatedCB);
+				
+				notMandatedCB.addItemListener(new ItemListener() {
+					
+					@Override
+					public void itemStateChanged(ItemEvent event) {
+						if(event.getStateChange() == ItemEvent.SELECTED) {
+							mandatedCB.setEnabled(false);
+							nonmandated = true;
+						} else {
+							nonmandated = false;
+							mandatedCB.setEnabled(true);
+						}
+					}
+				});
+				
+				relationshipLbl = new JLabel("Relationship to Alleged Victim:");
+				GridBagConstraints gbc_relationshipLbl = new GridBagConstraints();
+				gbc_relationshipLbl.weighty = 0.5;
+				gbc_relationshipLbl.weightx = 0.5;
+				gbc_relationshipLbl.anchor = GridBagConstraints.WEST;
+				gbc_relationshipLbl.insets = new Insets(5, 10, 0, 5); //new Insets(0, 0, 0, 5);
+				gbc_relationshipLbl.gridx = 0;
+				gbc_relationshipLbl.gridy = 4;
+				ReporterPanel.add(relationshipLbl, gbc_relationshipLbl);
+				
+				relationshipNotSetWarning = new JTextPane();
+				relationshipNotSetWarning.setText("*");
+				relationshipNotSetWarning.setForeground(Color.RED);
+				relationshipNotSetWarning.setEditable(false);
+				relationshipNotSetWarning.setBackground(SystemColor.menu);
+				GridBagConstraints gbc_relationshipNotSetWarning = new GridBagConstraints();
+				gbc_relationshipNotSetWarning.insets = new Insets(0, 0, 0, 5);
+				gbc_relationshipNotSetWarning.fill = GridBagConstraints.BOTH;
+				gbc_relationshipNotSetWarning.gridx = 1;
+				gbc_relationshipNotSetWarning.gridy = 4;
+				ReporterPanel.add(relationshipNotSetWarning, gbc_relationshipNotSetWarning);
+				
+				relationshipTextField = new JFormattedTextField();
+				GridBagConstraints gbc_relationshipTextField = new GridBagConstraints();
+				gbc_relationshipTextField.weighty = 0.5;
+				gbc_relationshipTextField.weightx = 0.5;
+				gbc_relationshipTextField.fill = GridBagConstraints.HORIZONTAL;
+				gbc_relationshipTextField.insets = new Insets(0, 0, 0, 5);
+				gbc_relationshipTextField.gridx = 2;
+				gbc_relationshipTextField.gridy = 4;
+				ReporterPanel.add(relationshipTextField, gbc_relationshipTextField);
+				filter.setupTextField(relationshipTextField, DocumentSizeFilter.ANY, 20);
+				GridBagConstraints gbc_ReporterPanel = new GridBagConstraints();
+				gbc_ReporterPanel.fill = GridBagConstraints.BOTH;
+				gbc_ReporterPanel.insets = new Insets(0, 0, 5, 0);
+				gbc_ReporterPanel.gridx = 0;
+				gbc_ReporterPanel.gridy = 0;
+				gbc_ReporterPanel.weightx = 0.5;
+				gbc_ReporterPanel.weighty = 0.5;
+				add(ReporterPanel, gbc_ReporterPanel);
+		
+		AbuserPanel = new JPanel();
+		AbuserPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		GridBagLayout gbl_AbuserPanel = new GridBagLayout();
+		gbl_AbuserPanel.columnWidths = new int[]{146, 30, 207, 90, 30, 147};
+		gbl_AbuserPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+		gbl_AbuserPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+		AbuserPanel.setLayout(gbl_AbuserPanel);
+		
+		JLabel lblAllegedAbuseral = new JLabel("Alleged Abuser:    (Alleged Victim's Caretaker)");
+		lblAllegedAbuseral.setFont(new Font("Tahoma", Font.BOLD, 15));
+		GridBagConstraints gbc_lblAllegedAbuseral = new GridBagConstraints();
+		gbc_lblAllegedAbuseral.weighty = 0.5;
+		gbc_lblAllegedAbuseral.weightx = 1.0;
+		gbc_lblAllegedAbuseral.anchor = GridBagConstraints.WEST;
+		gbc_lblAllegedAbuseral.gridwidth = 3;
+		gbc_lblAllegedAbuseral.insets = new Insets(10, 10, 5, 5); //new Insets(0, 0, 5, 5);
+		gbc_lblAllegedAbuseral.gridx = 0;
+		gbc_lblAllegedAbuseral.gridy = 0;
+		AbuserPanel.add(lblAllegedAbuseral, gbc_lblAllegedAbuseral);
+		
+		JLabel abuserFirstNameLabel = new JLabel("Name:");
+		GridBagConstraints gbc_abuserFirstNameLabel = new GridBagConstraints();
+		gbc_abuserFirstNameLabel.weightx = 0.5;
+		gbc_abuserFirstNameLabel.anchor = GridBagConstraints.WEST;
+		gbc_abuserFirstNameLabel.insets = leftInsetBumper;//new Insets(5, 0, 5, 5); //new Insets(0, 0, 0, 5);
+		gbc_abuserFirstNameLabel.gridx = 0;
+		gbc_abuserFirstNameLabel.gridy = 1;
+		AbuserPanel.add(abuserFirstNameLabel, gbc_abuserFirstNameLabel);
+		
+		textPane = new JTextPane();
+		textPane.setForeground(Color.RED);
+		textPane.setEditable(false);
+		textPane.setBackground(SystemColor.menu);
+		textPane.setText("*");
+		GridBagConstraints gbc_textPane = new GridBagConstraints();
+		gbc_textPane.anchor = GridBagConstraints.WEST;
+		gbc_textPane.weightx = 0.1;
+		gbc_textPane.insets = new Insets(0, 0, 5, 5);
+		gbc_textPane.gridx = 1;
+		gbc_textPane.gridy = 1;
+		AbuserPanel.add(textPane, gbc_textPane);
+		
+		abuserFirstName = new JFormattedTextField();
+		abuserFirstNameLabel.setLabelFor(abuserFirstName);
+		GridBagConstraints gbc_abuserFirstName = new GridBagConstraints();
+		gbc_abuserFirstName.weightx = 0.5;
+		gbc_abuserFirstName.fill = GridBagConstraints.BOTH;
+		gbc_abuserFirstName.insets = new Insets(0, 0, 5, 5);
+		gbc_abuserFirstName.gridx = 2;
+		gbc_abuserFirstName.gridy = 1;
+		AbuserPanel.add(abuserFirstName, gbc_abuserFirstName);
+		
+		abuserLastNameLabel = new JLabel("Last Name:");
+		GridBagConstraints gbc_abuserLastNameLabel = new GridBagConstraints();
+		gbc_abuserLastNameLabel.weightx = 0.2;
+		gbc_abuserLastNameLabel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_abuserLastNameLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_abuserLastNameLabel.gridx = 3;
+		gbc_abuserLastNameLabel.gridy = 1;
+		AbuserPanel.add(abuserLastNameLabel, gbc_abuserLastNameLabel);
+		abuserLastNameLabel.setLabelFor(abuserLastName);
+		
+		textPane_3 = new JTextPane();
+		textPane_3.setText("*");
+		textPane_3.setForeground(Color.RED);
+		textPane_3.setEditable(false);
+		textPane_3.setBackground(SystemColor.menu);
+		GridBagConstraints gbc_textPane_3 = new GridBagConstraints();
+		gbc_textPane_3.weightx = 0.1;
+		gbc_textPane_3.insets = new Insets(0, 0, 5, 5);
+		gbc_textPane_3.gridx = 4;
+		gbc_textPane_3.gridy = 1;
+		AbuserPanel.add(textPane_3, gbc_textPane_3);
+		
+		abuserLastName = new JFormattedTextField();
+		GridBagConstraints gbc_abuserLastName = new GridBagConstraints();
+		gbc_abuserLastName.weightx = 0.5;
+		gbc_abuserLastName.insets = new Insets(0, 0, 5, 10);
+		gbc_abuserLastName.fill = GridBagConstraints.HORIZONTAL;
+		gbc_abuserLastName.gridx = 5;
+		gbc_abuserLastName.gridy = 1;
+		AbuserPanel.add(abuserLastName, gbc_abuserLastName);
+		
+		abuserAddressLabel = new JLabel("Address:");
+		GridBagConstraints gbc_abuserAddressLabel = new GridBagConstraints();
+		gbc_abuserAddressLabel.anchor = GridBagConstraints.WEST;
+		gbc_abuserAddressLabel.insets = leftInsetBumper; //new Insets(0, 0, 0, 5);
+		gbc_abuserAddressLabel.gridx = 0;
+		gbc_abuserAddressLabel.gridy = 2;
+		AbuserPanel.add(abuserAddressLabel, gbc_abuserAddressLabel);
+		
+		textPane_1 = new JTextPane();
+		textPane_1.setText("*");
+		textPane_1.setForeground(Color.RED);
+		textPane_1.setEditable(false);
+		textPane_1.setBackground(SystemColor.menu);
+		GridBagConstraints gbc_textPane_1 = new GridBagConstraints();
+		gbc_textPane_1.anchor = GridBagConstraints.WEST;
+		gbc_textPane_1.insets = new Insets(0, 0, 5, 5);
+		gbc_textPane_1.gridx = 1;
+		gbc_textPane_1.gridy = 2;
+		AbuserPanel.add(textPane_1, gbc_textPane_1);
+		
+		
+		abuserAddress = new JTextArea();
+		abuserAddress.setWrapStyleWord(true);
+		abuserAddress.setLineWrap(true);
+		abuserAddress.setColumns(10);		
+		JScrollPane abuserAddressScrollPane = new JScrollPane(abuserAddress);
+		abuserAddressLabel.setLabelFor(abuserAddressScrollPane);
+		abuserAddressScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		GridBagConstraints gbc_abuserAddressScrollPane = new GridBagConstraints();
+		gbc_abuserAddressScrollPane.weighty = 0.5;
+		gbc_abuserAddressScrollPane.weightx = 0.1;
+		gbc_abuserAddressScrollPane.fill = GridBagConstraints.BOTH;
+		gbc_abuserAddressScrollPane.gridheight = 3;
+		gbc_abuserAddressScrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_abuserAddressScrollPane.gridx = 2;
+		gbc_abuserAddressScrollPane.gridy = 2;
+		AbuserPanel.add(abuserAddressScrollPane, gbc_abuserAddressScrollPane);
+		
+		abuserRelationshipToVictim = new JLabel("Relationship to Alleged Victim:");
+		GridBagConstraints gbc_abuserRelationshipToVictim = new GridBagConstraints();
+		gbc_abuserRelationshipToVictim.anchor = GridBagConstraints.WEST;
+		gbc_abuserRelationshipToVictim.insets = new Insets(5, 10, 0, 5);
+		gbc_abuserRelationshipToVictim.gridx = 0;
+		gbc_abuserRelationshipToVictim.gridy = 5;
+		gbc_abuserRelationshipToVictim.insets = leftInsetBumper;
+		AbuserPanel.add(abuserRelationshipToVictim, gbc_abuserRelationshipToVictim);
+		
+		GridBagConstraints gbc_AbuserPanel = new GridBagConstraints();
+		gbc_AbuserPanel.weighty = 0.5;
+		gbc_AbuserPanel.fill = GridBagConstraints.BOTH;
+		gbc_AbuserPanel.gridx = 0;
+		gbc_AbuserPanel.gridy = 1;
+		gbc_AbuserPanel.weightx = 0.5;
+		add(AbuserPanel, gbc_AbuserPanel);
+		
+		textPane_2 = new JTextPane();
+		textPane_2.setText("*");
+		textPane_2.setForeground(Color.RED);
+		textPane_2.setEditable(false);
+		textPane_2.setBackground(SystemColor.menu);
+		GridBagConstraints gbc_textPane_2 = new GridBagConstraints();
+		gbc_textPane_2.anchor = GridBagConstraints.WEST;
+		gbc_textPane_2.insets = new Insets(0, 0, 5, 5);
+		gbc_textPane_2.fill = GridBagConstraints.VERTICAL;
+		gbc_textPane_2.gridx = 1;
+		gbc_textPane_2.gridy = 5;
+		AbuserPanel.add(textPane_2, gbc_textPane_2);
+		
+		formattedTextField = new JFormattedTextField();
+		GridBagConstraints gbc_formattedTextField = new GridBagConstraints();
+		gbc_formattedTextField.weighty = 0.5;
+		gbc_formattedTextField.insets = new Insets(0, 0, 5, 5);
+		gbc_formattedTextField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_formattedTextField.gridx = 2;
+		gbc_formattedTextField.gridy = 5;
+		AbuserPanel.add(formattedTextField, gbc_formattedTextField);
+		
+		lblSocialSecurity = new JLabel("Social Security #");
+		GridBagConstraints gbc_lblSocialSecurity = new GridBagConstraints();
+		gbc_lblSocialSecurity.anchor = GridBagConstraints.WEST;
+		gbc_lblSocialSecurity.insets = leftInsetBumper;//new Insets(0, 0, 5, 5);
+		gbc_lblSocialSecurity.gridx = 0;
+		gbc_lblSocialSecurity.gridy = 6;
+		AbuserPanel.add(lblSocialSecurity, gbc_lblSocialSecurity);
+		
+		textPane_4 = new JTextPane();
+		textPane_4.setText("*");
+		textPane_4.setForeground(Color.RED);
+		textPane_4.setEditable(false);
+		textPane_4.setBackground(SystemColor.menu);
+		GridBagConstraints gbc_textPane_4 = new GridBagConstraints();
+		gbc_textPane_4.anchor = GridBagConstraints.WEST;
+		gbc_textPane_4.insets = new Insets(0, 0, 5, 5);
+		gbc_textPane_4.fill = GridBagConstraints.VERTICAL;
+		gbc_textPane_4.gridx = 1;
+		gbc_textPane_4.gridy = 6;
+		AbuserPanel.add(textPane_4, gbc_textPane_4);
+		
+		formattedTextField_1 = new JFormattedTextField();
+		GridBagConstraints gbc_formattedTextField_1 = new GridBagConstraints();
+		gbc_formattedTextField_1.weighty = 0.5;
+		gbc_formattedTextField_1.insets = new Insets(0, 0, 5, 5);
+		gbc_formattedTextField_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_formattedTextField_1.gridx = 2;
+		gbc_formattedTextField_1.gridy = 6;
+		AbuserPanel.add(formattedTextField_1, gbc_formattedTextField_1);
+		
+		lblTelephone = new JLabel("Telephone:");
+		GridBagConstraints gbc_lblTelephone = new GridBagConstraints();
+		gbc_lblTelephone.anchor = GridBagConstraints.WEST;
+		gbc_lblTelephone.insets = new Insets(0, 0, 5, 5);
+		gbc_lblTelephone.gridx = 3;
+		gbc_lblTelephone.gridy = 6;
+		AbuserPanel.add(lblTelephone, gbc_lblTelephone);
+		
+		formattedTextField_5 = new JFormattedTextField();
+		GridBagConstraints gbc_formattedTextField_5 = new GridBagConstraints();
+		gbc_formattedTextField_5.insets = new Insets(0, 0, 5, 10);
+		gbc_formattedTextField_5.fill = GridBagConstraints.HORIZONTAL;
+		gbc_formattedTextField_5.gridx = 5;
+		gbc_formattedTextField_5.gridy = 6;
+		AbuserPanel.add(formattedTextField_5, gbc_formattedTextField_5);
+		
+		lblDob = new JLabel("DOB:");
+		GridBagConstraints gbc_lblDob = new GridBagConstraints();
+		gbc_lblDob.anchor = GridBagConstraints.WEST;
+		gbc_lblDob.insets = new Insets(5, 10, 0, 5);//new Insets(0, 0, 5, 5);
+		gbc_lblDob.gridx = 0;
+		gbc_lblDob.gridy = 7;
+		AbuserPanel.add(lblDob, gbc_lblDob);
+		
+		textPane_5 = new JTextPane();
+		textPane_5.setText("*");
+		textPane_5.setForeground(Color.RED);
+		textPane_5.setEditable(false);
+		textPane_5.setBackground(SystemColor.menu);
+		GridBagConstraints gbc_textPane_5 = new GridBagConstraints();
+		gbc_textPane_5.anchor = GridBagConstraints.WEST;
+		gbc_textPane_5.insets = new Insets(0, 0, 0, 5);
+		gbc_textPane_5.fill = GridBagConstraints.VERTICAL;
+		gbc_textPane_5.gridx = 1;
+		gbc_textPane_5.gridy = 7;
+		AbuserPanel.add(textPane_5, gbc_textPane_5);
+		
+		formattedTextField_2 = new JFormattedTextField();
+		GridBagConstraints gbc_formattedTextField_2 = new GridBagConstraints();
+		gbc_formattedTextField_2.insets = new Insets(0, 0, 0, 5);
+		gbc_formattedTextField_2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_formattedTextField_2.gridx = 2;
+		gbc_formattedTextField_2.gridy = 7;
+		AbuserPanel.add(formattedTextField_2, gbc_formattedTextField_2);
+
+	}
+
+	/**
+	 * Checks that all information has been entered for a Reporter.
+	 */
+	@Override
+	public boolean isValidInfo() {
+		boolean validInfo = true;
+		if(firstNameTextField.getText().equals("")){
+			firstNameNotSetWarning.setVisible(true);
+			validInfo = false;
+		}
+		if(lastNameTextField.getText().equals("")){
+			lastNameNotSetWarning.setVisible(true);
+			validInfo = false;
+		}
+		if(addrTextArea.getText().equals("")){
+			addrNotSetWarning.setVisible(true);
+			validInfo = false;
+		}
+		if(!mandatedCB.isSelected() && !notMandatedCB.isSelected()) {
+			mandatedNotSetWarning.setVisible(true);
+			validInfo = false;
+		}
+		if((phoneFirstThree.getText().length() != 3) || (phoneAreaCode.getText().length() != 3) || (phoneLastFour.getText().length() != 4)) {
+			phoneNotSetWarning.setVisible(true);
+			validInfo = false;
+		}
+		if(relationshipTextField.getText().equals("")){
+			relationshipNotSetWarning.setVisible(true);
+			validInfo = false;
+		}
+		
+		return validInfo;
+	}
+
+	/**
+	 * Returns a handle to a created Reporter Object. This object is populated with information from the panel.
+	 */
+	@Override
+	public Object commitInfo() {
+		Object obj;
+		Reporter reporter = new Reporter();
+		
+		reporter.setFirstName(firstNameTextField.getText());
+		reporter.setLastName(lastNameTextField.getText());
+		reporter.setAddress(addrTextArea.getText());
+		reporter.setMandated(mandatedCB.isSelected());
+		reporter.setTelephone(phoneAreaCode.getText().concat(phoneFirstThree.getText().concat(phoneLastFour.getText())));
+		reporter.setRelationshipToVictim(relationshipTextField.getText());
+		
+		obj = reporter;
+		return obj;
+	}
+}
