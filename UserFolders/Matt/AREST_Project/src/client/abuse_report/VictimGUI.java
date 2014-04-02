@@ -25,6 +25,10 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.LineBorder;
 import javax.swing.text.JTextComponent;
 
+import client.abuse_report.interfaces.CreateReportInterface;
+import client.abuse_report.models.Abuser;
+import client.abuse_report.models.Reporter;
+import client.abuse_report.models.Victim;
 import common.DocumentSizeFilter;
 
 // FIXME MOrsini: Add in warnings after fixing the reporter warnings
@@ -867,15 +871,10 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 		return validInfo;
 	}
 
-	/**
-	 * Communicate with the report object to commit alleged victim changes.
-	 */
 	@Override
-	public Object commitInfo(Object obj1) {
+	public Victim commitVictim(Victim victim) {
 		int disabilityIndex  = 0; 
-		int comNeedsIndex    = 0;   
-		
-		Victim victim = new Victim();
+		int comNeedsIndex    = 0;
 		
 		victim.setFirstName(firstNameText.getText());
 		victim.setLastName(lastNameText.getText());
@@ -935,8 +934,7 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 			}
 		}
 		
-		obj1 = victim;
-		return obj1;
+		return victim;
 	}
 
 	
@@ -950,7 +948,6 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 	public void toggleAllCheckBoxesInPanel(Container container, Object cb){
 		boolean enableText = false;
 		if(cb.equals((JCheckBox) otherEthnicityCheckBox)){
-			System.out.println("Do not disable corresponding text field");
 			enableText = true;
 		}
 		for(int i=0; i<container.getComponents().length; i++){	
@@ -964,5 +961,23 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Not implemented by this class. VictimGUI only sets the victim object. 
+	 */
+	@Override
+	public Reporter commitReporter(Reporter reporter) {
+
+		return null;
+	}
+
+	/**
+	 * Not implemented by this class. VictimGUI only sets the victim object.
+	 */
+	@Override
+	public Abuser commitAbuser(Abuser abuser) {
+
+		return null;
 	}
 }

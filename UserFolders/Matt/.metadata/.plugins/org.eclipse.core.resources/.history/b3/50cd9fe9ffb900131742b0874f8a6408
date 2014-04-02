@@ -1,0 +1,7 @@
+package client.abuse_report;
+
+public class Guardian extends Individual{
+
+	protected String[] firstName = new String[2];
+	
+}

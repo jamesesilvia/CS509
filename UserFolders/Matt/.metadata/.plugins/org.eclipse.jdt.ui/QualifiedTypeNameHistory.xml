@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="javax.swing.ScrollPaneConstants"/>
+<fullyQualifiedTypeName name="java.awt.Insets"/>
+<fullyQualifiedTypeName name="javax.swing.JPanel"/>
+<fullyQualifiedTypeName name="common.ArestPanel"/>
+<fullyQualifiedTypeName name="java.lang.Object"/>
+<fullyQualifiedTypeName name="client.abuse_report.Victim"/>
+<fullyQualifiedTypeName name="client.abuse_report.Abuser"/>
+<fullyQualifiedTypeName name="client.abuse_report.Reporter"/>
+<fullyQualifiedTypeName name="client.abuse_report.Guardian"/>
+<fullyQualifiedTypeName name="client.abuse_report.interfaces.CreateReportInterface"/>
+<fullyQualifiedTypeName name="common.DocumentSizeFilter"/>
+<fullyQualifiedTypeName name="java.awt.event.ItemListener"/>
+<fullyQualifiedTypeName name="java.awt.Container"/>
+<fullyQualifiedTypeName name="javax.swing.text.JTextComponent"/>
+<fullyQualifiedTypeName name="client.abuse_report.VictimAdditionalInfoGUI"/>
+<fullyQualifiedTypeName name="java.util.regex.Pattern"/>
+</qualifiedTypeNameHistroy>

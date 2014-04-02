@@ -1,0 +1,17 @@
+package client.abuse_report;
+
+public class Guardian extends Individual{
+
+	public static final int MAX_NUM_GUARDIANS = 2;
+	
+	protected String[] firstName = new String[MAX_NUM_GUARDIANS];
+	protected String[] lastName  = new String[MAX_NUM_GUARDIANS];
+	
+	public Guardian() {
+	}
+	
+	public void setFirstNameAt(String name, int n){
+		if(n > )
+	}
+	
+}

@@ -1,0 +1,10 @@
+1396400629889	Move compilation units
+1396400669722	Delete element
+1396400676849	Move compilation unit
+1396400702369	Move compilation unit
+1396400815518	Delete element
+1396405366366	Encapsulate field 'awareOfReport'
+1396405373191	Encapsulate field 'typeOfService'
+1396405384691	Encapsulate field 'typesOfAbuse'
+1396405400210	Encapsulate field 'freqOfAbuse'
+1396405419244	Encapsulate field 'dateOfLastIncident'

@@ -19,6 +19,10 @@ import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.LineBorder;
 
+import client.abuse_report.interfaces.CreateReportInterface;
+import client.abuse_report.models.Abuser;
+import client.abuse_report.models.Reporter;
+import client.abuse_report.models.Victim;
 import common.ArestPanel;
 import common.DocumentSizeFilter;
 
@@ -967,27 +971,36 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 	 * Returns a handle to a created Reporter Object. This object is populated with information from the panel.
 	 */
 	@Override
-	public Object commitInfo(Object obj) {
-		if (obj instanceof Reporter) {
-			Reporter reporter = new Reporter();
-			reporter.setFirstName(firstNameTextField.getText());
-			reporter.setLastName(lastNameTextField.getText());
-			reporter.setAddress(addrTextArea.getText());
-			reporter.setMandated(mandatedCB.isSelected());
-			reporter.setTelephone(phoneAreaCode.getText().concat(phoneFirstThree.getText().concat(phoneLastFour.getText())));
-			reporter.setRelationshipToVictim(relationshipTextField.getText());
-			obj = reporter;
-		} else {
-			Abuser abuser = new Abuser();
-			abuser.setFirstName(abuserFirstName.getText());
-			abuser.setLastName(abuserLastName.getText());
-			abuser.setAddress(abuserAddress.getText());
-			abuser.setRelationshipToVictim(abuserRelationship.getText());
-			abuser.setSocSecurityNum(socAreaNumber.getText().concat(socGroupNum.getText().concat(socSerialNum.getText())));
-			abuser.setTelephone(abuserPhoneAreaCode.getText().concat(abuserPhoneFirstThree.getText().concat(abuserPhoneLastFour.getText())));
-			abuser.setDateOfBirth(abuserDobDay.getText().concat(abuserDobMon.getText().concat(abuserDobYear.getText())));
-			obj = abuser;
-		}
-		return obj;
+	public Reporter commitReporter(Reporter reporter) {
+		
+		reporter.setFirstName(firstNameTextField.getText());
+		reporter.setLastName(lastNameTextField.getText());
+		reporter.setAddress(addrTextArea.getText());
+		reporter.setMandated(mandatedCB.isSelected());
+		reporter.setTelephone(phoneAreaCode.getText().concat(phoneFirstThree.getText().concat(phoneLastFour.getText())));
+		reporter.setRelationshipToVictim(relationshipTextField.getText());
+		
+		return reporter;
+	}
+
+	
+	@Override
+	public Abuser commitAbuser(Abuser abuser) {
+		abuser.setFirstName(abuserFirstName.getText());
+		abuser.setLastName(abuserLastName.getText());
+		abuser.setAddress(abuserAddress.getText());
+		abuser.setRelationshipToVictim(abuserRelationship.getText());
+		abuser.setSocSecurityNum(socAreaNumber.getText().concat(socGroupNum.getText().concat(socSerialNum.getText())));
+		abuser.setTelephone(abuserPhoneAreaCode.getText().concat(abuserPhoneFirstThree.getText().concat(abuserPhoneLastFour.getText())));
+		abuser.setDateOfBirth(abuserDobDay.getText().concat(abuserDobMon.getText().concat(abuserDobYear.getText())));
+		return abuser;
+	}
+
+	/**
+	 * Unimplemented for this class. The ReporterGUI only commits a Reporter and an Abuser.
+	 */
+	@Override
+	public Victim commitVictim(Victim victim) {
+		return null;
 	}
 }
