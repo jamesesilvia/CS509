@@ -12,6 +12,14 @@ import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 
+import client.abuse_report.models.Abuser;
+import client.abuse_report.models.Reporter;
+import client.abuse_report.models.Victim;
+
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+
 /**
  * Controls the flow of Abuse Report creation. This class also commits changes
  * to the report container.
@@ -20,10 +28,11 @@ import javax.swing.SwingConstants;
  */
 public class CreateReportGUI extends JFrame implements Runnable {
 
-	final private static String REPORTER_PANEL = "Reporter Panel";
-	final private static String VICTIM_PANEL   = "Victim Panel";
-	final private static String ABUSER_PANEL   = "Abuser Panel";
-	final private static String GUARDIAN_PANEL = "Guardian Panel";
+	final private static String REPORTER_PANEL         = "Reporter Panel";
+	final private static String VICTIM_PANEL           = "Victim Panel";
+	final private static String VICTIM_ADD_INFO_PANEL  = "VICTIM_ADD_PANEL";
+	final private static String ABUSER_PANEL           = "Abuser Panel";
+	final private static String GUARDIAN_PANEL         = "Guardian Panel";
 	
 	private JFrame mFrame;
 	private JPanel containerPanel;
@@ -35,12 +44,20 @@ public class CreateReportGUI extends JFrame implements Runnable {
 	
 	private static ReporterGUI reporterGUI;
 	private static VictimGUI   victimGUI;
+	private static VictimAdditionalInfoGUI victimAddGUI;
+	
+	private Reporter reporter;
+	private Abuser abuser;
+	private Victim victim;
 	
 	private static int componentIndex = 0;
 	/**
 	 * Create the panel.
 	 */
 	public CreateReportGUI() {
+		reporter = new Reporter();
+		victim = new Victim();
+		abuser = new Abuser();
 		initialize();	
 	}
 
@@ -63,17 +80,11 @@ public class CreateReportGUI extends JFrame implements Runnable {
 		mFrame = new JFrame();
 		
 		containerPanel = new JPanel();
-		
-		// Create all the cards in this panel.
-		reporterGUI = new ReporterGUI();
-		reporterGUI.setName(REPORTER_PANEL);
-		victimGUI   = new VictimGUI();
-		victimGUI.setName(VICTIM_PANEL);
-		
-		// Create the CardLayout and add the cards
-		mCards = new JPanel(new CardLayout());
-		mCards.add(reporterGUI, REPORTER_PANEL);
-		mCards.add(victimGUI,   VICTIM_PANEL);
+		mFrame.getContentPane().add(containerPanel);
+		GridBagLayout gbl_containerPanel = new GridBagLayout();
+		gbl_containerPanel.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_containerPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		containerPanel.setLayout(gbl_containerPanel);
 		
 		previousButton = new JButton("Previous");
 		previousButton.addActionListener(new ActionListener() {
@@ -81,11 +92,36 @@ public class CreateReportGUI extends JFrame implements Runnable {
 			}
 		});
 		
-		cancelButton = new JButton("Cancel");
-		cancelButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
+		// Create all the cards in this panel.
+		reporterGUI = new ReporterGUI();
+		reporterGUI.setName(REPORTER_PANEL);
+		victimGUI   = new VictimGUI();
+		victimGUI.setName(VICTIM_PANEL);
+		victimAddGUI = new VictimAdditionalInfoGUI();
+		victimAddGUI.setName(VICTIM_ADD_INFO_PANEL);
+		
+		// Create the CardLayout and add the cards
+		mCards = new JPanel(new CardLayout());
+		mCards.add(reporterGUI, REPORTER_PANEL);
+		mCards.add(victimGUI,   VICTIM_PANEL);
+		mCards.add(victimAddGUI, VICTIM_ADD_INFO_PANEL);
+		
+		clContainer = (CardLayout) mCards.getLayout();
+		GridBagConstraints gbc_mCards = new GridBagConstraints();
+		gbc_mCards.anchor = GridBagConstraints.NORTHWEST;
+		gbc_mCards.insets = new Insets(0, 0, 5, 0);
+		gbc_mCards.gridwidth = 3;
+		gbc_mCards.gridx = 0;
+		gbc_mCards.gridy = 0;
+		containerPanel.add(mCards, gbc_mCards);
+		
+		GridBagConstraints gbc_previousButton = new GridBagConstraints();
+		gbc_previousButton.fill = GridBagConstraints.HORIZONTAL;
+		gbc_previousButton.insets = new Insets(0, 5, 0, 0);
+		gbc_previousButton.gridx = 0;
+		gbc_previousButton.gridy = 1;
+		gbc_previousButton.weightx = 0.5;
+		containerPanel.add(previousButton, gbc_previousButton);
 		
 		nextButton = new JButton("Next");
 		nextButton.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -101,12 +137,18 @@ public class CreateReportGUI extends JFrame implements Runnable {
 						validInfo = reporterGUI.isValidInfo();
 						if(validInfo){
 							// Commit changes to the model.
-							reporterGUI.commitInfo();
+							reporter = reporterGUI.commitReporter(reporter);
+							abuser =  reporterGUI.commitAbuser(abuser);
 						}
 					} else if (mCards.getComponent(componentIndex).getName() == VICTIM_PANEL) {
 						validInfo = victimGUI.isValidInfo();
 						if(validInfo) {
-							victimGUI.commitInfo();
+							victim = victimGUI.commitVictim(victim);
+						}
+					} else if (mCards.getComponent(componentIndex).getName() == VICTIM_ADD_INFO_PANEL) {
+						validInfo = victimAddGUI.isValidInfo();
+						if(validInfo) {
+							victim = victimAddGUI.commitVictim(victim);
 						}
 					}
 					// Only proceed if the information is valid
@@ -121,39 +163,27 @@ public class CreateReportGUI extends JFrame implements Runnable {
 				}
 			}
 		});
-
-		clContainer = (CardLayout) mCards.getLayout();
-		mFrame.getContentPane().add(containerPanel);
-		GroupLayout gl_containerPanel = new GroupLayout(containerPanel);
-		gl_containerPanel.setHorizontalGroup(
-			gl_containerPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_containerPanel.createSequentialGroup()
-					.addGroup(gl_containerPanel.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(mCards, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_containerPanel.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(previousButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-							.addGap(61)
-							.addComponent(nextButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(cancelButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)))
-					.addGap(0))
-		);
-		gl_containerPanel.setVerticalGroup(
-			gl_containerPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_containerPanel.createSequentialGroup()
-					.addComponent(mCards, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
-					.addGroup(gl_containerPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(previousButton)
-						.addGroup(gl_containerPanel.createSequentialGroup()
-							.addGap(1)
-							.addGroup(gl_containerPanel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(cancelButton)
-								.addComponent(nextButton)))))
-		);
-		containerPanel.setLayout(gl_containerPanel);
+		GridBagConstraints gbc_nextButton = new GridBagConstraints();
+		gbc_nextButton.fill = GridBagConstraints.HORIZONTAL;
+		gbc_nextButton.insets = new Insets(0, 5, 0, 5);
+		gbc_nextButton.gridx = 2;
+		gbc_nextButton.gridy = 1;
+		gbc_nextButton.weightx = 0.5;
+		gbc_nextButton.weighty = 1;
+		containerPanel.add(nextButton, gbc_nextButton);
+		
+		cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		GridBagConstraints gbc_cancelButton = new GridBagConstraints();
+		gbc_cancelButton.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cancelButton.gridx = 1;
+		gbc_cancelButton.gridy = 1;
+		gbc_cancelButton.weightx = 0.5;
+		gbc_cancelButton.insets = new Insets(0, 5, 0, 0);
+		containerPanel.add(cancelButton, gbc_cancelButton);
 		//mFrame.getContentPane().setLayout(groupLayout);
 		mFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
