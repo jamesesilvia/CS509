@@ -1,4 +1,4 @@
-package client.abuse_report;
+package client.abuse_report.models;
 
 /**
  * The alleged abuser being accused of abusing the Victim.

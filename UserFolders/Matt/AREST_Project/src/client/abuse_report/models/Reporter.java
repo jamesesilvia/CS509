@@ -1,5 +1,6 @@
 
-package client.abuse_report;
+package client.abuse_report.models;
+
 
 /**
  * A reporter is the individual who is reporting the incident. Superclass

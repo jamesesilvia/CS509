@@ -1,34 +1,26 @@
-package cs509.grp8.arest.report;
-
-import javax.swing.JPanel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
-
-import java.awt.Font;
-
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.text.AbstractDocument;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.JTextComponent;
-import javax.swing.JFormattedTextField;
-import javax.swing.JTextArea;
-import javax.swing.JCheckBox;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.JButton;
-
-import cs509.grp8.arest.common.DocumentSizeFilter;
+package client.abuse_report;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-public class ReporterGUI extends JPanel {
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JCheckBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
+
+import common.DocumentSizeFilter;
+
+public class ReporterGUI extends JPanel implements CreateReportInterface {
 	private JTextField hyphon;
 	private JTextField firstNameNotSetWarning;
 	private JTextField lastNameNotSetWarning;
@@ -57,8 +49,6 @@ public class ReporterGUI extends JPanel {
 	private JFormattedTextField lastNameTextField;
 	private JFormattedTextField phoneAreaCode, phoneFirstThree, phoneLastFour;
 	private DocumentSizeFilter filter;
-	
-	private Reporter reporter;
 	
 	/**
 	 * Create the panel.
@@ -140,7 +130,6 @@ public class ReporterGUI extends JPanel {
 		hyphon.setEditable(false);
 		hyphon.setText("-");
 		hyphon.setColumns(10);
-		//FIXME: Add action listener for this
 		
 		firstNameNotSetWarning = new JTextField();
 		firstNameNotSetWarning.setVisible(false);
@@ -222,8 +211,7 @@ public class ReporterGUI extends JPanel {
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(notMandatedCB)
 								.addComponent(mandatedCB)
-								.addComponent(lastNameTextField, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED, 12, Short.MAX_VALUE))
+								.addComponent(lastNameTextField, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 								.addGroup(groupLayout.createSequentialGroup()
@@ -233,7 +221,7 @@ public class ReporterGUI extends JPanel {
 									.addGap(6))
 								.addComponent(telephoneLbl))
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(phoneNotSetWarning, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.UNRELATED)
@@ -243,9 +231,10 @@ public class ReporterGUI extends JPanel {
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(phoneFirstThree, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(phoneLastFour, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
-								.addComponent(relationshipTextField, GroupLayout.PREFERRED_SIZE, 301, GroupLayout.PREFERRED_SIZE))))
-					.addGap(14))
+									.addComponent(phoneLastFour, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+									.addGap(133))
+								.addComponent(relationshipTextField, GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE))))
+					.addGap(26))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -293,6 +282,59 @@ public class ReporterGUI extends JPanel {
 		);
 		setLayout(groupLayout);
 
+	}
+
+	/**
+	 * Checks that all information has been entered for a Reporter.
+	 */
+	@Override
+	public boolean isValidInfo() {
+		boolean validInfo = true;
+		if(firstNameTextField.getText().equals("")){
+			firstNameNotSetWarning.setVisible(true);
+			validInfo = false;
+		}
+		if(lastNameTextField.getText().equals("")){
+			lastNameNotSetWarning.setVisible(true);
+			validInfo = false;
+		}
+		if(addrTextArea.getText().equals("")){
+			addrNotSetWarning.setVisible(true);
+			validInfo = false;
+		}
+		if(!mandatedCB.isSelected() && !notMandatedCB.isSelected()) {
+			mandatedNotSetWarning.setVisible(true);
+			validInfo = false;
+		}
+		if((phoneFirstThree.getText().length() != 3) || (phoneAreaCode.getText().length() != 3) || (phoneLastFour.getText().length() != 4)) {
+			phoneNotSetWarning.setVisible(true);
+			validInfo = false;
+		}
+		if(relationshipTextField.getText().equals("")){
+			relationshipNotSetWarning.setVisible(true);
+			validInfo = false;
+		}
+		
+		return validInfo;
+	}
+
+	/**
+	 * Returns a handle to a created Reporter Object. This object is populated with information from the panel.
+	 */
+	@Override
+	public Object commitInfo() {
+		Object obj;
+		Reporter reporter = new Reporter();
+		
+		reporter.setFirstName(firstNameTextField.getText());
+		reporter.setLastName(lastNameTextField.getText());
+		reporter.setAddress(addrTextArea.getText());
+		reporter.setMandated(mandatedCB.isSelected());
+		reporter.setTelephone(phoneAreaCode.getText().concat(phoneFirstThree.getText().concat(phoneLastFour.getText())));
+		reporter.setRelationshipToVictim(relationshipTextField.getText());
+		
+		obj = reporter;
+		return obj;
 	}
 	
 	

@@ -1,4 +1,4 @@
-package client.abuse_report;
+package client.abuse_report.models;
 
 /** 
  * Individual describes the common attributes between all persons involved with
@@ -7,7 +7,7 @@ package client.abuse_report;
  * @author Matt Orsini
  */
 
-public class Individual {
+public abstract class Individual {
 
 	protected String firstName;
 	protected String lastName;
@@ -19,14 +19,13 @@ public class Individual {
 	 * Constructor. This class is meant to be extended.
 	 */
 	public Individual() {
-		// FIXME: Empty constructor?
 	}
 
 
 	/**
 	 * Get the relationship to the victim. Each individual in the report has
 	 * a relationship to the alleged victim.
-	 * @return relationshipToVictim
+	 * @return relationshipToVictim - the relationship to the victim
 	 */
 	public String getRelationshipToVictim() {
 		return relationshipToVictim;
@@ -34,7 +33,7 @@ public class Individual {
 	/**
 	 * Set the relationship to the victim. Each individual in the report has
 	 * a relationship to the alleged victim.
-	 * @param relationshipToVictim
+	 * @param relationshipToVictim - the relationship to the victim
 	 */
 	public void setRelationshipToVictim(String relationshipToVictim) {
 		this.relationshipToVictim = relationshipToVictim;
@@ -42,14 +41,14 @@ public class Individual {
 
 	/**
 	 * Get the name of the required individual.
-	 * @return name
+	 * @return name - the name of the individual
 	 */
 	public String getFirstName() {
 		return firstName;
 	}
 	/**
 	 * Set the name of the required individual.
-	 * @param name
+	 * @param name - the name of the individual
 	 */
 	public void setFirstName(String name) {
 		this.firstName = name;
@@ -57,14 +56,14 @@ public class Individual {
 
 	/**
 	 * Return the address of the individual.
-	 * @return address
+	 * @return address - the address of the individual
 	 */
 	public String getAddress() {
 		return address;
 	}
 	/**
 	 * Set the address of the individual.
-	 * @param address
+	 * @param address - the address of the individual
 	 */
 	public void setAddress(String address) {
 		this.address = address;
@@ -72,7 +71,7 @@ public class Individual {
 
 	/**
 	 * Get the telephone number of the individual.
-	 * @return telephone
+	 * @return telephone - the telephone number of the individual
 	 */
 	public String getTelephone() {
 		return telephone;
@@ -80,7 +79,7 @@ public class Individual {
 
 	/**
 	 * Set the telephone number of the individual.
-	 * @param telephone
+	 * @param telephone - the telephone number of the individual
 	 */
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
@@ -88,7 +87,7 @@ public class Individual {
 
 	/**
 	 * Get the last name of the individual.
-	 * @return
+	 * @return - the last name of the individual
 	 */
 	public String getLastName(){
 		return lastName;
@@ -96,7 +95,7 @@ public class Individual {
 
 	/**
 	 * Set the last name of the individual.
-	 * @param name
+	 * @param name - the last name of the individual
 	 */
 	public void setLastName(String name){
 		this.lastName = name;
