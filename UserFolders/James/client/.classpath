@@ -12,5 +12,8 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/client/lib/jgoodies-common-javadoc.zip!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/Users/jamesesilvia/Downloads/resty-0.3.2.jar"/>
+	<classpathentry kind="lib" path="/Users/jamesesilvia/Documents/jackson-core-asl-1.9.13.jar"/>
+	<classpathentry kind="lib" path="/Users/jamesesilvia/Documents/jackson-mapper-asl-1.9.13.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -23,7 +23,7 @@ public class LogonPanel extends JPanel {
 	private JPasswordField passwordField;
 	private JLabel lblPassword;
 	private JButton btnSubmit;
-	private LogonController logonHandler;
+	private LogonController controller;
 	
 	
 	public LogonPanel() {
@@ -36,12 +36,12 @@ public class LogonPanel extends JPanel {
 		lblPassword = new JLabel("Password:");
 		
 		//Submit button
-		btnSubmit = new JButton("Submit");
+		btnSubmit = new JButton("Logon");
 		//Button Handle
-		logonHandler = new LogonController();
+		controller = new LogonController();
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				logonHandler.login(userNameField.getText(), passwordField.getPassword());
+				controller.login(userNameField.getText(), passwordField.getPassword());
 			}
 		});
 
@@ -51,7 +51,7 @@ public class LogonPanel extends JPanel {
 	}
 	
 	private void setupPanel(){
-		setBackground(SystemColor.textHighlight);
+		//setBackground(SystemColor.textHighlight);
 		setLayout(null);
 		
 		//Username Label

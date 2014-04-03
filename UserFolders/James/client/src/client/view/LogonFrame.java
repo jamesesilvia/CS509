@@ -8,6 +8,7 @@ public class LogonFrame extends JFrame {
 	
 	public LogonFrame(){		
 		currentPanel = new LogonPanel();
+		setTitle("AREST Logon");
 		
 		setupFrame();
 	}
@@ -20,6 +21,7 @@ public class LogonFrame extends JFrame {
 	
 	public void start(){
 		this.setSize(300,200);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 	}
 
