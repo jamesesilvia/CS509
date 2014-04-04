@@ -19,9 +19,9 @@ import javax.swing.border.LineBorder;
 
 import client.abuse_report.interfaces.CreateReportInterface;
 import client.abuse_report.models.Abuser;
+import client.abuse_report.models.Guardian;
 import client.abuse_report.models.Reporter;
 import client.abuse_report.models.Victim;
-
 import common.DocumentSizeFilter;
 
 public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInterface {
@@ -695,6 +695,12 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 				}
 			}
 		}
+	}
+
+	@Override
+	public Guardian commitGuardian(Guardian guardian) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

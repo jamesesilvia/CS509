@@ -1,9 +1,16 @@
 package client.abuse_report.interfaces;
 
 import client.abuse_report.models.Abuser;
+import client.abuse_report.models.Guardian;
 import client.abuse_report.models.Reporter;
 import client.abuse_report.models.Victim;
 
+/**
+ * This interface describes the desired methods to communicate with the CreateReportGUI.
+ * These methods are not required, but recommended.
+ * @author Matt Orsini
+ *
+ */
 public interface CreateReportInterface {
 
 	/**
@@ -30,5 +37,12 @@ public interface CreateReportInterface {
 	 * @return - the updated victim object.
 	 */
 	Victim commitVictim(Victim victim);
+	
+	/**
+	 * Commit any changes to the guardian object.
+	 * @param guardian - the guardian object to change.
+	 * @return - the updated guardian object.
+	 */
+	Guardian commitGuardian(Guardian guardian);
 	
 }

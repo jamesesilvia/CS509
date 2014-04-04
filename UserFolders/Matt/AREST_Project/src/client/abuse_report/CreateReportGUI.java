@@ -13,6 +13,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 
 import client.abuse_report.models.Abuser;
+import client.abuse_report.models.Guardian;
 import client.abuse_report.models.Reporter;
 import client.abuse_report.models.Victim;
 
@@ -31,7 +32,6 @@ public class CreateReportGUI extends JFrame implements Runnable {
 	final private static String REPORTER_PANEL         = "Reporter Panel";
 	final private static String VICTIM_PANEL           = "Victim Panel";
 	final private static String VICTIM_ADD_INFO_PANEL  = "VICTIM_ADD_PANEL";
-	final private static String ABUSER_PANEL           = "Abuser Panel";
 	final private static String GUARDIAN_PANEL         = "Guardian Panel";
 	
 	private JFrame mFrame;
@@ -45,10 +45,12 @@ public class CreateReportGUI extends JFrame implements Runnable {
 	private static ReporterGUI reporterGUI;
 	private static VictimGUI   victimGUI;
 	private static VictimAdditionalInfoGUI victimAddGUI;
+	private static GuardianGUI guardianGUI;
 	
 	private Reporter reporter;
 	private Abuser abuser;
 	private Victim victim;
+	private Guardian guardian;
 	
 	private static int componentIndex = 0;
 	/**
@@ -58,6 +60,8 @@ public class CreateReportGUI extends JFrame implements Runnable {
 		reporter = new Reporter();
 		victim = new Victim();
 		abuser = new Abuser();
+		guardian = new Guardian();
+		
 		initialize();	
 	}
 
@@ -99,12 +103,15 @@ public class CreateReportGUI extends JFrame implements Runnable {
 		victimGUI.setName(VICTIM_PANEL);
 		victimAddGUI = new VictimAdditionalInfoGUI();
 		victimAddGUI.setName(VICTIM_ADD_INFO_PANEL);
+		guardianGUI = new GuardianGUI();
+		guardianGUI.setName(GUARDIAN_PANEL);
 		
 		// Create the CardLayout and add the cards
 		mCards = new JPanel(new CardLayout());
 		mCards.add(reporterGUI, REPORTER_PANEL);
 		mCards.add(victimGUI,   VICTIM_PANEL);
 		mCards.add(victimAddGUI, VICTIM_ADD_INFO_PANEL);
+		mCards.add(guardianGUI, GUARDIAN_PANEL);
 		
 		clContainer = (CardLayout) mCards.getLayout();
 		GridBagConstraints gbc_mCards = new GridBagConstraints();
@@ -149,6 +156,11 @@ public class CreateReportGUI extends JFrame implements Runnable {
 						validInfo = victimAddGUI.isValidInfo();
 						if(validInfo) {
 							victim = victimAddGUI.commitVictim(victim);
+						}
+					} else if(mCards.getComponent(componentIndex).getName() == GUARDIAN_PANEL) {
+						validInfo = guardianGUI.isValidInfo();
+						if(validInfo) {
+							guardian = guardianGUI.commitGuardian(guardian);
 						}
 					}
 					// Only proceed if the information is valid
