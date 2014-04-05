@@ -1,4 +1,4 @@
-package client.model;
+package client.abuse_report.models;
 
 public class UserContainer {
     //User ID Number

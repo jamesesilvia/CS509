@@ -27,6 +27,7 @@ import javax.swing.text.JTextComponent;
 
 import client.abuse_report.interfaces.CreateReportInterface;
 import client.abuse_report.models.Abuser;
+import client.abuse_report.models.Guardian;
 import client.abuse_report.models.Reporter;
 import client.abuse_report.models.Victim;
 import common.DocumentSizeFilter;
@@ -978,6 +979,12 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 	@Override
 	public Abuser commitAbuser(Abuser abuser) {
 
+		return null;
+	}
+
+	@Override
+	public Guardian commitGuardian(Guardian guardian) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

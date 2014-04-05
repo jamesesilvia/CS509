@@ -1,4 +1,4 @@
-package client.abuse_report;
+package client.abuse_report.views.abuse_report;
 
 import java.awt.Color;
 import java.awt.Container;

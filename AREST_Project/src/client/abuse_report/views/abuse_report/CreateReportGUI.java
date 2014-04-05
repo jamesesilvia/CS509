@@ -1,4 +1,4 @@
-package client.abuse_report;
+package client.abuse_report.views.abuse_report;
 
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
@@ -27,7 +27,7 @@ import java.awt.Insets;
  * @author Matt Orsini
  *
  */
-public class CreateReportGUI extends JFrame implements Runnable {
+public class CreateReportGUI extends JFrame {
 
 	final private static String REPORTER_PANEL         = "Reporter Panel";
 	final private static String VICTIM_PANEL           = "Victim Panel";
@@ -196,15 +196,11 @@ public class CreateReportGUI extends JFrame implements Runnable {
 		gbc_cancelButton.weightx = 0.5;
 		gbc_cancelButton.insets = new Insets(0, 5, 0, 0);
 		containerPanel.add(cancelButton, gbc_cancelButton);
-		//mFrame.getContentPane().setLayout(groupLayout);
-		mFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+		mFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		mFrame.pack();
-	}
-	
-	@Override
-	public void run() {
+		mFrame.setResizable(false);
 		mFrame.setVisible(true);
 	}
-
+	
 }

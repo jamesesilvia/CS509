@@ -1,4 +1,4 @@
-package client.view;
+package client.abuse_report.views.logon;
 
 import javax.swing.JFrame;
 

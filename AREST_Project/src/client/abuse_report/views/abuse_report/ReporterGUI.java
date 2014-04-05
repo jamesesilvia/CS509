@@ -1,4 +1,4 @@
-package client.abuse_report;
+package client.abuse_report.views.abuse_report;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -110,7 +110,6 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		// Used for setupTextField
 		filter = new DocumentSizeFilter(10);;
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.rowHeights = new int[] {250, 250};
 		setLayout(gridBagLayout);
 		
 		JPanel ReporterPanel = new JPanel();
@@ -390,6 +389,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 				ReporterPanel.add(relationshipTextField, gbc_relationshipTextField);
 				filter.setupTextField(relationshipTextField, DocumentSizeFilter.ANY, 20);
 				GridBagConstraints gbc_ReporterPanel = new GridBagConstraints();
+				gbc_ReporterPanel.weightx = 1.0;
 				gbc_ReporterPanel.fill = GridBagConstraints.BOTH;
 				gbc_ReporterPanel.insets = new Insets(0, 0, 5, 0);
 				gbc_ReporterPanel.gridx = 0;
@@ -557,7 +557,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		gbc_AbuserPanel.fill = GridBagConstraints.BOTH;
 		gbc_AbuserPanel.gridx = 0;
 		gbc_AbuserPanel.gridy = 1;
-		gbc_AbuserPanel.weightx = 0.5;
+		gbc_AbuserPanel.weightx = 1.0;
 		add(AbuserPanel, gbc_AbuserPanel);
 		
 		abuserRelationshipNotSetWarning = new JTextPane();
