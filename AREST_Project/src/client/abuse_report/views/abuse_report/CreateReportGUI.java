@@ -29,10 +29,13 @@ import java.awt.Insets;
  */
 public class CreateReportGUI extends JFrame {
 
+	final private static boolean DEBUG = true;
+	
 	final private static String REPORTER_PANEL         = "Reporter Panel";
 	final private static String VICTIM_PANEL           = "Victim Panel";
 	final private static String VICTIM_ADD_INFO_PANEL  = "VICTIM_ADD_PANEL";
 	final private static String GUARDIAN_PANEL         = "Guardian Panel";
+	final private static String DESCRIPTION_PANEL      = "Description Panel";
 	
 	private JFrame mFrame;
 	private JPanel containerPanel;
@@ -46,6 +49,7 @@ public class CreateReportGUI extends JFrame {
 	private static VictimGUI   victimGUI;
 	private static VictimAdditionalInfoGUI victimAddGUI;
 	private static GuardianGUI guardianGUI;
+	private static DescriptionGUI descriptionGUI;
 	
 	private Reporter reporter;
 	private Abuser abuser;
@@ -86,8 +90,8 @@ public class CreateReportGUI extends JFrame {
 		containerPanel = new JPanel();
 		mFrame.getContentPane().add(containerPanel);
 		GridBagLayout gbl_containerPanel = new GridBagLayout();
-		gbl_containerPanel.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_containerPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_containerPanel.columnWeights = new double[]{0.0, 0.0, 0.0};
+		gbl_containerPanel.rowWeights = new double[]{0.0, 0.0};
 		containerPanel.setLayout(gbl_containerPanel);
 		
 		previousButton = new JButton("Previous");
@@ -105,18 +109,22 @@ public class CreateReportGUI extends JFrame {
 		victimAddGUI.setName(VICTIM_ADD_INFO_PANEL);
 		guardianGUI = new GuardianGUI();
 		guardianGUI.setName(GUARDIAN_PANEL);
+		descriptionGUI = new DescriptionGUI();
+		descriptionGUI.setName(DESCRIPTION_PANEL);
 		
 		// Create the CardLayout and add the cards
-		mCards = new JPanel(new CardLayout());
+		CardLayout cl_mCards = new CardLayout();
+		mCards = new JPanel(cl_mCards);
 		mCards.add(reporterGUI, REPORTER_PANEL);
 		mCards.add(victimGUI,   VICTIM_PANEL);
 		mCards.add(victimAddGUI, VICTIM_ADD_INFO_PANEL);
 		mCards.add(guardianGUI, GUARDIAN_PANEL);
+		mCards.add(descriptionGUI, DESCRIPTION_PANEL);
 		
 		clContainer = (CardLayout) mCards.getLayout();
 		GridBagConstraints gbc_mCards = new GridBagConstraints();
 		gbc_mCards.anchor = GridBagConstraints.NORTHWEST;
-		gbc_mCards.insets = new Insets(0, 0, 5, 0);
+		gbc_mCards.insets = new Insets(0, 5, 5, 0);
 		gbc_mCards.gridwidth = 3;
 		gbc_mCards.gridx = 0;
 		gbc_mCards.gridy = 0;
@@ -163,8 +171,12 @@ public class CreateReportGUI extends JFrame {
 							guardian = guardianGUI.commitGuardian(guardian);
 						}
 					}
+					// FIXME: Added in debug stuff here..... needs to be removed for final result
 					// Only proceed if the information is valid
-					if(validInfo){
+					if(DEBUG) {
+						clContainer.next(mCards);
+					}
+					else if(validInfo){
 						clContainer.next(mCards);
 						if(componentIndex != mCards.getComponents().length) {
 							componentIndex++;

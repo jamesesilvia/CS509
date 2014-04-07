@@ -57,16 +57,16 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 		currentlyServedByPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		GridBagConstraints gbc_currentlyServedByPanel = new GridBagConstraints();
 		gbc_currentlyServedByPanel.gridwidth = 2;
-		gbc_currentlyServedByPanel.insets = new Insets(0, 0, 5, 0);
+		gbc_currentlyServedByPanel.insets = new Insets(10, 10, 5, 10);
 		gbc_currentlyServedByPanel.weightx = 0.5;
 		gbc_currentlyServedByPanel.fill = GridBagConstraints.BOTH;
 		gbc_currentlyServedByPanel.gridx = 0;
 		gbc_currentlyServedByPanel.gridy = 0;
 		add(currentlyServedByPanel, gbc_currentlyServedByPanel);
 		GridBagLayout gbl_currentlyServedByPanel = new GridBagLayout();
-		gbl_currentlyServedByPanel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gbl_currentlyServedByPanel.columnWidths = new int[]{0, 0, 0, 0, 108, 0};
 		gbl_currentlyServedByPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
-		gbl_currentlyServedByPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_currentlyServedByPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_currentlyServedByPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		currentlyServedByPanel.setLayout(gbl_currentlyServedByPanel);
 		
@@ -105,7 +105,7 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 		gbc_massCommBlindCb.weightx = 0.5;
 		gbc_massCommBlindCb.anchor = GridBagConstraints.WEST;
 		gbc_massCommBlindCb.insets = leftInsetBumper;
-		gbc_massCommBlindCb.gridx = 3;
+		gbc_massCommBlindCb.gridx = 2;
 		gbc_massCommBlindCb.gridy = 1;
 		currentlyServedByPanel.add(massCommBlindCb, gbc_massCommBlindCb);
 		
@@ -121,7 +121,7 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 		GridBagConstraints gbc_massCommDeafHHCb = new GridBagConstraints();
 		gbc_massCommDeafHHCb.anchor = GridBagConstraints.WEST;
 		gbc_massCommDeafHHCb.insets = leftInsetBumper;
-		gbc_massCommDeafHHCb.gridx = 3;
+		gbc_massCommDeafHHCb.gridx = 2;
 		gbc_massCommDeafHHCb.gridy = 2;
 		currentlyServedByPanel.add(massCommDeafHHCb, gbc_massCommDeafHHCb);
 		
@@ -137,7 +137,7 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 		GridBagConstraints gbc_unknownCb = new GridBagConstraints();
 		gbc_unknownCb.anchor = GridBagConstraints.WEST;
 		gbc_unknownCb.insets = leftInsetBumper;
-		gbc_unknownCb.gridx = 3;
+		gbc_unknownCb.gridx = 2;
 		gbc_unknownCb.gridy = 3;
 		currentlyServedByPanel.add(unknownCb, gbc_unknownCb);
 		
@@ -153,17 +153,17 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 		GridBagConstraints gbc_otherSpecifyCb = new GridBagConstraints();
 		gbc_otherSpecifyCb.anchor = GridBagConstraints.WEST;
 		gbc_otherSpecifyCb.insets = leftInsetBumper;
-		gbc_otherSpecifyCb.gridx = 3;
+		gbc_otherSpecifyCb.gridx = 2;
 		gbc_otherSpecifyCb.gridy = 4;
 		currentlyServedByPanel.add(otherSpecifyCb, gbc_otherSpecifyCb);
 		
 		otherServedText = new JTextField();
 		filter.setupTextField(otherServedText, DocumentSizeFilter.ANY, 20);
 		GridBagConstraints gbc_otherServedText = new GridBagConstraints();
-		gbc_otherServedText.weightx = 0.5;
+		gbc_otherServedText.weightx = 1.0;
 		gbc_otherServedText.insets = leftInsetBumper;
 		gbc_otherServedText.fill = GridBagConstraints.HORIZONTAL;
-		gbc_otherServedText.gridx = 4;
+		gbc_otherServedText.gridx = 3;
 		gbc_otherServedText.gridy = 4;
 		currentlyServedByPanel.add(otherServedText, gbc_otherServedText);
 		otherServedText.setColumns(10);
@@ -180,7 +180,7 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 		GridBagConstraints gbc_nonCb = new GridBagConstraints();
 		gbc_nonCb.anchor = GridBagConstraints.WEST;
 		gbc_nonCb.insets = new Insets(5, 10, 0, 5);
-		gbc_nonCb.gridx = 3;
+		gbc_nonCb.gridx = 2;
 		gbc_nonCb.gridy = 5;
 		currentlyServedByPanel.add(nonCb, gbc_nonCb);
 		
@@ -188,16 +188,16 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 		typeOfServicePanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		GridBagConstraints gbc_typeOfServicePanel = new GridBagConstraints();
 		gbc_typeOfServicePanel.gridwidth = 2;
-		gbc_typeOfServicePanel.insets = new Insets(0, 0, 5, 0);
+		gbc_typeOfServicePanel.insets = new Insets(5, 10, 5, 10);
 		gbc_typeOfServicePanel.weightx = 0.5;
 		gbc_typeOfServicePanel.fill = GridBagConstraints.BOTH;
 		gbc_typeOfServicePanel.gridx = 0;
 		gbc_typeOfServicePanel.gridy = 1;
 		add(typeOfServicePanel, gbc_typeOfServicePanel);
 		GridBagLayout gbl_typeOfServicePanel = new GridBagLayout();
-		gbl_typeOfServicePanel.columnWidths = new int[] {0, 0, 0, 0, 0, 30};
+		gbl_typeOfServicePanel.columnWidths = new int[] {0, 0, 0, 0, 107};
 		gbl_typeOfServicePanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
-		gbl_typeOfServicePanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
+		gbl_typeOfServicePanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0};
 		gbl_typeOfServicePanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		typeOfServicePanel.setLayout(gbl_typeOfServicePanel);
 		
@@ -236,7 +236,7 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 		gbc_serviceCoordinationCb.weightx = 0.4;
 		gbc_serviceCoordinationCb.anchor = GridBagConstraints.WEST;
 		gbc_serviceCoordinationCb.insets = leftInsetBumper;
-		gbc_serviceCoordinationCb.gridx = 3;
+		gbc_serviceCoordinationCb.gridx = 2;
 		gbc_serviceCoordinationCb.gridy = 1;
 		typeOfServicePanel.add(serviceCoordinationCb, gbc_serviceCoordinationCb);
 		
@@ -252,7 +252,7 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 		GridBagConstraints gbc_fosterCb = new GridBagConstraints();
 		gbc_fosterCb.anchor = GridBagConstraints.WEST;
 		gbc_fosterCb.insets = leftInsetBumper;
-		gbc_fosterCb.gridx = 3;
+		gbc_fosterCb.gridx = 2;
 		gbc_fosterCb.gridy = 2;
 		typeOfServicePanel.add(fosterCb, gbc_fosterCb);
 		
@@ -268,7 +268,7 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 		GridBagConstraints gbc_respiteCb = new GridBagConstraints();
 		gbc_respiteCb.anchor = GridBagConstraints.WEST;
 		gbc_respiteCb.insets = leftInsetBumper;
-		gbc_respiteCb.gridx = 3;
+		gbc_respiteCb.gridx = 2;
 		gbc_respiteCb.gridy = 3;
 		typeOfServicePanel.add(respiteCb, gbc_respiteCb);
 		
@@ -284,7 +284,7 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 		GridBagConstraints gbc_otherServiceCb = new GridBagConstraints();
 		gbc_otherServiceCb.anchor = GridBagConstraints.WEST;
 		gbc_otherServiceCb.insets = new Insets(5, 10, 10, 5);
-		gbc_otherServiceCb.gridx = 3;
+		gbc_otherServiceCb.gridx = 2;
 		gbc_otherServiceCb.gridy = 4;
 		typeOfServicePanel.add(otherServiceCb, gbc_otherServiceCb);
 		
@@ -292,9 +292,9 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 		filter.setupTextField(otherServiceText, DocumentSizeFilter.ANY, 20);
 		GridBagConstraints gbc_otherServiceText = new GridBagConstraints();
 		gbc_otherServiceText.insets = new Insets(5, 10, 10, 5);
-		gbc_otherServiceText.weightx = 0.5;
+		gbc_otherServiceText.weightx = 1.0;
 		gbc_otherServiceText.fill = GridBagConstraints.HORIZONTAL;
-		gbc_otherServiceText.gridx = 4;
+		gbc_otherServiceText.gridx = 3;
 		gbc_otherServiceText.gridy = 4;
 		typeOfServicePanel.add(otherServiceText, gbc_otherServiceText);
 		otherServiceText.setColumns(10);
@@ -303,17 +303,16 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 		reportAwarenessPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		GridBagConstraints gbc_reportAwarenessPanel = new GridBagConstraints();
 		gbc_reportAwarenessPanel.gridwidth = 2;
-		gbc_reportAwarenessPanel.insets = new Insets(0, 0, 5, 0);
-		gbc_reportAwarenessPanel.weighty = 0.1;
+		gbc_reportAwarenessPanel.insets = new Insets(5, 10, 5, 10);
 		gbc_reportAwarenessPanel.weightx = 0.5;
 		gbc_reportAwarenessPanel.fill = GridBagConstraints.BOTH;
 		gbc_reportAwarenessPanel.gridx = 0;
 		gbc_reportAwarenessPanel.gridy = 2;
 		add(reportAwarenessPanel, gbc_reportAwarenessPanel);
 		GridBagLayout gbl_reportAwarenessPanel = new GridBagLayout();
-		gbl_reportAwarenessPanel.columnWidths = new int[]{0, 0, 0, 0, 0};
+		gbl_reportAwarenessPanel.columnWidths = new int[]{0, 0, 0, 0};
 		gbl_reportAwarenessPanel.rowHeights = new int[]{0, 0, 0};
-		gbl_reportAwarenessPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_reportAwarenessPanel.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_reportAwarenessPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		reportAwarenessPanel.setLayout(gbl_reportAwarenessPanel);
 		
@@ -332,6 +331,7 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 		JLabel isVictimAwareLabel = new JLabel("Is victim aware of report?");
 		isVictimAwareLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		GridBagConstraints gbc_isVictimAwareLabel = new GridBagConstraints();
+		gbc_isVictimAwareLabel.gridwidth = 2;
 		gbc_isVictimAwareLabel.anchor = GridBagConstraints.WEST;
 		gbc_isVictimAwareLabel.weightx = 0.1;
 		gbc_isVictimAwareLabel.insets = leftInsetBumper;
@@ -342,9 +342,8 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 		JCheckBox yesCb = new JCheckBox("Yes");
 		GridBagConstraints gbc_yesCb = new GridBagConstraints();
 		gbc_yesCb.anchor = GridBagConstraints.WEST;
-		gbc_yesCb.weightx = 0.2;
-		gbc_yesCb.insets = new Insets(0, 0, 0, 5);
-		gbc_yesCb.gridx = 2;
+		gbc_yesCb.insets = new Insets(0, 0, 10, 5);
+		gbc_yesCb.gridx = 1;
 		gbc_yesCb.gridy = 1;
 		reportAwarenessPanel.add(yesCb, gbc_yesCb);
 		
@@ -352,8 +351,9 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 		GridBagConstraints gbc_noCb = new GridBagConstraints();
 		gbc_noCb.anchor = GridBagConstraints.WEST;
 		gbc_noCb.weightx = 0.4;
-		gbc_noCb.gridx = 3;
+		gbc_noCb.gridx = 2;
 		gbc_noCb.gridy = 1;
+		gbc_noCb.insets = new Insets(0, 0, 10, 0);
 		reportAwarenessPanel.add(noCb, gbc_noCb);
 		
 		JPanel frequencyOfAbusePanel = new JPanel();
@@ -361,15 +361,15 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 		GridBagConstraints gbc_frequencyOfAbusePanel = new GridBagConstraints();
 		gbc_frequencyOfAbusePanel.weighty = 0.5;
 		gbc_frequencyOfAbusePanel.weightx = 0.5;
-		gbc_frequencyOfAbusePanel.insets = new Insets(0, 0, 0, 5);
+		gbc_frequencyOfAbusePanel.insets = new Insets(5, 10, 10, 5);
 		gbc_frequencyOfAbusePanel.fill = GridBagConstraints.BOTH;
 		gbc_frequencyOfAbusePanel.gridx = 0;
 		gbc_frequencyOfAbusePanel.gridy = 3;
 		add(frequencyOfAbusePanel, gbc_frequencyOfAbusePanel);
 		GridBagLayout gbl_frequencyOfAbusePanel = new GridBagLayout();
-		gbl_frequencyOfAbusePanel.columnWidths = new int[]{0, 0, 102, 90, 0};
+		gbl_frequencyOfAbusePanel.columnWidths = new int[]{0, 0, 0, 102, 90, 0};
 		gbl_frequencyOfAbusePanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
-		gbl_frequencyOfAbusePanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_frequencyOfAbusePanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_frequencyOfAbusePanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		frequencyOfAbusePanel.setLayout(gbl_frequencyOfAbusePanel);
 		
@@ -388,7 +388,7 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 		JLabel freqOfAbuseLabel = new JLabel("Frequency of Abuse");
 		freqOfAbuseLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		GridBagConstraints gbc_freqOfAbuseLabel = new GridBagConstraints();
-		gbc_freqOfAbuseLabel.gridwidth = 2;
+		gbc_freqOfAbuseLabel.gridwidth = 3;
 		gbc_freqOfAbuseLabel.anchor = GridBagConstraints.WEST;
 		gbc_freqOfAbuseLabel.insets = new Insets(10, 10, 5, 5);
 		gbc_freqOfAbuseLabel.gridx = 1;
@@ -410,7 +410,7 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 		gbc_increasingCb.weightx = 0.5;
 		gbc_increasingCb.anchor = GridBagConstraints.WEST;
 		gbc_increasingCb.insets = leftInsetBumper;
-		gbc_increasingCb.gridx = 2;
+		gbc_increasingCb.gridx = 3;
 		gbc_increasingCb.gridy = 1;
 		frequencyOfAbusePanel.add(increasingCb, gbc_increasingCb);
 		
@@ -419,7 +419,7 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 		gbc_freqOfAbuseUnknownCb.weightx = 0.5;
 		gbc_freqOfAbuseUnknownCb.anchor = GridBagConstraints.WEST;
 		gbc_freqOfAbuseUnknownCb.insets = new Insets(5, 10, 5, 0);
-		gbc_freqOfAbuseUnknownCb.gridx = 3;
+		gbc_freqOfAbuseUnknownCb.gridx = 4;
 		gbc_freqOfAbuseUnknownCb.gridy = 1;
 		frequencyOfAbusePanel.add(freqOfAbuseUnknownCb, gbc_freqOfAbuseUnknownCb);
 		
@@ -436,7 +436,7 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 		GridBagConstraints gbc_decreasingCb = new GridBagConstraints();
 		gbc_decreasingCb.anchor = GridBagConstraints.WEST;
 		gbc_decreasingCb.insets = leftInsetBumper;
-		gbc_decreasingCb.gridx = 2;
+		gbc_decreasingCb.gridx = 3;
 		gbc_decreasingCb.gridy = 2;
 		frequencyOfAbusePanel.add(decreasingCb, gbc_decreasingCb);
 		
@@ -453,7 +453,7 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 		GridBagConstraints gbc_constantCb = new GridBagConstraints();
 		gbc_constantCb.anchor = GridBagConstraints.WEST;
 		gbc_constantCb.insets = leftInsetBumper;
-		gbc_constantCb.gridx = 2;
+		gbc_constantCb.gridx = 3;
 		gbc_constantCb.gridy = 3;
 		frequencyOfAbusePanel.add(constantCb, gbc_constantCb);
 		
@@ -465,17 +465,17 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 		warnDateOfIncidentNotSet.setBackground(SystemColor.menu);
 		GridBagConstraints gbc_warnDateOfIncidentNotSet = new GridBagConstraints();
 		gbc_warnDateOfIncidentNotSet.insets = new Insets(0, 0, 0, 5);
-		gbc_warnDateOfIncidentNotSet.gridx = 0;
+		gbc_warnDateOfIncidentNotSet.gridx = 2;
 		gbc_warnDateOfIncidentNotSet.gridy = 4;
 		frequencyOfAbusePanel.add(warnDateOfIncidentNotSet, gbc_warnDateOfIncidentNotSet);
 		
 		JLabel dateOfLastIncidentLabel = new JLabel("Date of last incident:");
 		dateOfLastIncidentLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
 		GridBagConstraints gbc_dateOfLastIncidentLabel = new GridBagConstraints();
+		gbc_dateOfLastIncidentLabel.anchor = GridBagConstraints.EAST;
 		gbc_dateOfLastIncidentLabel.weighty = 0.5;
-		gbc_dateOfLastIncidentLabel.gridwidth = 2;
 		gbc_dateOfLastIncidentLabel.insets = new Insets(0, 0, 0, 5);
-		gbc_dateOfLastIncidentLabel.gridx = 1;
+		gbc_dateOfLastIncidentLabel.gridx = 3;
 		gbc_dateOfLastIncidentLabel.gridy = 4;
 		frequencyOfAbusePanel.add(dateOfLastIncidentLabel, gbc_dateOfLastIncidentLabel);
 		
@@ -483,7 +483,7 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 		GridBagConstraints gbc_dateOfLastIncidentPanel = new GridBagConstraints();
 		gbc_dateOfLastIncidentPanel.insets = new Insets(0, 0, 0, 10);
 		gbc_dateOfLastIncidentPanel.fill = GridBagConstraints.BOTH;
-		gbc_dateOfLastIncidentPanel.gridx = 3;
+		gbc_dateOfLastIncidentPanel.gridx = 4;
 		gbc_dateOfLastIncidentPanel.gridy = 4;
 		frequencyOfAbusePanel.add(dateOfLastIncidentPanel, gbc_dateOfLastIncidentPanel);
 		GridBagLayout gbl_dateOfLastIncidentPanel = new GridBagLayout();
@@ -539,6 +539,7 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 		gbc_typesOfAbusePanel.fill = GridBagConstraints.BOTH;
 		gbc_typesOfAbusePanel.gridx = 1;
 		gbc_typesOfAbusePanel.gridy = 3;
+		gbc_typesOfAbusePanel.insets = new Insets(5, 5, 10, 10);
 		add(typesOfAbusePanel, gbc_typesOfAbusePanel);
 		GridBagLayout gbl_typesOfAbusePanel = new GridBagLayout();
 		gbl_typesOfAbusePanel.columnWidths = new int[]{0, 117, 128, 167, 0};

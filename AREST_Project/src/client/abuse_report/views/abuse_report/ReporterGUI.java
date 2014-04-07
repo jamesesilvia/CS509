@@ -115,7 +115,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		JPanel ReporterPanel = new JPanel();
 		ReporterPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		GridBagLayout gbl_ReporterPanel = new GridBagLayout();
-		gbl_ReporterPanel.columnWidths = new int[]{150, 30, 125, 94, 31, 0};
+		gbl_ReporterPanel.columnWidths = new int[]{87, 30, 197, 107, 31, 0};
 		gbl_ReporterPanel.rowHeights = new int[]{0, 0, 0, 0, 0};
 		gbl_ReporterPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		gbl_ReporterPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
@@ -133,7 +133,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		
 		firstNameLbl = new JLabel("Name:");
 		GridBagConstraints gbc_firstNameLbl = new GridBagConstraints();
-		gbc_firstNameLbl.anchor = GridBagConstraints.NORTHWEST;
+		gbc_firstNameLbl.anchor = GridBagConstraints.NORTHEAST;
 		gbc_firstNameLbl.insets = leftInsetBumper;//new Insets(10, 0, 5, 5);
 		gbc_firstNameLbl.gridx = 0;
 		gbc_firstNameLbl.gridy = 1;
@@ -156,7 +156,6 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		GridBagConstraints gbc_firstNameTextField = new GridBagConstraints();
 		gbc_firstNameTextField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_firstNameTextField.anchor = GridBagConstraints.NORTH;
-		gbc_firstNameTextField.weightx = 0.5;
 		gbc_firstNameTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_firstNameTextField.gridx = 2;
 		gbc_firstNameTextField.gridy = 1;
@@ -165,8 +164,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		
 		lastNameLbl = new JLabel("Last Name:");
 		GridBagConstraints gbc_lastNameLbl = new GridBagConstraints();
-		gbc_lastNameLbl.anchor = GridBagConstraints.NORTHWEST;
-		gbc_lastNameLbl.weightx = 0.5;
+		gbc_lastNameLbl.anchor = GridBagConstraints.NORTHEAST;
 		gbc_lastNameLbl.insets = new Insets(0, 5, 5, 5);
 		gbc_lastNameLbl.gridx = 3;
 		gbc_lastNameLbl.gridy = 1;
@@ -188,7 +186,6 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		lastNameTextField = new JFormattedTextField();
 		GridBagConstraints gbc_lastNameTextField = new GridBagConstraints();
 		gbc_lastNameTextField.anchor = GridBagConstraints.NORTH;
-		gbc_lastNameTextField.weightx = 0.5;
 		gbc_lastNameTextField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lastNameTextField.insets = new Insets(0, 0, 5, 10);
 		gbc_lastNameTextField.gridx = 5;
@@ -198,7 +195,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		
 		addrLbl = new JLabel("Address:");
 		GridBagConstraints gbc_addrLbl = new GridBagConstraints();
-		gbc_addrLbl.anchor = GridBagConstraints.NORTHWEST;
+		gbc_addrLbl.anchor = GridBagConstraints.NORTHEAST;
 		gbc_addrLbl.insets = leftInsetBumper;//new Insets(0, 0, 5, 5);
 		gbc_addrLbl.gridx = 0;
 		gbc_addrLbl.gridy = 2;
@@ -228,7 +225,6 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 				JScrollPane addrTextScrollPane = new JScrollPane(addrTextArea);
 				GridBagConstraints gbc_addrTextScrollPane = new GridBagConstraints();
 				gbc_addrTextScrollPane.weighty = 0.1;
-				gbc_addrTextScrollPane.weightx = 0.5;
 				gbc_addrTextScrollPane.fill = GridBagConstraints.BOTH;
 				gbc_addrTextScrollPane.insets = new Insets(0, 0, 5, 5);
 				gbc_addrTextScrollPane.gridx = 2;
@@ -238,7 +234,8 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 				
 				telephoneLbl = new JLabel("Daytime Telephone:");
 				GridBagConstraints gbc_telephoneLbl = new GridBagConstraints();
-				gbc_telephoneLbl.anchor = GridBagConstraints.NORTHWEST;
+				gbc_telephoneLbl.weighty = 0.1;
+				gbc_telephoneLbl.anchor = GridBagConstraints.NORTHEAST;
 				gbc_telephoneLbl.insets = new Insets(30, 10, 5, 5);//new Insets(0, 0, 5, 5);
 				gbc_telephoneLbl.gridx = 0;
 				gbc_telephoneLbl.gridy = 3;
@@ -328,7 +325,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 				mandatedNotSetWarning.setEditable(false);
 				mandatedNotSetWarning.setBackground(SystemColor.menu);
 				GridBagConstraints gbc_mandatedNotSetWarning = new GridBagConstraints();
-				gbc_mandatedNotSetWarning.anchor = GridBagConstraints.NORTHWEST;
+				gbc_mandatedNotSetWarning.anchor = GridBagConstraints.SOUTHWEST;
 				gbc_mandatedNotSetWarning.insets = new Insets(30, 0, 5, 5);
 				gbc_mandatedNotSetWarning.gridx = 4;
 				gbc_mandatedNotSetWarning.gridy = 3;
@@ -336,8 +333,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 				
 				notMandatedCB = new JCheckBox("Not Mandated");
 				GridBagConstraints gbc_notMandatedCB = new GridBagConstraints();
-				gbc_notMandatedCB.weightx = 0.5;
-				gbc_notMandatedCB.anchor = GridBagConstraints.NORTHWEST;
+				gbc_notMandatedCB.anchor = GridBagConstraints.SOUTHWEST;
 				gbc_notMandatedCB.insets = new Insets(30, 0, 5, 0);
 				gbc_notMandatedCB.gridx = 5;
 				gbc_notMandatedCB.gridy = 3;
@@ -359,7 +355,8 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 				
 				relationshipLbl = new JLabel("Relationship to Alleged Victim:");
 				GridBagConstraints gbc_relationshipLbl = new GridBagConstraints();
-				gbc_relationshipLbl.anchor = GridBagConstraints.NORTHWEST;
+				gbc_relationshipLbl.weighty = 0.1;
+				gbc_relationshipLbl.anchor = GridBagConstraints.NORTHEAST;
 				gbc_relationshipLbl.insets = new Insets(5, 10, 50, 5); //new Insets(0, 0, 0, 5);
 				gbc_relationshipLbl.gridx = 0;
 				gbc_relationshipLbl.gridy = 4;
@@ -381,7 +378,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 				relationshipTextField = new JFormattedTextField();
 				GridBagConstraints gbc_relationshipTextField = new GridBagConstraints();
 				gbc_relationshipTextField.anchor = GridBagConstraints.NORTH;
-				gbc_relationshipTextField.weightx = 0.5;
+				gbc_relationshipTextField.weightx = 0.2;
 				gbc_relationshipTextField.fill = GridBagConstraints.HORIZONTAL;
 				gbc_relationshipTextField.insets = new Insets(0, 0, 0, 5);
 				gbc_relationshipTextField.gridx = 2;
@@ -391,7 +388,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 				GridBagConstraints gbc_ReporterPanel = new GridBagConstraints();
 				gbc_ReporterPanel.weightx = 1.0;
 				gbc_ReporterPanel.fill = GridBagConstraints.BOTH;
-				gbc_ReporterPanel.insets = new Insets(0, 0, 5, 0);
+				gbc_ReporterPanel.insets = new Insets(10, 10, 5, 10);
 				gbc_ReporterPanel.gridx = 0;
 				gbc_ReporterPanel.gridy = 0;
 				gbc_ReporterPanel.weighty = 0.5;
@@ -422,7 +419,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		AbuserPanel = new JPanel();
 		AbuserPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		GridBagLayout gbl_AbuserPanel = new GridBagLayout();
-		gbl_AbuserPanel.columnWidths = new int[]{152, 30, 0, 0, 30, 0};
+		gbl_AbuserPanel.columnWidths = new int[]{152, 30, 0, 107, 30, 0};
 		gbl_AbuserPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		gbl_AbuserPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		AbuserPanel.setLayout(gbl_AbuserPanel);
@@ -439,7 +436,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		
 		JLabel abuserFirstNameLabel = new JLabel("Name:");
 		GridBagConstraints gbc_abuserFirstNameLabel = new GridBagConstraints();
-		gbc_abuserFirstNameLabel.anchor = GridBagConstraints.NORTHWEST;
+		gbc_abuserFirstNameLabel.anchor = GridBagConstraints.NORTHEAST;
 		gbc_abuserFirstNameLabel.insets = leftInsetBumper;//new Insets(5, 0, 5, 5); //new Insets(0, 0, 0, 5);
 		gbc_abuserFirstNameLabel.gridx = 0;
 		gbc_abuserFirstNameLabel.gridy = 1;
@@ -461,9 +458,9 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		abuserFirstName = new JFormattedTextField();
 		abuserFirstNameLabel.setLabelFor(abuserFirstName);
 		GridBagConstraints gbc_abuserFirstName = new GridBagConstraints();
+		gbc_abuserFirstName.weightx = 0.3;
 		gbc_abuserFirstName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_abuserFirstName.anchor = GridBagConstraints.NORTH;
-		gbc_abuserFirstName.weightx = 1.0;
 		gbc_abuserFirstName.insets = new Insets(0, 0, 5, 5);
 		gbc_abuserFirstName.gridx = 2;
 		gbc_abuserFirstName.gridy = 1;
@@ -472,8 +469,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		
 		abuserLastNameLabel = new JLabel("Last Name:");
 		GridBagConstraints gbc_abuserLastNameLabel = new GridBagConstraints();
-		gbc_abuserLastNameLabel.weightx = 1.0;
-		gbc_abuserLastNameLabel.anchor = GridBagConstraints.NORTHWEST;
+		gbc_abuserLastNameLabel.anchor = GridBagConstraints.NORTHEAST;
 		gbc_abuserLastNameLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_abuserLastNameLabel.gridx = 3;
 		gbc_abuserLastNameLabel.gridy = 1;
@@ -496,7 +492,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		abuserLastName = new JFormattedTextField();
 		GridBagConstraints gbc_abuserLastName = new GridBagConstraints();
 		gbc_abuserLastName.anchor = GridBagConstraints.NORTH;
-		gbc_abuserLastName.weightx = 1.8;
+		gbc_abuserLastName.weightx = 0.7;
 		gbc_abuserLastName.insets = new Insets(0, 0, 5, 10);
 		gbc_abuserLastName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_abuserLastName.gridx = 5;
@@ -506,7 +502,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		
 		abuserAddressLabel = new JLabel("Address:");
 		GridBagConstraints gbc_abuserAddressLabel = new GridBagConstraints();
-		gbc_abuserAddressLabel.anchor = GridBagConstraints.NORTHWEST;
+		gbc_abuserAddressLabel.anchor = GridBagConstraints.NORTHEAST;
 		gbc_abuserAddressLabel.insets = leftInsetBumper; //new Insets(0, 0, 0, 5);
 		gbc_abuserAddressLabel.gridx = 0;
 		gbc_abuserAddressLabel.gridy = 2;
@@ -545,8 +541,9 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		
 		abuserRelationshipToVictim = new JLabel("Relationship to Alleged Victim:");
 		GridBagConstraints gbc_abuserRelationshipToVictim = new GridBagConstraints();
-		gbc_abuserRelationshipToVictim.anchor = GridBagConstraints.SOUTHWEST;
-		gbc_abuserRelationshipToVictim.insets = new Insets(30, 10, 0, 5);
+		gbc_abuserRelationshipToVictim.weighty = 0.1;
+		gbc_abuserRelationshipToVictim.anchor = GridBagConstraints.EAST;
+		gbc_abuserRelationshipToVictim.insets = new Insets(0, 0, 0, 5);
 		gbc_abuserRelationshipToVictim.gridx = 0;
 		gbc_abuserRelationshipToVictim.gridy = 3;
 		gbc_abuserRelationshipToVictim.insets = leftInsetBumper;
@@ -557,6 +554,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		gbc_AbuserPanel.fill = GridBagConstraints.BOTH;
 		gbc_AbuserPanel.gridx = 0;
 		gbc_AbuserPanel.gridy = 1;
+		gbc_AbuserPanel.insets = new Insets(0, 10, 10, 10);
 		gbc_AbuserPanel.weightx = 1.0;
 		add(AbuserPanel, gbc_AbuserPanel);
 		
@@ -567,18 +565,17 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		abuserRelationshipNotSetWarning.setEditable(false);
 		abuserRelationshipNotSetWarning.setBackground(SystemColor.menu);
 		GridBagConstraints gbc_abuserRelationshipNotSetWarning = new GridBagConstraints();
-		gbc_abuserRelationshipNotSetWarning.anchor = GridBagConstraints.SOUTHWEST;
-		gbc_abuserRelationshipNotSetWarning.insets = new Insets(30, 0, 5, 5);
+		gbc_abuserRelationshipNotSetWarning.anchor = GridBagConstraints.WEST;
+		gbc_abuserRelationshipNotSetWarning.insets = new Insets(0, 0, 5, 5);
 		gbc_abuserRelationshipNotSetWarning.gridx = 1;
 		gbc_abuserRelationshipNotSetWarning.gridy = 3;
 		AbuserPanel.add(abuserRelationshipNotSetWarning, gbc_abuserRelationshipNotSetWarning);
 		
 		abuserRelationship = new JFormattedTextField();
 		GridBagConstraints gbc_abuserRelationship = new GridBagConstraints();
-		gbc_abuserRelationship.anchor = GridBagConstraints.SOUTH;
-		gbc_abuserRelationship.weightx = 0.5;
-		gbc_abuserRelationship.insets = new Insets(30, 0, 5, 5);
 		gbc_abuserRelationship.fill = GridBagConstraints.HORIZONTAL;
+		gbc_abuserRelationship.weightx = 0.4;
+		gbc_abuserRelationship.insets = new Insets(0, 0, 5, 5);
 		gbc_abuserRelationship.gridx = 2;
 		gbc_abuserRelationship.gridy = 3;
 		AbuserPanel.add(abuserRelationship, gbc_abuserRelationship);
@@ -586,7 +583,8 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		
 		socSecurityLabel = new JLabel("Social Security #");
 		GridBagConstraints gbc_socSecurityLabel = new GridBagConstraints();
-		gbc_socSecurityLabel.anchor = GridBagConstraints.NORTHWEST;
+		gbc_socSecurityLabel.weighty = 0.1;
+		gbc_socSecurityLabel.anchor = GridBagConstraints.NORTHEAST;
 		gbc_socSecurityLabel.insets = leftInsetBumper;//new Insets(0, 0, 5, 5);
 		gbc_socSecurityLabel.gridx = 0;
 		gbc_socSecurityLabel.gridy = 4;
@@ -622,8 +620,8 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		
 		socAreaNumber = new JFormattedTextField();
 		GridBagConstraints gbc_socAreaNumber = new GridBagConstraints();
-		gbc_socAreaNumber.fill = GridBagConstraints.BOTH;
-		gbc_socAreaNumber.weighty = 1.0;
+		gbc_socAreaNumber.anchor = GridBagConstraints.NORTH;
+		gbc_socAreaNumber.fill = GridBagConstraints.HORIZONTAL;
 		gbc_socAreaNumber.weightx = 0.3;
 		gbc_socAreaNumber.gridx = 0;
 		gbc_socAreaNumber.gridy = 0;
@@ -643,6 +641,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		
 		socGroupNum = new JFormattedTextField();
 		GridBagConstraints gbc_socGroupNum = new GridBagConstraints();
+		gbc_socGroupNum.anchor = GridBagConstraints.NORTH;
 		gbc_socGroupNum.weighty = 1.0;
 		gbc_socGroupNum.weightx = 0.2;
 		gbc_socGroupNum.fill = GridBagConstraints.HORIZONTAL;
@@ -664,7 +663,8 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		
 		socSerialNum = new JFormattedTextField();
 		GridBagConstraints gbc_socSerialNum = new GridBagConstraints();
-		gbc_socSerialNum.fill = GridBagConstraints.BOTH;
+		gbc_socSerialNum.anchor = GridBagConstraints.NORTH;
+		gbc_socSerialNum.fill = GridBagConstraints.HORIZONTAL;
 		gbc_socSerialNum.weighty = 1.0;
 		gbc_socSerialNum.weightx = 0.4;
 		gbc_socSerialNum.gridx = 4;
@@ -674,7 +674,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		
 		abuserTelephoneLabel = new JLabel("Telephone:");
 		GridBagConstraints gbc_abuserTelephoneLabel = new GridBagConstraints();
-		gbc_abuserTelephoneLabel.anchor = GridBagConstraints.NORTHWEST;
+		gbc_abuserTelephoneLabel.anchor = GridBagConstraints.NORTHEAST;
 		gbc_abuserTelephoneLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_abuserTelephoneLabel.gridx = 3;
 		gbc_abuserTelephoneLabel.gridy = 4;
@@ -709,6 +709,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		
 		abuserPhoneAreaCode = new JFormattedTextField();
 		GridBagConstraints gbc_abuserPhoneAreaCode = new GridBagConstraints();
+		gbc_abuserPhoneAreaCode.anchor = GridBagConstraints.NORTH;
 		gbc_abuserPhoneAreaCode.weighty = 1.0;
 		gbc_abuserPhoneAreaCode.weightx = 0.2;
 		gbc_abuserPhoneAreaCode.fill = GridBagConstraints.HORIZONTAL;
@@ -729,6 +730,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		
 		abuserPhoneFirstThree = new JFormattedTextField();
 		GridBagConstraints gbc_abuserPhoneFirstThree = new GridBagConstraints();
+		gbc_abuserPhoneFirstThree.anchor = GridBagConstraints.NORTH;
 		gbc_abuserPhoneFirstThree.weighty = 1.0;
 		gbc_abuserPhoneFirstThree.weightx = 0.2;
 		gbc_abuserPhoneFirstThree.fill = GridBagConstraints.HORIZONTAL;
@@ -749,6 +751,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		
 		abuserPhoneLastFour = new JFormattedTextField();
 		GridBagConstraints gbc_abuserPhoneLastFour = new GridBagConstraints();
+		gbc_abuserPhoneLastFour.anchor = GridBagConstraints.NORTH;
 		gbc_abuserPhoneLastFour.weighty = 1.0;
 		gbc_abuserPhoneLastFour.weightx = 0.3;
 		gbc_abuserPhoneLastFour.fill = GridBagConstraints.HORIZONTAL;
@@ -759,7 +762,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		
 		abuserDobLabel = new JLabel("DOB:");
 		GridBagConstraints gbc_abuserDobLabel = new GridBagConstraints();
-		gbc_abuserDobLabel.anchor = GridBagConstraints.NORTHWEST;
+		gbc_abuserDobLabel.anchor = GridBagConstraints.NORTHEAST;
 		gbc_abuserDobLabel.insets = new Insets(5, 10, 50, 5);//new Insets(0, 0, 5, 5);
 		gbc_abuserDobLabel.gridx = 0;
 		gbc_abuserDobLabel.gridy = 5;
