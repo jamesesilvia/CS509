@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 
 import client.abuse_report.models.Abuser;
 import client.abuse_report.models.Guardian;
+import client.abuse_report.models.ReportContainer;
 import client.abuse_report.models.Reporter;
 import client.abuse_report.models.Victim;
 
@@ -29,7 +30,11 @@ import java.awt.Insets;
  */
 public class CreateReportGUI extends JFrame {
 
-	final private static boolean DEBUG = true;
+	final private static boolean DEBUG_REPORTER = false;
+	final private static boolean DEBUG_VICTIM = false;
+	final private static boolean DEBUG_VICTIM_ADD = false;
+	final private static boolean DEBUG_GUARDIAN = false;
+	final private static boolean DEBUG_DESCR = true;
 	
 	final private static String REPORTER_PANEL         = "Reporter Panel";
 	final private static String VICTIM_PANEL           = "Victim Panel";
@@ -45,6 +50,7 @@ public class CreateReportGUI extends JFrame {
 	private JButton nextButton;
 	private CardLayout clContainer;
 	
+	private static ReportContainer reportContainer;
 	private static ReporterGUI reporterGUI;
 	private static VictimGUI   victimGUI;
 	private static VictimAdditionalInfoGUI victimAddGUI;
@@ -61,6 +67,7 @@ public class CreateReportGUI extends JFrame {
 	 * Create the panel.
 	 */
 	public CreateReportGUI() {
+		reportContainer = new ReportContainer();
 		reporter = new Reporter();
 		victim = new Victim();
 		abuser = new Abuser();
@@ -142,41 +149,59 @@ public class CreateReportGUI extends JFrame {
 		nextButton.setVerticalAlignment(SwingConstants.BOTTOM);
 		nextButton.addActionListener(new ActionListener() {
 			
-			// FIXME: commit changes to report container now
 			@Override
 			public void actionPerformed(ActionEvent action) {
 				if(action.getID() == ActionEvent.ACTION_PERFORMED) {
 					boolean validInfo = false;
 					if(mCards.getComponent(componentIndex).getName() ==  REPORTER_PANEL) {
 						// Check and commit changes to this panel and the model
-						validInfo = reporterGUI.isValidInfo();
-						if(validInfo){
-							// Commit changes to the model.
-							reporter = reporterGUI.commitReporter(reporter);
-							abuser =  reporterGUI.commitAbuser(abuser);
+						if(!DEBUG_REPORTER) validInfo = true;
+						else {
+							validInfo = reporterGUI.isValidInfo();
+							if(validInfo){
+								// Commit changes to the model.
+								reporter = reporterGUI.commitReporter(reporter);
+								abuser =  reporterGUI.commitAbuser(abuser);
+							}
 						}
 					} else if (mCards.getComponent(componentIndex).getName() == VICTIM_PANEL) {
-						validInfo = victimGUI.isValidInfo();
-						if(validInfo) {
-							victim = victimGUI.commitVictim(victim);
+						if(!DEBUG_VICTIM) validInfo = true;
+						else { 
+							validInfo = victimGUI.isValidInfo();
+							if(validInfo) {
+								victim = victimGUI.commitVictim(victim);
+							}
 						}
+						
 					} else if (mCards.getComponent(componentIndex).getName() == VICTIM_ADD_INFO_PANEL) {
-						validInfo = victimAddGUI.isValidInfo();
-						if(validInfo) {
-							victim = victimAddGUI.commitVictim(victim);
+						if(!DEBUG_VICTIM_ADD) validInfo = true;
+						else {
+							validInfo = victimAddGUI.isValidInfo();
+							if(validInfo) {
+								victim = victimAddGUI.commitVictim(victim);
+							}
 						}
 					} else if(mCards.getComponent(componentIndex).getName() == GUARDIAN_PANEL) {
-						validInfo = guardianGUI.isValidInfo();
-						if(validInfo) {
-							guardian = guardianGUI.commitGuardian(guardian);
+						if(!DEBUG_GUARDIAN) validInfo = true;
+						else { 
+							validInfo = guardianGUI.isValidInfo();
+							if(validInfo) {
+								guardian = guardianGUI.commitGuardian(guardian);
+								reportContainer = guardianGUI.getReportContainerInfo(reportContainer);
+							}
+						}
+					} else if(mCards.getComponent(componentIndex).getName() == DESCRIPTION_PANEL) {
+						if(!DEBUG_DESCR) validInfo = true;
+						else {
+							validInfo = descriptionGUI.isValidInfo();
+							if(validInfo) {
+								reportContainer = descriptionGUI.getReportContainerInfo(reportContainer);
+							}
 						}
 					}
-					// FIXME: Added in debug stuff here..... needs to be removed for final result
 					// Only proceed if the information is valid
-					if(DEBUG) {
-						clContainer.next(mCards);
-					}
-					else if(validInfo){
+					
+					if(validInfo){
 						clContainer.next(mCards);
 						if(componentIndex != mCards.getComponents().length) {
 							componentIndex++;

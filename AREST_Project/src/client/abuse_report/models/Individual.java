@@ -7,7 +7,7 @@ package client.abuse_report.models;
  * @author Matt Orsini
  */
 
-public abstract class Individual {
+public class Individual {
 
 	protected String firstName;
 	protected String lastName;
@@ -16,9 +16,22 @@ public abstract class Individual {
 	private String relationshipToVictim;
 
 	/**
-	 * Constructor. This class is meant to be extended.
+	 * Constructor
 	 */
 	public Individual() {
+	}
+	
+	/**
+	 * Constructor used when only a name and telephone number are needed.
+	 * @param firstName
+	 * @param telephone
+	 */
+	public Individual(String firstName, String telephone) {
+		this.firstName = firstName;
+		this.telephone = telephone;
+		this.lastName = null;
+		this.address = null;
+		this.relationshipToVictim = null;
 	}
 
 

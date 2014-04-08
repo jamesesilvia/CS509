@@ -108,7 +108,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 	 */
 	public ReporterGUI() {
 		// Used for setupTextField
-		filter = new DocumentSizeFilter(10);;
+		filter = new DocumentSizeFilter(10);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		setLayout(gridBagLayout);
 		

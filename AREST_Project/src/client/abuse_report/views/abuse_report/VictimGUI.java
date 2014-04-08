@@ -608,6 +608,18 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 				gbc_chckbxSeizures.gridy = 3;
 				disabilityCbPanel.add(chckbxSeizures, gbc_chckbxSeizures);
 				chckbxOtherspecify = new JCheckBox("Other (specify)");
+				chckbxOtherspecify.addItemListener(new ItemListener() {
+					
+					@Override
+					public void itemStateChanged(ItemEvent event) {
+						if(event.getStateChange() == ItemEvent.SELECTED) {
+							disabilityOtherTextField.setEnabled(true);
+						} else if(event.getStateChange() == ItemEvent.DESELECTED) {
+							disabilityOtherTextField.setEnabled(false);
+							disabilityOtherTextField.setText("");
+						}
+					}
+				});
 				GridBagConstraints gbc_chckbxOtherspecify = new GridBagConstraints();
 				gbc_chckbxOtherspecify.anchor = GridBagConstraints.WEST;
 				gbc_chckbxOtherspecify.insets = new Insets(0, 0, 0, 5);
@@ -616,8 +628,10 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 				disabilityCbPanel.add(chckbxOtherspecify, gbc_chckbxOtherspecify);
 				
 				disabilityOtherTextField = new JFormattedTextField();
+				disabilityOtherTextField.setEnabled(false);
 				filter.setupTextField(disabilityOtherTextField, DocumentSizeFilter.ANY, 30);
 				GridBagConstraints gbc_disabilityOtherTextField = new GridBagConstraints();
+				gbc_disabilityOtherTextField.gridwidth = 2;
 				gbc_disabilityOtherTextField.fill = GridBagConstraints.BOTH;
 				gbc_disabilityOtherTextField.gridx = 3;
 				gbc_disabilityOtherTextField.gridy = 3;
@@ -720,9 +734,10 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 		gbc_otherEthnicityCheckBox.gridy = 2;
 		ethnicityCbPanel.add(otherEthnicityCheckBox, gbc_otherEthnicityCheckBox);
 		otherEthnicityTextField = new JFormattedTextField();
+		otherEthnicityTextField.setEnabled(false);
 		GridBagConstraints gbc_otherEthnicityTextField = new GridBagConstraints();
 		gbc_otherEthnicityTextField.gridwidth = 2;
-		gbc_otherEthnicityTextField.fill = GridBagConstraints.BOTH;
+		gbc_otherEthnicityTextField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_otherEthnicityTextField.gridx = 3;
 		gbc_otherEthnicityTextField.gridy = 2;
 		ethnicityCbPanel.add(otherEthnicityTextField, gbc_otherEthnicityTextField);
@@ -817,6 +832,7 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 		gbc_comNeedsCbPanel.gridy = 1;
 		ComNeedsPanel.add(comNeedsCbPanel, gbc_comNeedsCbPanel);
 		
+		filter.setupTextField(otherEthnicityTextField, DocumentSizeFilter.ANY, 30);
 		for(int i=0; i<ethnicityCbPanel.getComponents().length; i++) {
 			if(ethnicityCbPanel.getComponent(i) instanceof JCheckBox) {
 				JCheckBox myCb = new JCheckBox();
@@ -827,6 +843,13 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 					public void itemStateChanged(ItemEvent event) {
 						if((event.getStateChange() == ItemEvent.SELECTED) || (event.getStateChange() == ItemEvent.DESELECTED)) {
 							toggleAllCheckBoxesInPanel(ethnicityCbPanel, event.getItem());
+							// Other ethnicity implies that the text field should be enabled.
+							if(event.getSource().equals(otherEthnicityCheckBox)) {
+								otherEthnicityTextField.setEnabled(otherEthnicityCheckBox.isSelected());
+								// Clear the text in this text field.
+								if(!otherEthnicityCheckBox.isSelected())
+									otherEthnicityTextField.setText("");
+							}
 						}
 						
 					}
@@ -1027,18 +1050,10 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 	 * @param cb         - the checkbox to leave enabled.
 	 */
 	public void toggleAllCheckBoxesInPanel(Container container, Object cb){
-		boolean enableText = false;
-		if(cb.equals((JCheckBox) otherEthnicityCheckBox)){
-			enableText = true;
-		}
 		for(int i=0; i<container.getComponents().length; i++){	
-			// Disable all components in this panel.
-			if(!container.getComponent(i).equals(cb)) {
-				container.getComponent(i).setEnabled(!container.getComponent(i).isEnabled());
-				// Check to see if the textfield should be saved and not disabled. This is only true 
-				// when "other (please specify)" is selected.
-				if((container.getComponent(i) instanceof JTextComponent) && enableText){
-					container.getComponent(i).setEnabled(true);
+			if(container.getComponent(i) instanceof JCheckBox) {
+				if(!container.getComponent(i).equals(cb)) {
+					container.getComponent(i).setEnabled(!container.getComponent(i).isEnabled());
 				}
 			}
 		}
