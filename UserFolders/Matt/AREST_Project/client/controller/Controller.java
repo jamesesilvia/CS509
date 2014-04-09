@@ -1,4 +1,4 @@
-package client.controller;
+package cs509.grp8.arest.controller;
 
 import java.awt.CardLayout;
 import java.awt.EventQueue;
@@ -6,8 +6,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import client.abuse_report.*;
-import client.abuse_report.views.abuse_report.CreateReportGUI;
+import cs509.grp8.arest.report.CreateReportGUI;
+import cs509.grp8.arest.report.ReporterGUI;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -71,6 +71,16 @@ public class Controller {
 			public void actionPerformed(ActionEvent action) {
 				if(action.getID() == ActionEvent.ACTION_PERFORMED) {
 					createReportGUI = new CreateReportGUI();
+					Thread t = new Thread(createReportGUI);
+					t.start();
+					mframe.setVisible(false); // disable this frame for now. Another frame is constructed
+					try {
+						t.join();
+						mframe.setVisible(true);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 		});

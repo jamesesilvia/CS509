@@ -2,7 +2,7 @@ package client.abuse_report.models;
 
 public class Guardian extends Individual{
 
-	public static final int MAX_NUM_GUARDIANS = 2;
+	public static final int MAX_NUM_GUARDIANS = 1;
 	
 	protected String[] firstName;
 	protected String[] lastName;

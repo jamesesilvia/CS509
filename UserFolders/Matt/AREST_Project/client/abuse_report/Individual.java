@@ -1,4 +1,4 @@
-package client.abuse_report.models;
+package client.abuse_report;
 
 /** 
  * Individual describes the common attributes between all persons involved with
@@ -16,29 +16,17 @@ public class Individual {
 	private String relationshipToVictim;
 
 	/**
-	 * Constructor
+	 * Constructor. This class is meant to be extended.
 	 */
 	public Individual() {
-	}
-	
-	/**
-	 * Constructor used when only a name and telephone number are needed.
-	 * @param firstName
-	 * @param telephone
-	 */
-	public Individual(String firstName, String telephone) {
-		this.firstName = firstName;
-		this.telephone = telephone;
-		this.lastName = null;
-		this.address = null;
-		this.relationshipToVictim = null;
+		// FIXME: Empty constructor?
 	}
 
 
 	/**
 	 * Get the relationship to the victim. Each individual in the report has
 	 * a relationship to the alleged victim.
-	 * @return relationshipToVictim - the relationship to the victim
+	 * @return relationshipToVictim
 	 */
 	public String getRelationshipToVictim() {
 		return relationshipToVictim;
@@ -46,7 +34,7 @@ public class Individual {
 	/**
 	 * Set the relationship to the victim. Each individual in the report has
 	 * a relationship to the alleged victim.
-	 * @param relationshipToVictim - the relationship to the victim
+	 * @param relationshipToVictim
 	 */
 	public void setRelationshipToVictim(String relationshipToVictim) {
 		this.relationshipToVictim = relationshipToVictim;
@@ -54,14 +42,14 @@ public class Individual {
 
 	/**
 	 * Get the name of the required individual.
-	 * @return name - the name of the individual
+	 * @return name
 	 */
 	public String getFirstName() {
 		return firstName;
 	}
 	/**
 	 * Set the name of the required individual.
-	 * @param name - the name of the individual
+	 * @param name
 	 */
 	public void setFirstName(String name) {
 		this.firstName = name;
@@ -69,14 +57,14 @@ public class Individual {
 
 	/**
 	 * Return the address of the individual.
-	 * @return address - the address of the individual
+	 * @return address
 	 */
 	public String getAddress() {
 		return address;
 	}
 	/**
 	 * Set the address of the individual.
-	 * @param address - the address of the individual
+	 * @param address
 	 */
 	public void setAddress(String address) {
 		this.address = address;
@@ -84,7 +72,7 @@ public class Individual {
 
 	/**
 	 * Get the telephone number of the individual.
-	 * @return telephone - the telephone number of the individual
+	 * @return telephone
 	 */
 	public String getTelephone() {
 		return telephone;
@@ -92,7 +80,7 @@ public class Individual {
 
 	/**
 	 * Set the telephone number of the individual.
-	 * @param telephone - the telephone number of the individual
+	 * @param telephone
 	 */
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
@@ -100,7 +88,7 @@ public class Individual {
 
 	/**
 	 * Get the last name of the individual.
-	 * @return - the last name of the individual
+	 * @return
 	 */
 	public String getLastName(){
 		return lastName;
@@ -108,7 +96,7 @@ public class Individual {
 
 	/**
 	 * Set the last name of the individual.
-	 * @param name - the last name of the individual
+	 * @param name
 	 */
 	public void setLastName(String name){
 		this.lastName = name;
