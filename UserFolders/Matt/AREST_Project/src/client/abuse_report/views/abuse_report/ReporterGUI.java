@@ -115,7 +115,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		JPanel ReporterPanel = new JPanel();
 		ReporterPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		GridBagLayout gbl_ReporterPanel = new GridBagLayout();
-		gbl_ReporterPanel.columnWidths = new int[]{87, 30, 197, 107, 31, 0};
+		gbl_ReporterPanel.columnWidths = new int[] {0};
 		gbl_ReporterPanel.rowHeights = new int[]{0, 0, 0, 0, 0};
 		gbl_ReporterPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		gbl_ReporterPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
@@ -419,7 +419,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		AbuserPanel = new JPanel();
 		AbuserPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		GridBagLayout gbl_AbuserPanel = new GridBagLayout();
-		gbl_AbuserPanel.columnWidths = new int[]{152, 30, 0, 107, 30, 0};
+		gbl_AbuserPanel.columnWidths = new int[] {0};
 		gbl_AbuserPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		gbl_AbuserPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		AbuserPanel.setLayout(gbl_AbuserPanel);
@@ -492,7 +492,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		abuserLastName = new JFormattedTextField();
 		GridBagConstraints gbc_abuserLastName = new GridBagConstraints();
 		gbc_abuserLastName.anchor = GridBagConstraints.NORTH;
-		gbc_abuserLastName.weightx = 0.7;
+		gbc_abuserLastName.weightx = 0.4;
 		gbc_abuserLastName.insets = new Insets(0, 0, 5, 10);
 		gbc_abuserLastName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_abuserLastName.gridx = 5;
@@ -532,7 +532,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		abuserAddressScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		GridBagConstraints gbc_abuserAddressScrollPane = new GridBagConstraints();
 		gbc_abuserAddressScrollPane.weighty = 0.1;
-		gbc_abuserAddressScrollPane.weightx = 0.5;
+		gbc_abuserAddressScrollPane.weightx = 0.1;
 		gbc_abuserAddressScrollPane.fill = GridBagConstraints.BOTH;
 		gbc_abuserAddressScrollPane.insets = new Insets(0, 0, 5, 5);
 		gbc_abuserAddressScrollPane.gridx = 2;

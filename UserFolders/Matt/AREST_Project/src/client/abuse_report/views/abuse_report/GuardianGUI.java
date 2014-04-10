@@ -108,22 +108,22 @@ public class GuardianGUI extends JPanel implements CreateReportInterface{
 	 */
 	public GuardianGUI() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{204, 579, 0};
-		gridBagLayout.rowHeights = new int[]{287, 282, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[] {532};
+		gridBagLayout.rowHeights = new int[]{0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0};
 		setLayout(gridBagLayout);
 		
 		guardPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		GridBagConstraints gbc_guardPanel = new GridBagConstraints();
 		gbc_guardPanel.insets = new Insets(10, 10, 5, 10);
-		gbc_guardPanel.weightx = 0.5;
+		gbc_guardPanel.weightx = 0.1;
 		gbc_guardPanel.fill = GridBagConstraints.BOTH;
 		gbc_guardPanel.gridx = 0;
 		gbc_guardPanel.gridy = 0;
 		add(guardPanel, gbc_guardPanel);
 		GridBagLayout gbl_guardPanel = new GridBagLayout();
-		gbl_guardPanel.columnWidths = new int[]{105, 157, 0};
+		gbl_guardPanel.columnWidths = new int[]{142, 320, 0};
 		gbl_guardPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_guardPanel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		gbl_guardPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
@@ -149,7 +149,6 @@ public class GuardianGUI extends JPanel implements CreateReportInterface{
 		
 		guardFirstName = new JTextField();
 		GridBagConstraints gbc_guardFirstName = new GridBagConstraints();
-		gbc_guardFirstName.weightx = 0.7;
 		gbc_guardFirstName.insets = new Insets(0, 0, 5, 10);
 		gbc_guardFirstName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_guardFirstName.gridx = 1;
@@ -158,7 +157,6 @@ public class GuardianGUI extends JPanel implements CreateReportInterface{
 		guardFirstName.setColumns(10);
 		
 		GridBagConstraints gbc_guardLastNameLabel = new GridBagConstraints();
-		gbc_guardLastNameLabel.weightx = 0.3;
 		gbc_guardLastNameLabel.anchor = GridBagConstraints.EAST;
 		gbc_guardLastNameLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_guardLastNameLabel.gridx = 0;
@@ -167,7 +165,6 @@ public class GuardianGUI extends JPanel implements CreateReportInterface{
 		
 
 		GridBagConstraints gbc_guardLastName = new GridBagConstraints();
-		gbc_guardLastName.weightx = 0.2;
 		gbc_guardLastName.insets = new Insets(0, 0, 5, 10);
 		gbc_guardLastName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_guardLastName.gridx = 1;
@@ -316,7 +313,7 @@ public class GuardianGUI extends JPanel implements CreateReportInterface{
 		
 		GridBagConstraints gbc_collContact1 = new GridBagConstraints();
 		gbc_collContact1.weightx = 0.5;
-		gbc_collContact1.insets = new Insets(0, 0, 5, 100);
+		gbc_collContact1.insets = new Insets(0, 0, 5, 20);
 		gbc_collContact1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_collContact1.gridx = 1;
 		gbc_collContact1.gridy = 2;
@@ -376,7 +373,7 @@ public class GuardianGUI extends JPanel implements CreateReportInterface{
 		collateralContactsPanel.add(name2Label, gbc_name2Label);
 		
 		
-		gbc_collContact2.insets = new Insets(0, 0, 5, 100);
+		gbc_collContact2.insets = new Insets(0, 0, 5, 20);
 		gbc_collContact2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_collContact2.gridx = 1;
 		gbc_collContact2.gridy = 3;
@@ -432,7 +429,7 @@ public class GuardianGUI extends JPanel implements CreateReportInterface{
 		
 		
 		GridBagConstraints gbc_collContact3 = new GridBagConstraints();
-		gbc_collContact3.insets = new Insets(0, 0, 5, 100);
+		gbc_collContact3.insets = new Insets(0, 0, 5, 20);
 		gbc_collContact3.fill = GridBagConstraints.HORIZONTAL;
 		gbc_collContact3.gridx = 1;
 		gbc_collContact3.gridy = 4;
@@ -488,7 +485,7 @@ public class GuardianGUI extends JPanel implements CreateReportInterface{
 		
 		
 		GridBagConstraints gbc_collContact4 = new GridBagConstraints();
-		gbc_collContact4.insets = new Insets(0, 0, 5, 100);
+		gbc_collContact4.insets = new Insets(0, 0, 5, 20);
 		gbc_collContact4.fill = GridBagConstraints.HORIZONTAL;
 		gbc_collContact4.gridx = 1;
 		gbc_collContact4.gridy = 5;
@@ -544,10 +541,10 @@ public class GuardianGUI extends JPanel implements CreateReportInterface{
 		
 		
 		GridBagConstraints gbc_collContact5 = new GridBagConstraints();
-		gbc_collContact5.insets = new Insets(0, 0, 0, 100);
 		gbc_collContact5.fill = GridBagConstraints.HORIZONTAL;
 		gbc_collContact5.gridx = 1;
 		gbc_collContact5.gridy = 6;
+		gbc_collContact5.insets = new Insets(0, 0, 0, 20);
 		collateralContactsPanel.add(collContact5, gbc_collContact5);
 		
 		GridBagConstraints gbc_cc5PhonePanel = new GridBagConstraints();

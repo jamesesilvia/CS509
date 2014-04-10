@@ -110,7 +110,7 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 	 */
 	public VictimAdditionalInfoGUI() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] {365, 365};
+		gridBagLayout.columnWidths = new int[] {0, 0};
 		gridBagLayout.rowHeights = new int[]{213, 0, 0, 60};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0};

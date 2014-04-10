@@ -27,6 +27,7 @@ import common.DocumentSizeFilter;
 import javax.swing.JTextPane;
 
 import java.awt.SystemColor;
+import javax.swing.JScrollPane;
 
 public class DescriptionGUI extends JPanel implements CreateReportInterface {
 
@@ -71,6 +72,10 @@ public class DescriptionGUI extends JPanel implements CreateReportInterface {
 	private final JLabel lblIfNotYou = new JLabel("You MUST file an oral report of suspected abuse. Please call 800-426-9009   ");
 	private final JTextPane warnOralReportNotSet = new JTextPane();
 	private final JTextPane warnInvestRiskNotSet = new JTextPane();
+	private final JScrollPane scrollPane = new JScrollPane();
+	private final JScrollPane scrollPane_1 = new JScrollPane();
+	private final JScrollPane scrollPane_2 = new JScrollPane();
+	private final JScrollPane scrollPane_3 = new JScrollPane();
 	
 	/**
 	 * Create the panel.
@@ -78,13 +83,14 @@ public class DescriptionGUI extends JPanel implements CreateReportInterface {
 	public DescriptionGUI() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0};
-		gridBagLayout.rowHeights = new int[]{242, 149, 283, 102, 138, 0};
+		gridBagLayout.rowHeights = new int[]{0};
 		gridBagLayout.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
 		setLayout(gridBagLayout);
 		
 		injuryPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		GridBagConstraints gbc_injuryPanel = new GridBagConstraints();
+		gbc_injuryPanel.weighty = 0.1;
 		gbc_injuryPanel.insets = new Insets(10, 10, 5, 10);
 		gbc_injuryPanel.fill = GridBagConstraints.BOTH;
 		gbc_injuryPanel.gridx = 0;
@@ -93,28 +99,19 @@ public class DescriptionGUI extends JPanel implements CreateReportInterface {
 		GridBagLayout gbl_injuryPanel = new GridBagLayout();
 		gbl_injuryPanel.columnWidths = new int[]{0, 0};
 		gbl_injuryPanel.rowHeights = new int[]{0, 0, 0};
-		gbl_injuryPanel.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_injuryPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
 		gbl_injuryPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		injuryPanel.setLayout(gbl_injuryPanel);
 		
 		injuryLabel.setFont(new Font("Tahoma", Font.ITALIC, 14));
 		GridBagConstraints gbc_injuryLabel = new GridBagConstraints();
+		gbc_injuryLabel.fill = GridBagConstraints.VERTICAL;
 		gbc_injuryLabel.weightx = 0.3;
 		gbc_injuryLabel.anchor = GridBagConstraints.WEST;
 		gbc_injuryLabel.gridx = 0;
 		gbc_injuryLabel.gridy = 0;
 		gbc_injuryLabel.insets = new Insets(10, 10, 5, 0);
 		injuryPanel.add(injuryLabel, gbc_injuryLabel);
-		
-		
-		injuryText.setLineWrap(true);
-		GridBagConstraints gbc_injuryText = new GridBagConstraints();
-		gbc_injuryText.weighty = 0.4;
-		gbc_injuryText.fill = GridBagConstraints.BOTH;
-		gbc_injuryText.gridx = 0;
-		gbc_injuryText.gridy = 1;
-		gbc_injuryText.insets = new Insets(0, 10, 10, 10);
-		injuryPanel.add(injuryText, gbc_injuryText);
 		
 		witnessPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		GridBagConstraints gbc_witnessPanel = new GridBagConstraints();
@@ -138,17 +135,6 @@ public class DescriptionGUI extends JPanel implements CreateReportInterface {
 		gbc_witnessLabel.gridy = 0;
 		gbc_witnessLabel.insets = new Insets(10, 10, 5, 0);
 		witnessPanel.add(witnessLabel, gbc_witnessLabel);
-		
-		
-		witnessText.setLineWrap(true);
-		GridBagConstraints gbc_witnessText = new GridBagConstraints();
-		gbc_witnessText.weighty = 0.1;
-		gbc_witnessText.weightx = 1.0;
-		gbc_witnessText.fill = GridBagConstraints.BOTH;
-		gbc_witnessText.gridx = 0;
-		gbc_witnessText.gridy = 1;
-		gbc_witnessText.insets = new Insets(0, 10, 10, 10);
-		witnessPanel.add(witnessText, gbc_witnessText);
 		
 		
 		relationshipPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
@@ -183,16 +169,6 @@ public class DescriptionGUI extends JPanel implements CreateReportInterface {
 		gbc_assistanceLabel.gridy = 1;
 		gbc_assistanceLabel.insets = new Insets(0, 25, 5, 0);
 		relationshipPanel.add(assistanceLabel, gbc_assistanceLabel);
-		
-		
-		GridBagConstraints gbc_relationshipText = new GridBagConstraints();
-		gbc_relationshipText.weighty = 0.1;
-		gbc_relationshipText.weightx = 1.0;
-		gbc_relationshipText.fill = GridBagConstraints.BOTH;
-		gbc_relationshipText.gridx = 0;
-		gbc_relationshipText.gridy = 2;
-		gbc_relationshipText.insets = new Insets(0, 10, 10, 10);
-		relationshipPanel.add(relationshipText, gbc_relationshipText);
 		
 		
 		dppcHotlinePanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
@@ -373,7 +349,7 @@ public class DescriptionGUI extends JPanel implements CreateReportInterface {
 		GridBagLayout gbl_investigatorRiskPanel = new GridBagLayout();
 		gbl_investigatorRiskPanel.columnWidths = new int[]{0, 0, 0, 0};
 		gbl_investigatorRiskPanel.rowHeights = new int[]{0, 0, 0, 0};
-		gbl_investigatorRiskPanel.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_investigatorRiskPanel.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_investigatorRiskPanel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		investigatorRiskPanel.setLayout(gbl_investigatorRiskPanel);
 		
@@ -421,27 +397,63 @@ public class DescriptionGUI extends JPanel implements CreateReportInterface {
 		gbc_chckbxInvestRiskNo.gridx = 0;
 		gbc_chckbxInvestRiskNo.gridy = 2;
 		investigatorRiskPanel.add(chckbxInvestRiskNo, gbc_chckbxInvestRiskNo);
+		
+		GridBagConstraints gbc_scrollPane_3 = new GridBagConstraints();
+		gbc_scrollPane_3.weighty = 0.1;
+		gbc_scrollPane_3.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane_3.gridx = 2;
+		gbc_scrollPane_3.gridy = 2;
+		gbc_scrollPane_3.insets = new Insets(0, 0, 10, 10);
+		investigatorRiskPanel.add(scrollPane_3, gbc_scrollPane_3);
+		scrollPane_3.setViewportView(investRisk);
 		investRisk.setEnabled(false);
 		
 		
 		investRisk.setWrapStyleWord(true);
 		investRisk.setLineWrap(true);
-		GridBagConstraints gbc_investRisk = new GridBagConstraints();
-		gbc_investRisk.weighty = 0.2;
-		gbc_investRisk.weightx = 0.2;
-		gbc_investRisk.fill = GridBagConstraints.BOTH;
-		gbc_investRisk.gridx = 2;
-		gbc_investRisk.gridy = 2;
-		gbc_investRisk.insets = new Insets(0, 10, 10, 10);
-		investigatorRiskPanel.add(investRisk, gbc_investRisk);
+		filter.setupTextField(investRisk, DocumentSizeFilter.ANY, 500);
 
 		filter.setupTextField(dppcCalledDay, DocumentSizeFilter.NO, 2);
 		filter.setupTextField(dppcCalledHour, DocumentSizeFilter.NO, 2);
 		filter.setupTextField(dppcCalledMinute, DocumentSizeFilter.NO, 2);
 		filter.setupTextField(dppcCalledMonth, DocumentSizeFilter.NO, 2);
+		
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.weighty = 0.1;
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 0;
+		gbc_scrollPane.gridy = 1;
+		gbc_scrollPane.insets = new Insets(10,10,10,10);
+		injuryPanel.add(scrollPane, gbc_scrollPane);
+		scrollPane.setViewportView(injuryText);
+		
+		
+		injuryText.setLineWrap(true);
 		filter.setupTextField(injuryText, DocumentSizeFilter.ANY, 500);
-		filter.setupTextField(investRisk, DocumentSizeFilter.ANY, 500);
+		
+		GridBagConstraints gbc_scrollPane_2 = new GridBagConstraints();
+		gbc_scrollPane_2.weighty = 0.1;
+		gbc_scrollPane_2.weightx = 0.1;
+		gbc_scrollPane_2.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane_2.gridx = 0;
+		gbc_scrollPane_2.gridy = 2;
+		gbc_scrollPane_2.insets = new Insets(10, 10, 10, 10);
+		relationshipPanel.add(scrollPane_2, gbc_scrollPane_2);
+		scrollPane_2.setViewportView(relationshipText);
 		filter.setupTextField(relationshipText, DocumentSizeFilter.ANY, 500);
+		
+		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
+		gbc_scrollPane_1.weighty = 0.1;
+		gbc_scrollPane_1.weightx = 0.1;
+		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane_1.gridx = 0;
+		gbc_scrollPane_1.gridy = 1;
+		gbc_scrollPane_1.insets = new Insets(10, 10, 10, 10);
+		witnessPanel.add(scrollPane_1, gbc_scrollPane_1);
+		scrollPane_1.setViewportView(witnessText);
+		
+		
+		witnessText.setLineWrap(true);
 		filter.setupTextField(witnessText, DocumentSizeFilter.ANY, 100);
 		
 		for(int i=0; i< dppcHotlinePanel.getComponentCount(); i++) {

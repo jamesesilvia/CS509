@@ -1,15 +1,18 @@
 package client.abuse_report.views.abuse_report;
 
 import java.awt.CardLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 
 import client.abuse_report.models.Abuser;
@@ -17,10 +20,6 @@ import client.abuse_report.models.Guardian;
 import client.abuse_report.models.ReportContainer;
 import client.abuse_report.models.Reporter;
 import client.abuse_report.models.Victim;
-
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 
 /**
  * Controls the flow of Abuse Report creation. This class also commits changes
@@ -30,11 +29,11 @@ import java.awt.Insets;
  */
 public class CreateReportGUI extends JFrame {
 
-	final private static boolean DEBUG_REPORTER = false;
-	final private static boolean DEBUG_VICTIM = false;
+	final private static boolean DEBUG_REPORTER   = false;
+	final private static boolean DEBUG_VICTIM     = false;
 	final private static boolean DEBUG_VICTIM_ADD = false;
-	final private static boolean DEBUG_GUARDIAN = false;
-	final private static boolean DEBUG_DESCR = true;
+	final private static boolean DEBUG_GUARDIAN   = false;
+	final private static boolean DEBUG_DESCR      = false;
 	
 	final private static String REPORTER_PANEL         = "Reporter Panel";
 	final private static String VICTIM_PANEL           = "Victim Panel";
@@ -63,6 +62,13 @@ public class CreateReportGUI extends JFrame {
 	private Guardian guardian;
 	
 	private static int componentIndex = 0;
+	
+	private final Object[] option = {"Yes", "No"};
+	
+	/*final JOptionPane closingPane = new JOptionPane("Are you sure you want to close this abuse report?\n"
+			+ "Pressing yes will delete all information you have entered!", 
+			JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION);*/
+	
 	/**
 	 * Create the panel.
 	 */
@@ -72,20 +78,34 @@ public class CreateReportGUI extends JFrame {
 		victim = new Victim();
 		abuser = new Abuser();
 		guardian = new Guardian();
-		
+		componentIndex = 0;
 		initialize();	
 	}
-
+	
 	/**
-	 * Increment the index of the component (ID) only if it's less than the total number
-	 * of cards in the layout.
+	 * Increment the component index in the cardlayout
 	 */
-	private void incrComponentIndex(){
-		if(componentIndex == mCards.getComponents().length){
-			componentIndex = 1;
-		} else {
+	private void incrementCardLayoutCounter() {
+		if(componentIndex != mCards.getComponentCount()) {
 			componentIndex++;
 		}
+	}
+	
+	/**
+	 * Decrement the component index in the cardlayout
+	 */
+	private void decrementCardLayoutCounter() {
+		if(componentIndex != 0) {
+			componentIndex--;
+		}
+	}
+	
+	/**
+	 * Get the index of the current card being displayed to the user.
+	 * @return - the current component's index in the cardlayout being displayed to the user.
+	 */
+	public int getCardComponentIndex() {
+		return componentIndex;
 	}
 	
 	/**
@@ -97,13 +117,23 @@ public class CreateReportGUI extends JFrame {
 		containerPanel = new JPanel();
 		mFrame.getContentPane().add(containerPanel);
 		GridBagLayout gbl_containerPanel = new GridBagLayout();
+		gbl_containerPanel.columnWidths = new int[] {0};
 		gbl_containerPanel.columnWeights = new double[]{0.0, 0.0, 0.0};
 		gbl_containerPanel.rowWeights = new double[]{0.0, 0.0};
 		containerPanel.setLayout(gbl_containerPanel);
 		
 		previousButton = new JButton("Previous");
+		
+		// Previous button will simply return to the previous screen in the cardlayout
 		previousButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent event ) {
+				if (event.getID() == ActionEvent.ACTION_PERFORMED) {
+					if(getCardComponentIndex() != 0) {
+						clContainer.previous(mCards);
+						nextButton.setText("Next");
+					}
+					decrementCardLayoutCounter();
+				}
 			}
 		});
 		
@@ -153,7 +183,7 @@ public class CreateReportGUI extends JFrame {
 			public void actionPerformed(ActionEvent action) {
 				if(action.getID() == ActionEvent.ACTION_PERFORMED) {
 					boolean validInfo = false;
-					if(mCards.getComponent(componentIndex).getName() ==  REPORTER_PANEL) {
+					if(mCards.getComponent(getCardComponentIndex()).getName() ==  REPORTER_PANEL) {
 						// Check and commit changes to this panel and the model
 						if(!DEBUG_REPORTER) validInfo = true;
 						else {
@@ -164,7 +194,7 @@ public class CreateReportGUI extends JFrame {
 								abuser =  reporterGUI.commitAbuser(abuser);
 							}
 						}
-					} else if (mCards.getComponent(componentIndex).getName() == VICTIM_PANEL) {
+					} else if (mCards.getComponent(getCardComponentIndex()).getName() == VICTIM_PANEL) {
 						if(!DEBUG_VICTIM) validInfo = true;
 						else { 
 							validInfo = victimGUI.isValidInfo();
@@ -173,7 +203,7 @@ public class CreateReportGUI extends JFrame {
 							}
 						}
 						
-					} else if (mCards.getComponent(componentIndex).getName() == VICTIM_ADD_INFO_PANEL) {
+					} else if (mCards.getComponent(getCardComponentIndex()).getName() == VICTIM_ADD_INFO_PANEL) {
 						if(!DEBUG_VICTIM_ADD) validInfo = true;
 						else {
 							validInfo = victimAddGUI.isValidInfo();
@@ -181,7 +211,7 @@ public class CreateReportGUI extends JFrame {
 								victim = victimAddGUI.commitVictim(victim);
 							}
 						}
-					} else if(mCards.getComponent(componentIndex).getName() == GUARDIAN_PANEL) {
+					} else if(mCards.getComponent(getCardComponentIndex()).getName() == GUARDIAN_PANEL) {
 						if(!DEBUG_GUARDIAN) validInfo = true;
 						else { 
 							validInfo = guardianGUI.isValidInfo();
@@ -190,7 +220,7 @@ public class CreateReportGUI extends JFrame {
 								reportContainer = guardianGUI.getReportContainerInfo(reportContainer);
 							}
 						}
-					} else if(mCards.getComponent(componentIndex).getName() == DESCRIPTION_PANEL) {
+					} else if(mCards.getComponent(getCardComponentIndex()).getName() == DESCRIPTION_PANEL) {
 						if(!DEBUG_DESCR) validInfo = true;
 						else {
 							validInfo = descriptionGUI.isValidInfo();
@@ -200,13 +230,15 @@ public class CreateReportGUI extends JFrame {
 						}
 					}
 					// Only proceed if the information is valid
-					
 					if(validInfo){
-						clContainer.next(mCards);
-						if(componentIndex != mCards.getComponents().length) {
-							componentIndex++;
+						if(componentIndex != (mCards.getComponents().length - 1)) {
+							clContainer.next(mCards);
+							incrementCardLayoutCounter();
+						}
+						if(componentIndex == (mCards.getComponentCount() -1)) {
+							nextButton.setText("Submit");
 						} else {
-							componentIndex = 0;
+							nextButton.setText("Next");
 						}
 					}
 				}
@@ -223,9 +255,26 @@ public class CreateReportGUI extends JFrame {
 		
 		cancelButton = new JButton("Cancel");
 		cancelButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			/**
+			 * This actionlistener determines if the window should be disposed. We've given the user
+			 * A second chance to go back on their decision to exit the createreport. 
+			 */
+			@Override
+			public void actionPerformed(ActionEvent action) {
+				dispose();
+				if(action.getID() == ActionEvent.ACTION_PERFORMED){
+					int response = JOptionPane.showOptionDialog(mFrame, "Are you sure you want to exit?\n"
+							+ "All changes will be lost.", "Are you sure?", JOptionPane.YES_NO_OPTION, 
+							JOptionPane.QUESTION_MESSAGE, null, option, option[1]);
+					if(response == JOptionPane.YES_OPTION) {
+						mFrame.dispose();
+					} 
+				}
 			}
 		});
+		
+		
+		
 		GridBagConstraints gbc_cancelButton = new GridBagConstraints();
 		gbc_cancelButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cancelButton.gridx = 1;
@@ -238,6 +287,8 @@ public class CreateReportGUI extends JFrame {
 		mFrame.pack();
 		mFrame.setResizable(false);
 		mFrame.setVisible(true);
+		
 	}
+	
 	
 }
