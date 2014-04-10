@@ -1,0 +1,63 @@
+package client.view.viewAllReports;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+
+import client.controller.Controller;
+import javax.swing.JPanel;
+import java.awt.GridBagLayout;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JTextField;
+
+public class ViewAllReportsFrame extends JFrame {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JFrame frame;
+	private Controller controller;
+
+
+	/**
+	 * Create the application.
+	 */
+	
+	
+	
+	public ViewAllReportsFrame(Controller _controller) {
+		controller = _controller;
+		
+		frame = new JFrame("View All Reports");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		
+		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 434, Short.MAX_VALUE)
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 262, Short.MAX_VALUE)
+		);
+		frame.getContentPane().setLayout(groupLayout);
+		frame.pack();
+		
+		
+		
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+	}
+	
+	public void showFrame() {
+		frame.setVisible(true);
+	}
+}

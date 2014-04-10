@@ -1,0 +1,5 @@
+package client.abuse_report.interfaces;
+
+public class HomeScreenGUI {
+	
+}
