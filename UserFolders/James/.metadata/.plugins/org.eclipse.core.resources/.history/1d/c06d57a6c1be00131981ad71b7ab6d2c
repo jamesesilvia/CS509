@@ -1,0 +1,57 @@
+package client.controller;
+
+import java.io.IOException;
+
+import javax.swing.JOptionPane;
+
+import us.monoid.web.AbstractResource;
+import us.monoid.web.Resty;
+import static us.monoid.web.Resty.*;
+
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+
+import client.model.UserContainer;
+
+public class ChangePasswordController {
+	String json;
+	public UserContainer user = new UserContainer();
+	ObjectMapper mapper = new ObjectMapper();
+	Resty sendLogon = new Resty();
+	AbstractResource changePasswordResponse;
+	boolean passwordsEqual;
+	
+	
+	public void changePassword(String username, String password) throws IOException{
+		// Add to java object
+		user.userName = username;
+		user.password = password;
+		//Map java object to json object
+		json = mapper.writeValueAsString(user);
+		//Check Passwords
+		sendLogon.alwaysSend("Content-Type", "application/json");
+		try{
+			changePasswordResponse = sendLogon.json("http://cs509-arest.herokuapp.com/user/edit", content(json));
+			//If the logon was successful
+			if ( changePasswordResponse.status(200) == true ){
+				//Go to home screen View
+				System.out.println("Successfully logged on");			
+			}
+		} catch( IOException e1 ){
+			JOptionPane.showMessageDialog(null, "Unsuccessful logon.\n"
+					+ "Please try again.", "Logon Error!", JOptionPane.ERROR_MESSAGE);
+			
+		}
+	}
+	
+	public boolean checkPasswords(String pw_1, String pw_2) {
+		if (pw_1.equals(pw_2) == true) {
+			System.out.println("Passwords equal");
+			return true;
+		}
+		JOptionPane.showMessageDialog(null, "Passwords must be the same.", "Password Error!", JOptionPane.ERROR_MESSAGE);
+		return false;
+	}
+
+}

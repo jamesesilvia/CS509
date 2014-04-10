@@ -1,0 +1,44 @@
+package client.controller;
+
+import java.io.IOException;
+
+import javax.swing.JOptionPane;
+
+import us.monoid.web.AbstractResource;
+import us.monoid.web.Resty;
+import static us.monoid.web.Resty.*;
+
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+
+import client.model.UserContainer;
+
+public class DeleteUserController {
+	String json;
+	public UserContainer user = new UserContainer();
+	ObjectMapper mapper = new ObjectMapper();
+	Resty sendDelete = new Resty();
+	AbstractResource deleteResponse;
+	
+	public void deleteUser(String username) throws IOException{
+		user.userName = username;
+		//Map java object to json object
+		json = mapper.writeValueAsString(user);
+		//DeleteUser
+		sendDelete.alwaysSend("Content-Type", "application/json");
+		deleteResponse = sendDelete.json("http://cs509-arest.herokuapp.com/user/delete", content(json));
+		// If user successfully deleted
+		if ( deleteResponse.status(200) == true ){
+			JOptionPane.showMessageDialog(null, "Removed user: \n"
+					+ username, "Success!", JOptionPane.INFORMATION_MESSAGE);
+			//Return to homescreen			
+		}
+		// User does not exist
+		else{
+			JOptionPane.showMessageDialog(null, "User does not exist: \n"
+					+ username, "Error!", JOptionPane.ERROR_MESSAGE);			
+		}
+	}
+
+}

@@ -1,0 +1,48 @@
+package client.controller;
+
+import java.io.IOException;
+
+import javax.swing.JOptionPane;
+
+import us.monoid.web.AbstractResource;
+import us.monoid.web.Resty;
+import static us.monoid.web.Resty.*;
+
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+
+import client.model.UserContainer;
+
+public class LogonController {
+	String json;
+	public UserContainer user = new UserContainer();
+	ObjectMapper mapper = new ObjectMapper();
+	Resty sendLogon = new Resty();
+	AbstractResource logonResponse;
+	
+	
+	public void login(String username, String password) throws IOException{
+		user.userName = username;
+		user.password = password;
+		//Map java object to json object
+		json = mapper.writeValueAsString(user);
+		//Check User Password
+		sendLogon.alwaysSend("Content-Type", "application/json");
+		logonResponse = sendLogon.json("http://cs509-arest.herokuapp.com/user/password", content(json));
+		//If the logon was successful
+		if ( logonResponse.status(200) == true ){
+			//Go to home screen View
+			System.out.println("Successfully logged on");			
+		}
+		//Otherwise, try again
+		else{
+			JOptionPane.showMessageDialog(null, "Username and Password do not match.\n"
+					+ "Please try again.", "Logon Error!", JOptionPane.ERROR_MESSAGE);
+		}
+		System.out.println(logonResponse.status(200));
+		System.out.println(logonResponse.status(404));
+			
+	}
+
+}

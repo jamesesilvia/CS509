@@ -15,7 +15,7 @@ import client.model.UserContainer;
 public class CreateUserController{
 	public UserContainer user = new UserContainer();
 	ObjectMapper mapper = new ObjectMapper();
-	Resty u = new Resty();
+	Resty sendCreate = new Resty();
 	
 	public void createUser(String firstName, String lastName, String username, 
 			String password, String email, boolean supervisor) throws JsonGenerationException, JsonMappingException, IOException{
@@ -30,11 +30,9 @@ public class CreateUserController{
 		user.salt = 1;
 		//Map Java Object to json value
 		String json = mapper.writeValueAsString(user);
-		System.out.println(json);
 		//POST to Server
-		//Object response = u.json("http://cs509-arest.herokuapp.com/user/create");
-		u.alwaysSend("Content-Type", "application/json");
-		Object response = u.json("http://cs509-arest.herokuapp.com/user/create", content(json));
+		sendCreate.alwaysSend("Content-Type", "application/json");
+		Object response = sendCreate.json("http://cs509-arest.herokuapp.com/user/create", content(json));
 		
 		System.out.println("Username: " + username);
 		System.out.println("Password: " + password);

@@ -1,0 +1,31 @@
+package client.controller;
+
+import java.io.IOException;
+
+import javax.swing.JOptionPane;
+
+import us.monoid.web.AbstractResource;
+import us.monoid.web.Resty;
+import static us.monoid.web.Resty.*;
+
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+
+import client.model.UserContainer;
+
+public class DeleteUserController {
+	String url;
+	public UserContainer user = new UserContainer();
+	ObjectMapper mapper = new ObjectMapper();
+	Resty sendDelete = new Resty();
+	AbstractResource deleteResponse;
+	
+	public void deleteUser(String username) throws IOException{
+		url = "http://cs509-arest.herokuapp.com/user/";
+		url = url + username + "/delete";
+		//DeleteUser
+		deleteResponse = sendDelete.json(url);
+	}
+
+}

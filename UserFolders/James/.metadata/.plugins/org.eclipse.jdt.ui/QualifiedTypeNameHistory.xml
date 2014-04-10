@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="client.model.UserContainer"/>
+<fullyQualifiedTypeName name="us.monoid.web.AbstractResource"/>
+<fullyQualifiedTypeName name="client.controller.ChangePasswordController"/>
+<fullyQualifiedTypeName name="us.monoid.web.JSONResource"/>
+<fullyQualifiedTypeName name="us.monoid.json.JSONObject"/>
+<fullyQualifiedTypeName name="client.view.ChangePasswordFrame"/>
+<fullyQualifiedTypeName name="javax.swing.JFrame"/>
+<fullyQualifiedTypeName name="client.controller.DeleteUserController"/>
+</qualifiedTypeNameHistroy>
