@@ -10,8 +10,13 @@ package client.abuse_report.models;
  * @author Matt Orsini
  *
  */
+
+// FIXME: Change to report.
 public class ReportContainer {
 
+	// FIXME: put in ID stuff
+	private Long id;
+	
 	private static final int MAX_NUM_COLLATERAL_CONTACTS = 5;
 	
 	private Reporter reporter;
@@ -29,6 +34,12 @@ public class ReportContainer {
 	private String oralReportFiledTime;
 	private boolean isRiskToInvestigator;
 	private String riskDescrToInvestigator;
+	
+	// TODO add
+	private String username;
+	private String result;
+	private String status;
+	private String date; // date of report filed. FIXME: Do we need this.
 	
 	/**
 	 * Construction of a new report container. Create the necessary objects an initializes the booleans 

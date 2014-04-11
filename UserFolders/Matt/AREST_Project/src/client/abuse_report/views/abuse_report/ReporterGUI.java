@@ -994,7 +994,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		abuser.setLastName(abuserLastName.getText());
 		abuser.setAddress(abuserAddress.getText());
 		abuser.setRelationshipToVictim(abuserRelationship.getText());
-		abuser.setSocSecurityNum(socAreaNumber.getText().concat(socGroupNum.getText().concat(socSerialNum.getText())));
+		abuser.setSocial(socAreaNumber.getText().concat(socGroupNum.getText().concat(socSerialNum.getText())));
 		abuser.setTelephone(abuserPhoneAreaCode.getText().concat(abuserPhoneFirstThree.getText().concat(abuserPhoneLastFour.getText())));
 		abuser.setDateOfBirth(abuserDobDay.getText().concat(abuserDobMon.getText().concat(abuserDobYear.getText())));
 		return abuser;

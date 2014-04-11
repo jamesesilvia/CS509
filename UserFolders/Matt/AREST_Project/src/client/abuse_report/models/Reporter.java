@@ -11,6 +11,7 @@ package client.abuse_report.models;
 public class Reporter extends Individual {
 
 	private boolean mandated;
+	private String relationshipToVictim;
 
 	/**
 	 * Constructor for a reporter. Superclass is an Individual.
@@ -45,6 +46,14 @@ public class Reporter extends Individual {
 			passed = true;
 		}
 		return passed;
+	}
+
+	public String getRelationshipToVictim() {
+		return relationshipToVictim;
+	}
+
+	public void setRelationshipToVictim(String relationshipToVictim) {
+		this.relationshipToVictim = relationshipToVictim;
 	}
 
 }

@@ -7,13 +7,14 @@ package client.abuse_report.models;
  * @author Matt Orsini
  */
 
+// FIXME: Change to personinfo class. 
 public class Individual {
 
+	protected Long id;
 	protected String firstName;
 	protected String lastName;
 	protected String address;
 	protected String telephone;
-	private String relationshipToVictim;
 
 	/**
 	 * Constructor
@@ -31,26 +32,8 @@ public class Individual {
 		this.telephone = telephone;
 		this.lastName = null;
 		this.address = null;
-		this.relationshipToVictim = null;
 	}
 
-
-	/**
-	 * Get the relationship to the victim. Each individual in the report has
-	 * a relationship to the alleged victim.
-	 * @return relationshipToVictim - the relationship to the victim
-	 */
-	public String getRelationshipToVictim() {
-		return relationshipToVictim;
-	}
-	/**
-	 * Set the relationship to the victim. Each individual in the report has
-	 * a relationship to the alleged victim.
-	 * @param relationshipToVictim - the relationship to the victim
-	 */
-	public void setRelationshipToVictim(String relationshipToVictim) {
-		this.relationshipToVictim = relationshipToVictim;
-	}
 
 	/**
 	 * Get the name of the required individual.

@@ -29,11 +29,11 @@ import client.abuse_report.models.Victim;
  */
 public class CreateReportGUI extends JFrame {
 
-	final private static boolean DEBUG_REPORTER   = false;
-	final private static boolean DEBUG_VICTIM     = false;
-	final private static boolean DEBUG_VICTIM_ADD = false;
-	final private static boolean DEBUG_GUARDIAN   = false;
-	final private static boolean DEBUG_DESCR      = false;
+	final private static boolean DEBUG_REPORTER   = true;
+	final private static boolean DEBUG_VICTIM     = true;
+	final private static boolean DEBUG_VICTIM_ADD = true;
+	final private static boolean DEBUG_GUARDIAN   = true;
+	final private static boolean DEBUG_DESCR      = true;
 	
 	final private static String REPORTER_PANEL         = "Reporter Panel";
 	final private static String VICTIM_PANEL           = "Victim Panel";
@@ -64,10 +64,6 @@ public class CreateReportGUI extends JFrame {
 	private static int componentIndex = 0;
 	
 	private final Object[] option = {"Yes", "No"};
-	
-	/*final JOptionPane closingPane = new JOptionPane("Are you sure you want to close this abuse report?\n"
-			+ "Pressing yes will delete all information you have entered!", 
-			JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION);*/
 	
 	/**
 	 * Create the panel.
