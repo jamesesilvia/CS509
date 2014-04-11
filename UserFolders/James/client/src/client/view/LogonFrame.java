@@ -7,7 +7,7 @@ public class LogonFrame extends JFrame {
 	private LogonPanel currentPanel;
 	
 	public LogonFrame(){		
-		currentPanel = new LogonPanel();
+		currentPanel = new LogonPanel(this);
 		setTitle("AREST Logon");		
 		setupFrame();
 	}

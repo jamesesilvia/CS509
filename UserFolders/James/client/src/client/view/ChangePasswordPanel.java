@@ -8,11 +8,13 @@ import javax.swing.JLabel;
 
 import java.awt.Font;
 
+import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 
 import client.controller.ChangePasswordController;
+import client.model.UserContainer;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -30,7 +32,7 @@ public class ChangePasswordPanel extends JPanel {
 	
 	// Need to add user container
 	//public ChangePasswordPanel(String user) {
-	public ChangePasswordPanel() {
+	public ChangePasswordPanel(final JFrame mainFrame, final UserContainer user) {
 		//Password 1
 		lblPassword_1 = new JLabel("Password:");
 		txtPassword_1 = new JPasswordField();
@@ -51,7 +53,8 @@ public class ChangePasswordPanel extends JPanel {
 				passwordsEqual = controller.checkPasswords(password_1, password_2);
 				if (passwordsEqual){
 					try {
-						controller.changePassword("james", password_1);
+						user.password = password_1;
+						controller.changePassword(user);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

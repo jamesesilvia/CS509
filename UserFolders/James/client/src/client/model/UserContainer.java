@@ -9,7 +9,7 @@ public class UserContainer {
     public String lastName = null;
     public String email = null;
     public boolean isSupervisor = false;
+   // public boolean firstLogon = true;
     public String password = null;
     public int salt = 0;
-
 }

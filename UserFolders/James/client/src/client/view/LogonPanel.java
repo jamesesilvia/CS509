@@ -12,15 +12,18 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
+import javax.swing.SwingUtilities;
 
 import us.monoid.json.JSONException;
 import client.controller.LogonController;
+import client.model.UserContainer;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 public class LogonPanel extends JPanel {
+	private UserContainer user;
 	private JTextField userNameField;	
 	private JLabel lblUsername;
 	private JPasswordField passwordField;
@@ -29,7 +32,8 @@ public class LogonPanel extends JPanel {
 	private LogonController controller;
 	
 	
-	public LogonPanel() {
+	public LogonPanel(final JFrame mainFrame) {
+		user = new UserContainer();
 		//Username
 		lblUsername = new JLabel("Username:");
 		userNameField = new JTextField();
@@ -45,8 +49,10 @@ public class LogonPanel extends JPanel {
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					setVisible(false);
-					controller.login(userNameField.getText(), new String(passwordField.getPassword()));
+					user.userName = userNameField.getText();
+					user.password = new String (passwordField.getPassword());
+					mainFrame.dispose();
+					controller.login(user);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

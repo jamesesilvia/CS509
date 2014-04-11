@@ -16,15 +16,11 @@ import client.model.UserContainer;
 
 public class ChangePasswordController {
 	String json;
-	public UserContainer user = new UserContainer();
 	ObjectMapper mapper = new ObjectMapper();
 	Resty sendLogon = new Resty();
 	AbstractResource changePasswordResponse;	
 	
-	public void changePassword(String username, String password) throws IOException{
-		// Add to java object
-		user.userName = username;
-		user.password = password;
+	public void changePassword( UserContainer user) throws IOException{
 		//Map java object to json object
 		json = mapper.writeValueAsString(user);
 		System.out.println(json);	
