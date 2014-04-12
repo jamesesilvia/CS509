@@ -55,8 +55,7 @@ public class LogonController {
 				}
 				//Go to home screen View and pass user information
 				System.out.println("Successfully logged on");
-				Controller homeScreen = new Controller();
-				homeScreen.showFrame();
+				
 			}
 		} catch( IOException e1 ){
 			JOptionPane.showMessageDialog(null, "Unsuccessful logon.\n"

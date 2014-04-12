@@ -16,7 +16,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import client.model.UserContainer;
 import client.view.ChangePasswordPanel;
-import client.view.LogonFrame;
 import client.controller.Controller;
 
 public class LogonController {
@@ -28,9 +27,8 @@ public class LogonController {
 	AbstractResource logonResponse;
 	JSONResource getUserResponse;
 	
-	
 	@SuppressWarnings("deprecation")
-	public void login(String username, String password) throws Exception{
+	public boolean login(String username, String password) throws Exception{
 		user.userName = username;
 		user.password = password;
 		//Map java object to json object
@@ -55,14 +53,12 @@ public class LogonController {
 				}
 				//Go to home screen View and pass user information
 				System.out.println("Successfully logged on");
-				Controller homeScreen = new Controller();
-				homeScreen.showFrame();
+				return true;
 			}
 		} catch( IOException e1 ){
 			JOptionPane.showMessageDialog(null, "Unsuccessful logon.\n"
 					+ "Please try again.", "Logon Error!", JOptionPane.ERROR_MESSAGE);
-			LogonFrame logonFrame = new LogonFrame();
-			logonFrame.start();
+			
 		}
 	}
 
