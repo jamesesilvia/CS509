@@ -36,7 +36,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 
 import us.monoid.json.JSONArray;
-import us.monoid.json.JSONException;
 import us.monoid.web.AbstractContent;
 import us.monoid.web.JSONResource;
 import us.monoid.web.Resty;
@@ -94,12 +93,10 @@ public class ViewAllUsersFrame extends JFrame{
 		String[] columnNames = {"First Name", "Last Name", "Username"};
 		
 		// Need to get table contents from connection manager
-		
-		//Object[][] tableContents = {{"Jane",  "Doe","janedoe1"},
-		//							{"Cameron", "Diaz", "qt123"},
-		//							{"Selina", "Gomez", "bestNurse5000"}};
-		
-		Object[][] tableContents = new Object[100][3];
+		// Make this Object[100][3]
+		Object[][] tableContents = {{"Jane",  "Doe","janedoe1"},
+									{"Cameron", "Diaz", "qt123"},
+									{"Selina", "Gomez", "bestNurse5000"}};
 		
 		
 		// Grab users from the server.
@@ -108,30 +105,34 @@ public class ViewAllUsersFrame extends JFrame{
 		getUser.alwaysSend("Content-Type", "application/json");
 		try {
 			getUserResponse = getUser.json("http://cs509-arest.herokuapp.com/user/getAll");
-			getUserResponseArray = getUserResponse.array();
-			String print = Integer.toString(getUserResponseArray.length());
-			System.out.println("length of array = " + print);
-			
-			for(int i = 0; i < getUserResponseArray.length(); i ++)
-			{
-				UserContainer user = mapper.readValue(getUserResponseArray.getString(i), UserContainer.class);
-				System.out.println("First name: " + user.firstName);
-				System.out.println("Last name: " + user.lastName);
-				System.out.println("Username: " + user.userName);
-				tableContents[i][0] = user.firstName;
-				tableContents[i][1] = user.lastName;
-				tableContents[i][2] = user.userName;
-			}
-			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-	
+		getUserResponseArray = getUserResponse.array();
+		
+		
+		TypeReference<List<UserContainer>> typeRef = new TypeReference<List<UserContainer>>(){};
+		try {
+			listOfUsers = mapper.readValue(getUserNode.traverse(), typeRef);
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
+        for (UserContainer f : listOfUsers) {
+            System.out.println(f.userName);
+        }
+		
+		
 		// Button to go back to the HomeScreen
 		JButton backToHomeScreenButton = new JButton("Back to Main Menu");
 		backToHomeScreenButton.addActionListener(new ActionListener() {
@@ -181,11 +182,6 @@ public class ViewAllUsersFrame extends JFrame{
 		mframe.setSize(500, 500);
 		mframe.getContentPane().setLayout(groupLayout);
 		mframe.pack();
-	}
-	
-	public void fillTableContents(Object o) throws Exception
-	{
-		
 	}
 	
 	private AbstractContent content(List<String> json2) {
