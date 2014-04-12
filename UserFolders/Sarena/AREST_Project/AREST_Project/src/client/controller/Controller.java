@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
+import client.view.*;
 import client.view.abuseReport.*;
 import client.view.viewAllReports.*;
 import client.view.viewAllUsers.*;
@@ -28,24 +29,29 @@ public class Controller {
 	//private HomeScreenPanel homeScreenPanel;
 	private ViewAllReportsFrame viewAllReportsFrame;
 	private ViewAllUsersFrame viewAllUsersFrame;
-	private Controller controller = this;
+	private static LogonPanel logonPanel;
 	
+	
+	private Controller controller = this;
+	public static boolean loggedIn = false;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Controller window = new Controller();
-					window.mframe.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	//public static void main(String[] args) {
+	//	EventQueue.invokeLater(new Runnable() {
+	//		public void run() {
+	//			try {
+	//				//logonPanel = new LogonPanel();
+	//				//logonPanel.showFrame();
+	//				Controller window = new Controller();
+	//				window.mframe.setVisible(true);
+	//			} catch (Exception e) {
+	//				e.printStackTrace();
+	//			}
+	//		}
+	//	});
+	//}
 
 	/**
 	 * Create the application.

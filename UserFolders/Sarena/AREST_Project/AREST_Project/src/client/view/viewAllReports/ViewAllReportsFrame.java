@@ -21,6 +21,12 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+
+import us.monoid.web.Resty;
+import static us.monoid.web.Resty.*;
 
 // The controller class is the Home Screen
 public class ViewAllReportsFrame extends JFrame{
@@ -34,6 +40,8 @@ public class ViewAllReportsFrame extends JFrame{
 	private JScrollPane scrollPane;
 	private JTable table;
 	
+	private ObjectMapper mapper = new ObjectMapper();
+	private Resty r = new Resty();
 	
 
 	/**
@@ -60,8 +68,6 @@ public class ViewAllReportsFrame extends JFrame{
 		
 		
 		// Table of All Reports in the system
-		// Need to access the server
-		// Who is making the connection manager?
 		
 		String[] columnNames = {"Report Id", "Date", "Submitter"};
 		
@@ -70,6 +76,9 @@ public class ViewAllReportsFrame extends JFrame{
 		Object[][] tableContents = {{new Integer(1), "01/04/14", "Jane Doe"},
 									{new Integer(2), "02/20/14", "Cameron Diaz"},
 									{new Integer(3), "05/16/14", "Selina Gomez"}};
+		
+		// Grab reports from server
+		
 		
 		
 		// Button to go back to the HomeScreen

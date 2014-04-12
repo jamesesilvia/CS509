@@ -9,6 +9,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 
 import client.controller.Controller;
+import client.model.UserContainer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,8 +19,21 @@ import javax.swing.JTable;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.JTableHeader;
 import javax.swing.JPanel;
+
 import java.awt.BorderLayout;
+import java.util.*;
+
 import javax.swing.JScrollPane;
+
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.JsonParser;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
+
+import us.monoid.web.JSONResource;
+import us.monoid.web.Resty;
+import static us.monoid.web.Resty.*;
 
 
 // The controller class is the Home Screen
@@ -34,7 +48,11 @@ public class ViewAllUsersFrame extends JFrame{
 	private JScrollPane scrollPane;
 	private JTable table;
 	
-	
+	private ObjectMapper mapper = new ObjectMapper();
+	private Resty getUser = new Resty();
+	private JSONResource getUserResponse;
+	private List<String> json;
+
 
 	/**
 	 * Create the application.
@@ -63,14 +81,21 @@ public class ViewAllUsersFrame extends JFrame{
 		// Need to access the server
 		// Who is making the connection manager?
 		
-		String[] columnNames = {"First Name", "Last Name", "Employee Id"};
+		String[] columnNames = {"First Name", "Last Name", "Username"};
 		
 		// Need to get table contents from connection manager
 		// Make this Object[100][3]
-		Object[][] tableContents = {{"Jane",  "Doe", new Integer(1000)},
-									{"Cameron", "Diaz", new Integer(2000)},
-									{"Selina", "Gomez", new Integer(3000)}};
+		Object[][] tableContents = {{"Jane",  "Doe","janedoe1"},
+									{"Cameron", "Diaz", "qt123"},
+									{"Selina", "Gomez", "bestNurse5000"}};
 		
+		
+		// Grab users from the server.
+		//Get User information
+		
+		//getUser.alwaysSend("Content-Type", "application/json");
+		//getUserResponse = getUser.json("http://cs509-arest.herokuapp.com/user/getAll", content(json));
+		//List<UserContainer> user = mapper.readValue(json, new TypeReference<List<UserContainer>>(){});
 		
 		// Button to go back to the HomeScreen
 		JButton backToHomeScreenButton = new JButton("Back to Main Menu");
