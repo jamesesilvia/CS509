@@ -7,8 +7,10 @@
 <fullyQualifiedTypeName name="java.awt.Dimension"/>
 <fullyQualifiedTypeName name="javax.swing.table.JTableHeader"/>
 <fullyQualifiedTypeName name="us.monoid.web.JSONResource"/>
-<fullyQualifiedTypeName name="client.view.LogonPanel"/>
 <fullyQualifiedTypeName name="com.sun.xml.internal.bind.v2.schemagen.xmlschema.List"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="org.codehaus.jackson.type.TypeReference"/>
+<fullyQualifiedTypeName name="client.view.LogonPanel"/>
+<fullyQualifiedTypeName name="org.codehaus.jackson.JsonNode"/>
+<fullyQualifiedTypeName name="us.monoid.json.JSONArray"/>
 </qualifiedTypeNameHistroy>

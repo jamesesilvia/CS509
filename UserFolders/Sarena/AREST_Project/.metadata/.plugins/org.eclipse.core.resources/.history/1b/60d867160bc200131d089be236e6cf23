@@ -92,10 +92,17 @@ public class ViewAllUsersFrame extends JFrame{
 		// Who is making the connection manager?
 		
 		String[] columnNames = {"First Name", "Last Name", "Username"};
-		// Need to get table contents from connection manager
-		Object[][] tableContents = new Object[100][3];
 		
-		// Grabe Users from the Server
+		// Need to get table contents from connection manager
+		// Make this Object[100][3]
+		Object[][][] tableContents = {{"Jane",  "Doe","janedoe1"},
+									{"Cameron", "Diaz", "qt123"},
+									{"Selina", "Gomez", "bestNurse5000"}};
+		
+		
+		// Grab users from the server.
+		//Get User information
+		
 		getUser.alwaysSend("Content-Type", "application/json");
 		try {
 			getUserResponse = getUser.json("http://cs509-arest.herokuapp.com/user/getAll");
@@ -103,16 +110,12 @@ public class ViewAllUsersFrame extends JFrame{
 			String print = Integer.toString(getUserResponseArray.length());
 			System.out.println("length of array = " + print);
 			
-			// Get the user container(s) from the JSONArray
 			for(int i = 0; i < getUserResponseArray.length(); i ++)
 			{
 				UserContainer user = mapper.readValue(getUserResponseArray.getString(i), UserContainer.class);
 				System.out.println("First name: " + user.firstName);
 				System.out.println("Last name: " + user.lastName);
 				System.out.println("Username: " + user.userName);
-				tableContents[i][0] = user.firstName;
-				tableContents[i][1] = user.lastName;
-				tableContents[i][2] = user.userName;
 			}
 			
 		} catch (IOException e) {
