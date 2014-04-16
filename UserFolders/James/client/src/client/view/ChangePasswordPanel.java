@@ -54,6 +54,7 @@ public class ChangePasswordPanel extends JPanel {
 				if (passwordsEqual){
 					try {
 						user.password = password_1;
+						mainFrame.dispose();
 						controller.changePassword(user);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
@@ -77,19 +78,19 @@ public class ChangePasswordPanel extends JPanel {
 		lblPassword_1.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 		this.add(lblPassword_1);
 		//Username		
-		txtPassword_1.setBounds(107, 30, 149, 28);
+		txtPassword_1.setBounds(187, 30, 149, 28);
 		this.add(txtPassword_1);		
 		
 		//Password Label
-		lblPassword_2.setBounds(30, 69, 72, 16);
+		lblPassword_2.setBounds(30, 69, 145, 16);
 		lblPassword_2.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 		this.add(lblPassword_2);
 		//Password		
-		txtPassword_2.setBounds(107, 63, 149, 28);
+		txtPassword_2.setBounds(187, 63, 149, 28);
 		this.add(txtPassword_2);
 		
 		//Button		
-		btnSubmit.setBounds(107, 114, 88, 29);
+		btnSubmit.setBounds(136, 114, 88, 29);
 		this.add(btnSubmit);				
 	}
 }

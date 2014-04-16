@@ -22,7 +22,7 @@ public class ChangePasswordFrame extends JFrame {
 	}
 	
 	public void start(){
-		this.setSize(400,350);
+		this.setSize(400,200);
 		this.setVisible(true);
 	}
 

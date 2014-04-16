@@ -39,15 +39,20 @@ public class LogonController {
 				getUser.alwaysSend("Content-Type", "application/json");
 				getUserResponse = getUser.json("http://cs509-arest.herokuapp.com/user/get", content(json));
 				UserContainer user = mapper.readValue(getUserResponse.object().toString(), UserContainer.class);
-				boolean firstLogon = true;
 				//If this is the first time a user logs on, go to change password
-				if (firstLogon){
+				if (user.firstLogon == true){
+					user.firstLogon = false;
 					JOptionPane.showMessageDialog(null, "Successful logon!\n"
 							+ "Change your password before continuing.", "Password Change", JOptionPane.INFORMATION_MESSAGE);
 					//Launch change password frame
 					ChangePasswordFrame changeFrame = new ChangePasswordFrame(user);
 					changeFrame.start();
 					
+				}
+				else{
+					JOptionPane.showMessageDialog(null, "Successful logon!\n"
+							+ "Continuing to Home Screen", "Success!", JOptionPane.INFORMATION_MESSAGE);
+					//To Home Screen
 				}
 				//Go to home screen View and pass user information
 				System.out.println("Successfully logged on");			

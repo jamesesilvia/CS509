@@ -23,7 +23,6 @@ public class ChangePasswordController {
 	public void changePassword( UserContainer user) throws IOException{
 		//Map java object to json object
 		json = mapper.writeValueAsString(user);
-		System.out.println(json);	
 		//Check Passwords
 		sendLogon.alwaysSend("Content-Type", "application/json");
 		changePasswordResponse = sendLogon.json("http://cs509-arest.herokuapp.com/user/edit", content(json));
@@ -31,8 +30,15 @@ public class ChangePasswordController {
 			changePasswordResponse = sendLogon.json("http://cs509-arest.herokuapp.com/user/edit", content(json));
 			//If the change password was successful
 			if ( changePasswordResponse.status(200) == true ){
+				JOptionPane.showMessageDialog(null, "Changed Password!",
+						"Success!", JOptionPane.INFORMATION_MESSAGE);
 				//Go to home screen View
-				System.out.println("Changed Password");			
+				//Sarena
+			}
+			else{
+				//Something went wrong with server
+				//Not sure what to do here, maybe exit
+				System.out.println("Something went wrong");
 			}
 		} catch( IOException e1 ){
 			JOptionPane.showMessageDialog(null, "Something went wrong.\n"
@@ -43,10 +49,9 @@ public class ChangePasswordController {
 	
 	public boolean checkPasswords(String pw_1, String pw_2) {
 		if (pw_1.equals(pw_2) == true) {
-			System.out.println("Passwords equal");
 			return true;
 		}
-		JOptionPane.showMessageDialog(null, "Passwords must be the same.", "Password Error!", JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null, "Passwords must be the same, try again.", "Password Error!", JOptionPane.ERROR_MESSAGE);
 		return false;
 	}
 

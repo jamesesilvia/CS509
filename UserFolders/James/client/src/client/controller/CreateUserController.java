@@ -22,6 +22,7 @@ public class CreateUserController{
 	public void createUser(String firstName, String lastName, String username, 
 			String password, String email, boolean supervisor) throws JsonGenerationException, JsonMappingException, IOException{
 		user.id = null;
+		user.firstLogon = true;
 		user.firstName = firstName;
 		user.lastName = lastName;
 		user.userName = username;
@@ -38,6 +39,7 @@ public class CreateUserController{
 		if (sendCreateResponse.status(200) == true){
 			//Successfully created the user!
 			//Return to homescreen
+			//Sarena
 			System.out.println("Created user!");
 		}
 		else{
@@ -47,8 +49,6 @@ public class CreateUserController{
 			
 		}
 		
-		System.out.println("Username: " + username);
-		System.out.println("Password: " + password);
 	}
 	
 	public boolean checkPasswords(String pw_1, String pw_2) {
