@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>TestSetReportStatus</name>
+			<type>2</type>
+			<location>C:/Users/Matt/Documents/WPI Masters/CS509_Design_of_Software_Systems/Project/AREST_Project/AREST_Project/src/client/testcases/TestSetReportStatus</location>
+		</link>
+	</linkedResources>
 </projectDescription>

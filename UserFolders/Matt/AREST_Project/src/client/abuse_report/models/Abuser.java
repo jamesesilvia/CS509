@@ -5,17 +5,17 @@ package client.abuse_report.models;
  * @author Matt Orsini
  *
  */
-public class Abuser extends Individual {
+public class Abuser extends PersonInfo {
 
-	private String social;
-	private String dob;
-	private String relationshipToVictim;
+	//public Long id;
+	public String social;
+	public String dob;
+	public String relationshipToVictim;
 
 	/**
 	 * Constructor for an Abuser. Superclass is an Individual.
 	 */
 	public Abuser(){
-		// FIXME: empty constructor.
 	}
 
 	/**

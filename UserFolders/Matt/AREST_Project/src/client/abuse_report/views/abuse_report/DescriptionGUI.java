@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.SystemColor;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
@@ -13,23 +14,21 @@ import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 
 import client.abuse_report.interfaces.CreateReportInterface;
+import client.abuse_report.interfaces.ViewReportInterface;
 import client.abuse_report.models.Abuser;
 import client.abuse_report.models.Guardian;
-import client.abuse_report.models.ReportContainer;
+import client.abuse_report.models.Report;
 import client.abuse_report.models.Reporter;
 import client.abuse_report.models.Victim;
 import common.DocumentSizeFilter;
 
-import javax.swing.JTextPane;
-
-import java.awt.SystemColor;
-import javax.swing.JScrollPane;
-
-public class DescriptionGUI extends JPanel implements CreateReportInterface {
+public class DescriptionGUI extends JPanel implements CreateReportInterface, ViewReportInterface {
 
 	// Bumper on left.
 	private Insets leftInsetBumper = new Insets(5, 10, 5, 5);
@@ -537,41 +536,29 @@ public class DescriptionGUI extends JPanel implements CreateReportInterface {
 		return validInfo;
 	}
 
-	@Override
-	public Reporter commitReporter(Reporter reporter) {
-		return reporter;
-	}
 
 	@Override
-	public Abuser commitAbuser(Abuser abuser) {
-		return abuser;
-	}
-
-	@Override
-	public Victim commitVictim(Victim victim) {
-		return victim;
-	}
-
-	@Override
-	public Guardian commitGuardian(Guardian guardian) {
-		return guardian;
-	}
-	
-	public ReportContainer getReportContainerInfo(ReportContainer reportContainer) {
-		reportContainer.setInjuryList(injuryText.getText());
-		reportContainer.setWitnesses(witnessText.getText());
-		reportContainer.setCaregiverRel(relationshipText.getText());
+	public Report updateReport(Report report) {
+		report.setInjuryList(injuryText.getText());
+		report.setWitnesses(witnessText.getText());
+		report.setCaregiverRel(relationshipText.getText());
 		
-		reportContainer.setOralReportFiled(chckbxDppcYes.isSelected());
-		if(reportContainer.isOralReportFiled()) {
-			reportContainer.setOralReportFiledTime(dppcCalledMonth.getText().concat(dppcCalledDay.getText().concat(dppcCalledHour.getText().concat(dppcCalledMinute.getText()))));
+		report.setOralReportFiled(chckbxDppcYes.isSelected());
+		if(report.isIsOralReportFiled()) {
+			report.setOralReportFiledTime(dppcCalledMonth.getText().concat(dppcCalledDay.getText().concat(dppcCalledHour.getText().concat(dppcCalledMinute.getText()))));
 		}
 		
-		reportContainer.setRiskToInvestigator(chckbxInvestRiskYes.isSelected());
-		if(reportContainer.isRiskToInvestigator()) {
-			reportContainer.setRiskDescrToInvestigator(investRisk.getText());
+		report.setRiskToInvestigator(chckbxInvestRiskYes.isSelected());
+		if(report.isIsRiskToInvestigator()) {
+			report.setRiskDescrToInvestigator(investRisk.getText());
 		}
-		return reportContainer;
+		return report;
+	}
+
+	@Override
+	public void updatePanel(Report report) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

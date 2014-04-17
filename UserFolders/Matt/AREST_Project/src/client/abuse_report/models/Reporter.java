@@ -8,16 +8,16 @@ package client.abuse_report.models;
  * @author Matt Orsini
  *
  */
-public class Reporter extends Individual {
+public class Reporter extends PersonInfo {
 
-	private boolean mandated;
-	private String relationshipToVictim;
+	//public Long id;
+	public boolean mandated;
+	public String relationshipToVictim;
 
 	/**
 	 * Constructor for a reporter. Superclass is an Individual.
 	 */
 	public Reporter(){
-
 	}
 
 	/**
@@ -40,7 +40,7 @@ public class Reporter extends Individual {
 	 * @param name
 	 * @return
 	 */
-	private boolean checkString(String name1, String name2) {
+	public boolean checkString(String name1, String name2) {
 		boolean passed = false;
 		if(name1.equals(name2)) {
 			passed = true;

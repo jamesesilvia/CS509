@@ -18,16 +18,17 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.LineBorder;
 
 import client.abuse_report.interfaces.CreateReportInterface;
+import client.abuse_report.interfaces.ViewReportInterface;
 import client.abuse_report.models.Abuser;
 import client.abuse_report.models.Guardian;
-import client.abuse_report.models.Individual;
-import client.abuse_report.models.ReportContainer;
+import client.abuse_report.models.PersonInfo;
+import client.abuse_report.models.Report;
 import client.abuse_report.models.Reporter;
 import client.abuse_report.models.Victim;
 import common.DocumentSizeFilter;
 
 
-public class GuardianGUI extends JPanel implements CreateReportInterface{
+public class GuardianGUI extends JPanel implements CreateReportInterface, ViewReportInterface {
 
 	// Bumper on left.
 	private Insets leftInsetBumper = new Insets(5, 10, 5, 5);
@@ -52,7 +53,7 @@ public class GuardianGUI extends JPanel implements CreateReportInterface{
 	private	JLabel guardLastNameLabel = new JLabel("Last Name:");
 	private	JLabel guardAddressLabel = new JLabel("Address:");
 	private	JLabel guardRelationLabel = new JLabel("Relationship to Alleged Victim: ");
-	private JLabel guardTelephone = new JLabel("Telephone:");
+	private JLabel guardphoneNumber = new JLabel("Telephone:");
 	
 	private JFormattedTextField guardPhoneAreaCode = new JFormattedTextField();
 	private JFormattedTextField guardPhoneFirstThree = new JFormattedTextField();
@@ -60,7 +61,7 @@ public class GuardianGUI extends JPanel implements CreateReportInterface{
 	private JPanel collateralContactsPanel = new JPanel();
 	private JLabel collContactLabel = new JLabel("Collateral Contacts:");
 	private JLabel nameLabel = new JLabel("Name");
-	private JLabel phoneLabel = new JLabel("Telephone");
+	private JLabel phoneLabel = new JLabel("phoneNumber");
 	private JLabel name1Label = new JLabel("1");
 	private JFormattedTextField collContact1 = new JFormattedTextField();
 	private JPanel cc1PhonePanel = new JPanel();
@@ -210,13 +211,13 @@ public class GuardianGUI extends JPanel implements CreateReportInterface{
 		guardPanel.add(guardRelationship, gbc_guardRelationship);
 		guardRelationship.setColumns(10);
 		
-		GridBagConstraints gbc_guardTelephone = new GridBagConstraints();
-		gbc_guardTelephone.weighty = 0.1;
-		gbc_guardTelephone.anchor = GridBagConstraints.NORTHEAST;
-		gbc_guardTelephone.insets = new Insets(5, 10, 0, 5);
-		gbc_guardTelephone.gridx = 0;
-		gbc_guardTelephone.gridy = 6;
-		guardPanel.add(guardTelephone, gbc_guardTelephone);
+		GridBagConstraints gbc_guardphoneNumber = new GridBagConstraints();
+		gbc_guardphoneNumber.weighty = 0.1;
+		gbc_guardphoneNumber.anchor = GridBagConstraints.NORTHEAST;
+		gbc_guardphoneNumber.insets = new Insets(5, 10, 0, 5);
+		gbc_guardphoneNumber.gridx = 0;
+		gbc_guardphoneNumber.gridy = 6;
+		guardPanel.add(guardphoneNumber, gbc_guardphoneNumber);
 		
 		GridBagConstraints gbc_guardPhonePanel = new GridBagConstraints();
 		gbc_guardPhonePanel.fill = GridBagConstraints.BOTH;
@@ -758,25 +759,9 @@ public class GuardianGUI extends JPanel implements CreateReportInterface{
 
 
 	@Override
-	public Reporter commitReporter(Reporter reporter) {
-		return reporter;
-	}
-
-
-	@Override
-	public Abuser commitAbuser(Abuser abuser) {
-		return abuser;
-	}
-
-
-	@Override
-	public Victim commitVictim(Victim victim) {
-		return victim;
-	}
-
-
-	@Override
-	public Guardian commitGuardian(Guardian guardian) {
+	public Report updateReport(Report report) {
+		Guardian guardian = report.getGuardian();
+		
 		if(!guardFirstName.getText().equals("")) {
 			guardian.setFirstName(guardFirstName.getText());
 		}
@@ -790,29 +775,31 @@ public class GuardianGUI extends JPanel implements CreateReportInterface{
 			guardian.setRelationshipToVictim(guardRelationship.getText());
 		}
 		if(!guardPhoneAreaCode.getText().equals("") && !guardPhoneFirstThree.getText().equals("") && !guardPhoneLastFour.getText().equals("")){
-			guardian.setTelephone(guardPhoneAreaCode.getText().concat(guardPhoneFirstThree.getText().concat(guardPhoneLastFour.getText())));
+			guardian.setPhoneNumber(guardPhoneAreaCode.getText().concat(guardPhoneFirstThree.getText().concat(guardPhoneLastFour.getText())));
 		}
-		return guardian;
+		report.setGuardian(guardian);
+		
+		PersonInfo cContact1 = new PersonInfo(collContact1.getText(), cc1PhoneAreaCode.getText().concat(cc1PhoneFirstThree.getText().concat(cc1PhoneLastFour.getText())));
+		PersonInfo cContact2 = new PersonInfo(collContact2.getText(), cc2PhoneAreaCode.getText().concat(cc2PhoneFirstThree.getText().concat(cc2PhoneLastFour.getText())));
+		PersonInfo cContact3 = new PersonInfo(collContact3.getText(), cc3PhoneAreaCode.getText().concat(cc3PhoneFirstThree.getText().concat(cc3PhoneLastFour.getText())));
+		PersonInfo cContact4 = new PersonInfo(collContact4.getText(), cc4PhoneAreaCode.getText().concat(cc4PhoneFirstThree.getText().concat(cc4PhoneLastFour.getText())));
+		PersonInfo cContact5 = new PersonInfo(collContact5.getText(), cc5PhoneAreaCode.getText().concat(cc5PhoneFirstThree.getText().concat(cc5PhoneLastFour.getText())));
+		report.setCollateralContact1(cContact1);
+		report.setCollateralContact2(cContact2);
+		report.setCollateralContact3(cContact3);
+		report.setCollateralContact4(cContact4);
+		report.setCollateralContact5(cContact5);
+		report.setAbuseDescr(allegedAbuseDescriptionText.getText());
+		report.setVictimRisk(riskText.getText());
+		
+		
+		return report;
 	}
 
-	/**
-	 * Modfies the reportContainer. CAREFUL. this is extremely dangerous, but necessary for this particular GUI layout.
-	 * @param reportContainer - the master report container.........
-	 * @return - the master report container, modified appropriately.
-	 */
-	public ReportContainer getReportContainerInfo(ReportContainer reportContainer) {
-		Individual cContact1 = new Individual(collContact1.getText(), cc1PhoneAreaCode.getText().concat(cc1PhoneFirstThree.getText().concat(cc1PhoneLastFour.getText())));
-		Individual cContact2 = new Individual(collContact2.getText(), cc2PhoneAreaCode.getText().concat(cc2PhoneFirstThree.getText().concat(cc2PhoneLastFour.getText())));
-		Individual cContact3 = new Individual(collContact3.getText(), cc3PhoneAreaCode.getText().concat(cc3PhoneFirstThree.getText().concat(cc3PhoneLastFour.getText())));
-		Individual cContact4 = new Individual(collContact4.getText(), cc4PhoneAreaCode.getText().concat(cc4PhoneFirstThree.getText().concat(cc4PhoneLastFour.getText())));
-		Individual cContact5 = new Individual(collContact5.getText(), cc5PhoneAreaCode.getText().concat(cc5PhoneFirstThree.getText().concat(cc5PhoneLastFour.getText())));
-		reportContainer.setCollateralContactAt(cContact1, 0);
-		reportContainer.setCollateralContactAt(cContact2, 1);
-		reportContainer.setCollateralContactAt(cContact3, 2);
-		reportContainer.setCollateralContactAt(cContact4, 3);
-		reportContainer.setCollateralContactAt(cContact5, 4);
-		reportContainer.setAbuseDescr(allegedAbuseDescriptionText.getText());
-		reportContainer.setVictimRisk(riskText.getText());
-		return reportContainer;
+
+	@Override
+	public void updatePanel(Report report) {
+		// TODO Auto-generated method stub
+		
 	}
 }

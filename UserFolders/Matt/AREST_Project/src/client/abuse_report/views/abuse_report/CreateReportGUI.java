@@ -6,8 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,9 +14,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+
+import us.monoid.web.JSONResource;
+import static us.monoid.web.Resty.content;
+import us.monoid.web.Resty;
 import client.abuse_report.models.Abuser;
 import client.abuse_report.models.Guardian;
-import client.abuse_report.models.ReportContainer;
+import client.abuse_report.models.Report;
 import client.abuse_report.models.Reporter;
 import client.abuse_report.models.Victim;
 
@@ -27,153 +33,41 @@ import client.abuse_report.models.Victim;
  * @author Matt Orsini
  *
  */
-public class CreateReportGUI extends JFrame {
+public class CreateReportGUI extends ReportGUI {
 
-	final private static boolean DEBUG_REPORTER   = true;
-	final private static boolean DEBUG_VICTIM     = true;
-	final private static boolean DEBUG_VICTIM_ADD = true;
-	final private static boolean DEBUG_GUARDIAN   = true;
-	final private static boolean DEBUG_DESCR      = true;
-	
-	final private static String REPORTER_PANEL         = "Reporter Panel";
-	final private static String VICTIM_PANEL           = "Victim Panel";
-	final private static String VICTIM_ADD_INFO_PANEL  = "VICTIM_ADD_PANEL";
-	final private static String GUARDIAN_PANEL         = "Guardian Panel";
-	final private static String DESCRIPTION_PANEL      = "Description Panel";
-	
-	private JFrame mFrame;
-	private JPanel containerPanel;
-	private JPanel mCards;
-	private JButton previousButton;
-	private JButton cancelButton;
-	private JButton nextButton;
-	private CardLayout clContainer;
-	
-	private static ReportContainer reportContainer;
-	private static ReporterGUI reporterGUI;
-	private static VictimGUI   victimGUI;
-	private static VictimAdditionalInfoGUI victimAddGUI;
-	private static GuardianGUI guardianGUI;
-	private static DescriptionGUI descriptionGUI;
-	
-	private Reporter reporter;
-	private Abuser abuser;
-	private Victim victim;
-	private Guardian guardian;
-	
-	private static int componentIndex = 0;
-	
-	private final Object[] option = {"Yes", "No"};
 	
 	/**
 	 * Create the panel.
 	 */
 	public CreateReportGUI() {
-		reportContainer = new ReportContainer();
-		reporter = new Reporter();
-		victim = new Victim();
-		abuser = new Abuser();
-		guardian = new Guardian();
+		reportContainer = new Report();
 		componentIndex = 0;
 		initialize();	
+		setReportEditable(true);
 	}
 	
-	/**
-	 * Increment the component index in the cardlayout
-	 */
-	private void incrementCardLayoutCounter() {
-		if(componentIndex != mCards.getComponentCount()) {
-			componentIndex++;
-		}
-	}
-	
-	/**
-	 * Decrement the component index in the cardlayout
-	 */
-	private void decrementCardLayoutCounter() {
-		if(componentIndex != 0) {
-			componentIndex--;
-		}
-	}
-	
-	/**
-	 * Get the index of the current card being displayed to the user.
-	 * @return - the current component's index in the cardlayout being displayed to the user.
-	 */
-	public int getCardComponentIndex() {
-		return componentIndex;
-	}
 	
 	/**
 	 * Initialize components in this Panel
 	 */
 	public void initialize() {
-		mFrame = new JFrame();
+		super.initialize();
 		
-		containerPanel = new JPanel();
-		mFrame.getContentPane().add(containerPanel);
-		GridBagLayout gbl_containerPanel = new GridBagLayout();
-		gbl_containerPanel.columnWidths = new int[] {0};
-		gbl_containerPanel.columnWeights = new double[]{0.0, 0.0, 0.0};
-		gbl_containerPanel.rowWeights = new double[]{0.0, 0.0};
-		containerPanel.setLayout(gbl_containerPanel);
-		
-		previousButton = new JButton("Previous");
-		
-		// Previous button will simply return to the previous screen in the cardlayout
-		previousButton.addActionListener(new ActionListener() {
+		buttonLeft.setText("Previous");
+		buttonLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event ) {
 				if (event.getID() == ActionEvent.ACTION_PERFORMED) {
 					if(getCardComponentIndex() != 0) {
 						clContainer.previous(mCards);
-						nextButton.setText("Next");
+						buttonRight.setText("Next");
 					}
 					decrementCardLayoutCounter();
 				}
 			}
 		});
 		
-		// Create all the cards in this panel.
-		reporterGUI = new ReporterGUI();
-		reporterGUI.setName(REPORTER_PANEL);
-		victimGUI   = new VictimGUI();
-		victimGUI.setName(VICTIM_PANEL);
-		victimAddGUI = new VictimAdditionalInfoGUI();
-		victimAddGUI.setName(VICTIM_ADD_INFO_PANEL);
-		guardianGUI = new GuardianGUI();
-		guardianGUI.setName(GUARDIAN_PANEL);
-		descriptionGUI = new DescriptionGUI();
-		descriptionGUI.setName(DESCRIPTION_PANEL);
-		
-		// Create the CardLayout and add the cards
-		CardLayout cl_mCards = new CardLayout();
-		mCards = new JPanel(cl_mCards);
-		mCards.add(reporterGUI, REPORTER_PANEL);
-		mCards.add(victimGUI,   VICTIM_PANEL);
-		mCards.add(victimAddGUI, VICTIM_ADD_INFO_PANEL);
-		mCards.add(guardianGUI, GUARDIAN_PANEL);
-		mCards.add(descriptionGUI, DESCRIPTION_PANEL);
-		
-		clContainer = (CardLayout) mCards.getLayout();
-		GridBagConstraints gbc_mCards = new GridBagConstraints();
-		gbc_mCards.anchor = GridBagConstraints.NORTHWEST;
-		gbc_mCards.insets = new Insets(0, 5, 5, 0);
-		gbc_mCards.gridwidth = 3;
-		gbc_mCards.gridx = 0;
-		gbc_mCards.gridy = 0;
-		containerPanel.add(mCards, gbc_mCards);
-		
-		GridBagConstraints gbc_previousButton = new GridBagConstraints();
-		gbc_previousButton.fill = GridBagConstraints.HORIZONTAL;
-		gbc_previousButton.insets = new Insets(0, 5, 0, 0);
-		gbc_previousButton.gridx = 0;
-		gbc_previousButton.gridy = 1;
-		gbc_previousButton.weightx = 0.5;
-		containerPanel.add(previousButton, gbc_previousButton);
-		
-		nextButton = new JButton("Next");
-		nextButton.setVerticalAlignment(SwingConstants.BOTTOM);
-		nextButton.addActionListener(new ActionListener() {
+		buttonRight.setText("Next");
+		buttonRight.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent action) {
@@ -181,50 +75,50 @@ public class CreateReportGUI extends JFrame {
 					boolean validInfo = false;
 					if(mCards.getComponent(getCardComponentIndex()).getName() ==  REPORTER_PANEL) {
 						// Check and commit changes to this panel and the model
-						if(!DEBUG_REPORTER) validInfo = true;
-						else {
-							validInfo = reporterGUI.isValidInfo();
-							if(validInfo){
-								// Commit changes to the model.
-								reporter = reporterGUI.commitReporter(reporter);
-								abuser =  reporterGUI.commitAbuser(abuser);
-							}
+						validInfo = reporterGUI.isValidInfo();
+						if(validInfo){
+							// Commit changes to the model.
+							reportContainer = reporterGUI.updateReport(reportContainer);
 						}
 					} else if (mCards.getComponent(getCardComponentIndex()).getName() == VICTIM_PANEL) {
-						if(!DEBUG_VICTIM) validInfo = true;
-						else { 
-							validInfo = victimGUI.isValidInfo();
-							if(validInfo) {
-								victim = victimGUI.commitVictim(victim);
-							}
+						validInfo = victimGUI.isValidInfo();
+						if(validInfo) {
+							reportContainer = victimGUI.updateReport(reportContainer);
 						}
-						
 					} else if (mCards.getComponent(getCardComponentIndex()).getName() == VICTIM_ADD_INFO_PANEL) {
-						if(!DEBUG_VICTIM_ADD) validInfo = true;
-						else {
-							validInfo = victimAddGUI.isValidInfo();
-							if(validInfo) {
-								victim = victimAddGUI.commitVictim(victim);
-							}
+						validInfo = victimAddGUI.isValidInfo();
+						if(validInfo) {
+							reportContainer = victimAddGUI.updateReport(reportContainer);
 						}
 					} else if(mCards.getComponent(getCardComponentIndex()).getName() == GUARDIAN_PANEL) {
-						if(!DEBUG_GUARDIAN) validInfo = true;
-						else { 
-							validInfo = guardianGUI.isValidInfo();
-							if(validInfo) {
-								guardian = guardianGUI.commitGuardian(guardian);
-								reportContainer = guardianGUI.getReportContainerInfo(reportContainer);
-							}
+						validInfo = guardianGUI.isValidInfo();
+						if(validInfo) {
+							reportContainer = guardianGUI.updateReport(reportContainer);
 						}
 					} else if(mCards.getComponent(getCardComponentIndex()).getName() == DESCRIPTION_PANEL) {
-						if(!DEBUG_DESCR) validInfo = true;
-						else {
-							validInfo = descriptionGUI.isValidInfo();
-							if(validInfo) {
-								reportContainer = descriptionGUI.getReportContainerInfo(reportContainer);
+						validInfo = descriptionGUI.isValidInfo();
+						if(validInfo) {
+							boolean resp = false;
+							reportContainer = descriptionGUI.updateReport(reportContainer);
+							try {
+								resp = sendReportToServer(reportContainer);
+							} catch (JsonGenerationException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (JsonMappingException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+									e.printStackTrace();
+							}
+							// Successful submission means we can close the window.
+							if(resp) {
+								mFrame.dispose();
 							}
 						}
 					}
+				
 					// Only proceed if the information is valid
 					if(validInfo){
 						if(componentIndex != (mCards.getComponents().length - 1)) {
@@ -232,25 +126,17 @@ public class CreateReportGUI extends JFrame {
 							incrementCardLayoutCounter();
 						}
 						if(componentIndex == (mCards.getComponentCount() -1)) {
-							nextButton.setText("Submit");
+							buttonRight.setText("Submit");
 						} else {
-							nextButton.setText("Next");
+							buttonRight.setText("Next");
 						}
 					}
 				}
 			}
 		});
-		GridBagConstraints gbc_nextButton = new GridBagConstraints();
-		gbc_nextButton.fill = GridBagConstraints.HORIZONTAL;
-		gbc_nextButton.insets = new Insets(0, 5, 0, 5);
-		gbc_nextButton.gridx = 2;
-		gbc_nextButton.gridy = 1;
-		gbc_nextButton.weightx = 0.5;
-		gbc_nextButton.weighty = 1;
-		containerPanel.add(nextButton, gbc_nextButton);
 		
-		cancelButton = new JButton("Cancel");
-		cancelButton.addActionListener(new ActionListener() {
+		buttonCenter.setText("Cancel");
+		buttonCenter.addActionListener(new ActionListener() {
 			/**
 			 * This actionlistener determines if the window should be disposed. We've given the user
 			 * A second chance to go back on their decision to exit the createreport. 
@@ -271,20 +157,36 @@ public class CreateReportGUI extends JFrame {
 		
 		
 		
-		GridBagConstraints gbc_cancelButton = new GridBagConstraints();
-		gbc_cancelButton.fill = GridBagConstraints.HORIZONTAL;
-		gbc_cancelButton.gridx = 1;
-		gbc_cancelButton.gridy = 1;
-		gbc_cancelButton.weightx = 0.5;
-		gbc_cancelButton.insets = new Insets(0, 5, 0, 0);
-		containerPanel.add(cancelButton, gbc_cancelButton);
-
-		mFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		mFrame.pack();
-		mFrame.setResizable(false);
-		mFrame.setVisible(true);
 		
 	}
 	
+	/**
+	 * Sends the new report to the server.
+	 * @param the report to send to the server.
+	 * @throws IOException 
+	 * @throws JsonMappingException 
+	 * @throws JsonGenerationException 
+	 */
+	private boolean sendReportToServer(Report report) throws JsonGenerationException, JsonMappingException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		Resty rest = new Resty();
+		JSONResource getReportResp;
+		
+		String json = mapper.writeValueAsString(report);
+		System.out.println(json);
+		
+		rest.alwaysSend("Content-Type", "application/json");
+		
+		getReportResp = rest.json("http://cs509-arest.herokuapp.com/report/create", content(json));
+		
+		Object[] option = {"OK"};
+		if(getReportResp.status(200)) {
+			JOptionPane.showOptionDialog(mFrame, "Successfully submitted report.", "Success!", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
+			return true;
+		} else {
+			JOptionPane.showOptionDialog(mFrame, "Failed to submit report.", "Failed.", JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE, null, option, option[0]);
+			return false;
+		}
+	}
 	
 }
