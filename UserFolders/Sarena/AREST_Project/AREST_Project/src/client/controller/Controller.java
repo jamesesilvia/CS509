@@ -1,9 +1,11 @@
 package client.controller;
 
 import java.awt.EventQueue;
+import java.awt.Frame;
 
 import javax.swing.JFrame;
 
+import client.model.UserContainer;
 import client.view.*;
 import client.view.abuseReport.*;
 import client.view.viewAllReports.*;
@@ -15,6 +17,8 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 
 // The controller class is the Home Screen
@@ -29,11 +33,14 @@ public class Controller {
 	//private HomeScreenPanel homeScreenPanel;
 	private ViewAllReportsFrame viewAllReportsFrame;
 	private ViewAllUsersFrame viewAllUsersFrame;
-	private static LogonPanel logonPanel;
+	private CreateUserFrame createUserFrame;
+	private DeleteUserFrame deleteUserFrame;
+	private ChangePasswordFrame changePasswordFrame;
+	
 	
 	
 	private Controller controller = this;
-	public static boolean loggedIn = false;
+	public static UserContainer currentUser;
 
 	/**
 	 * Launch the application.
@@ -56,7 +63,8 @@ public class Controller {
 	/**
 	 * Create the application.
 	 */
-	public Controller() {
+	public Controller(UserContainer _currentUser) {
+		currentUser = _currentUser;
 		initialize();
 	}
 
@@ -96,10 +104,10 @@ public class Controller {
 			public void actionPerformed(ActionEvent action) {
 				if(action.getID() == ActionEvent.ACTION_PERFORMED) {
 					// Pass in reference to the controller to the const
-					viewAllReportsFrame = new ViewAllReportsFrame(controller);
+					viewAllReportsFrame = new ViewAllReportsFrame(currentUser);
 					
-					// Set the controller frame invisible
-					mframe.setVisible(false);
+					// displose this frame as we are going to make a new one.
+					mframe.dispose();
 					
 					// Show the view all reports frame
 					viewAllReportsFrame.showFrame();
@@ -107,15 +115,69 @@ public class Controller {
 			}
 		});
 		
+		
 		// The following takes us to the view all users frame
 		JButton viewAllUsersButton = new JButton("View All Users");
 		viewAllUsersButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent action) {
 				if(action.getID() == ActionEvent.ACTION_PERFORMED) {
-					viewAllUsersFrame = new ViewAllUsersFrame(controller);
-					mframe.setVisible(false);
+					viewAllUsersFrame = new ViewAllUsersFrame(currentUser);
+					mframe.dispose();
 					viewAllUsersFrame.showFrame();
 				
+				}
+			}
+		});
+		
+		JButton viewReportButton = new JButton("View Report");
+		viewReportButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent action) {
+				if(action.getID() == ActionEvent.ACTION_PERFORMED) {
+					// Put matt's changes in
+
+				}
+			}
+		});
+		
+		JButton logOffButton = new JButton("Log Off");
+		logOffButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent action) {
+				if(action.getID() == ActionEvent.ACTION_PERFORMED) {
+					// simply dispose window and exit applicaiton to log off
+					mframe.dispose();
+				}
+			}
+		});
+		
+		JButton createUserButton = new JButton("Create New User");
+		createUserButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent action) {
+				if(action.getID() == ActionEvent.ACTION_PERFORMED) {
+					createUserFrame = new CreateUserFrame(currentUser);
+					mframe.dispose();
+					createUserFrame.start();
+				}
+			}
+		});
+		
+		JButton deleteUserButton = new JButton("Delete User");
+		deleteUserButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent action) {
+				if(action.getID() == ActionEvent.ACTION_PERFORMED) {
+					deleteUserFrame = new DeleteUserFrame(currentUser);
+					mframe.dispose();
+					deleteUserFrame.start();
+				}
+			}
+		});
+		
+		JButton changePasswordButton = new JButton("Change Password");
+		changePasswordButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent action) {
+				if(action.getID() == ActionEvent.ACTION_PERFORMED) {
+					changePasswordFrame = new ChangePasswordFrame(currentUser);
+					mframe.dispose();
+					changePasswordFrame.start();
 				}
 			}
 		});
@@ -125,26 +187,68 @@ public class Controller {
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(266)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(viewAllUsersButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, groupLayout.createParallelGroup(Alignment.TRAILING, false)
-							.addComponent(viewAllReportsButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(createReportButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-					.addContainerGap(283, Short.MAX_VALUE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(createReportButton, GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+						.addComponent(viewAllReportsButton, GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))
+					.addGap(296))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(280)
+					.addComponent(viewAllUsersButton, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(308, Short.MAX_VALUE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(302)
+					.addComponent(deleteUserButton)
+					.addContainerGap(337, Short.MAX_VALUE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(317)
+					.addComponent(logOffButton)
+					.addContainerGap(342, Short.MAX_VALUE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(289)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(changePasswordButton)
+						.addComponent(createUserButton))
+					.addContainerGap(320, Short.MAX_VALUE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(306)
+					.addComponent(viewReportButton)
+					.addContainerGap(331, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(createReportButton)
 					.addGap(18)
 					.addComponent(viewAllReportsButton)
 					.addGap(18)
+					.addComponent(viewReportButton)
+					.addPreferredGap(ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
 					.addComponent(viewAllUsersButton)
-					.addContainerGap(266, Short.MAX_VALUE))
+					.addGap(18)
+					.addComponent(deleteUserButton)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(createUserButton)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(changePasswordButton)
+					.addGap(14)
+					.addComponent(logOffButton)
+					.addContainerGap())
 		);
+		
+		
 		mframe.getContentPane().setLayout(groupLayout);
 		mframe.pack();
+		
+		if(!currentUser.isSupervisor)
+		{
+			viewAllReportsButton.setVisible(false);
+			viewAllUsersButton.setVisible(false);
+			deleteUserButton.setVisible(false);
+			createUserButton.setVisible(false);
+		}
+
+		
 	}
 	
 	public void showFrame() {

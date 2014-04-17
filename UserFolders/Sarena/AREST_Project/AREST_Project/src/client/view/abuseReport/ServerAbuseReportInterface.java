@@ -1,0 +1,17 @@
+package client.view.abuseReport;
+
+import client.model.ReportContainer;
+
+/**
+ * This class describes the methods necessary to map the client's report container to the server's models.
+ * @author Matt Orsini
+ *
+ */
+public interface ServerAbuseReportInterface {
+	/**
+	 * Maps the models of the client's abuse report to the server's models of an abuse report.
+	 * @param clientAbuseReport - the client's abuse report to map to the server's models.
+	 */
+	public void setReportContainer(ReportContainer clientAbuseReport);
+	
+}

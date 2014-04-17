@@ -7,37 +7,33 @@ package client.model;
  * @author Matt Orsini
  */
 
-public abstract class Individual {
+// FIXME: Change to personinfo class. 
+public class Individual {
 
+	protected Long id;
 	protected String firstName;
 	protected String lastName;
 	protected String address;
 	protected String telephone;
-	private String relationshipToVictim;
 
 	/**
-	 * Constructor. This class is meant to be extended.
+	 * Constructor
 	 */
 	public Individual() {
 	}
-
-
+	
 	/**
-	 * Get the relationship to the victim. Each individual in the report has
-	 * a relationship to the alleged victim.
-	 * @return relationshipToVictim - the relationship to the victim
+	 * Constructor used when only a name and telephone number are needed.
+	 * @param firstName
+	 * @param telephone
 	 */
-	public String getRelationshipToVictim() {
-		return relationshipToVictim;
+	public Individual(String firstName, String telephone) {
+		this.firstName = firstName;
+		this.telephone = telephone;
+		this.lastName = null;
+		this.address = null;
 	}
-	/**
-	 * Set the relationship to the victim. Each individual in the report has
-	 * a relationship to the alleged victim.
-	 * @param relationshipToVictim - the relationship to the victim
-	 */
-	public void setRelationshipToVictim(String relationshipToVictim) {
-		this.relationshipToVictim = relationshipToVictim;
-	}
+
 
 	/**
 	 * Get the name of the required individual.

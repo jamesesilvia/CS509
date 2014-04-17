@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 import client.controller.CreateUserController;
+import client.model.UserContainer;
 
 import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
@@ -43,7 +44,11 @@ public class CreateUserPanel extends JPanel {
 	private boolean passwordsEqual;
 	private boolean supervisor;
 	
-	public CreateUserPanel() {
+	private UserContainer currentUser;
+	
+	public CreateUserPanel(UserContainer _currentUser) {
+		currentUser = _currentUser;
+		
 		//First Name
 		lblFirstName = new JLabel("First Name:");
 		txtFirstName = new JTextField();

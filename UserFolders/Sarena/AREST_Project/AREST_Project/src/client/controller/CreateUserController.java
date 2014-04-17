@@ -3,6 +3,7 @@ import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
+import us.monoid.web.JSONResource;
 import us.monoid.web.Resty;
 import static us.monoid.web.Resty.*;
 
@@ -16,10 +17,12 @@ public class CreateUserController{
 	public UserContainer user = new UserContainer();
 	ObjectMapper mapper = new ObjectMapper();
 	Resty sendCreate = new Resty();
+	JSONResource sendCreateResponse;
 	
 	public void createUser(String firstName, String lastName, String username, 
 			String password, String email, boolean supervisor) throws JsonGenerationException, JsonMappingException, IOException{
 		user.id = null;
+		user.firstLogon = true;
 		user.firstName = firstName;
 		user.lastName = lastName;
 		user.userName = username;
@@ -32,10 +35,20 @@ public class CreateUserController{
 		String json = mapper.writeValueAsString(user);
 		//POST to Server
 		sendCreate.alwaysSend("Content-Type", "application/json");
-		Object response = sendCreate.json("http://cs509-arest.herokuapp.com/user/create", content(json));
+		sendCreateResponse = sendCreate.json("http://cs509-arest.herokuapp.com/user/create", content(json));
+		if (sendCreateResponse.status(200) == true){
+			//Successfully created the user!
+			//Return to homescreen
+			//Sarena
+			System.out.println("Created user!");
+		}
+		else{
+			JOptionPane.showMessageDialog(null, "Unable to create user!", "Error!", JOptionPane.ERROR_MESSAGE);
+			//Where to go from here?
+			//Home Screen, or try again? Make option pane a yes/no
+			
+		}
 		
-		System.out.println("Username: " + username);
-		System.out.println("Password: " + password);
 	}
 	
 	public boolean checkPasswords(String pw_1, String pw_2) {

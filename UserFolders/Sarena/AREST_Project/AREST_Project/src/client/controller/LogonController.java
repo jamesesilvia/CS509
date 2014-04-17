@@ -18,6 +18,7 @@ import client.model.UserContainer;
 import client.view.ChangePasswordPanel;
 import client.view.LogonFrame;
 import client.controller.Controller;
+import client.view.ChangePasswordFrame;
 
 public class LogonController {
 	String json, userJson;
@@ -28,13 +29,9 @@ public class LogonController {
 	AbstractResource logonResponse;
 	JSONResource getUserResponse;
 	
-	
-	@SuppressWarnings("deprecation")
-	public void login(String username, String password) throws Exception{
-		user.userName = username;
-		user.password = password;
+	public void login(UserContainer userToLogin ) throws Exception{
 		//Map java object to json object
-		json = mapper.writeValueAsString(user);
+		json = mapper.writeValueAsString(userToLogin);
 		//Check User Password
 		sendLogon.alwaysSend("Content-Type", "application/json");		
 		try{
@@ -47,16 +44,25 @@ public class LogonController {
 				UserContainer user = mapper.readValue(getUserResponse.object().toString(), UserContainer.class);
 				boolean firstLogon = true;
 				//If this is the first time a user logs on, go to change password
-				if (firstLogon){
+				if (user.firstLogon == true){
+					user.firstLogon = false;
 					JOptionPane.showMessageDialog(null, "Successful logon!\n"
 							+ "Change your password before continuing.", "Password Change", JOptionPane.INFORMATION_MESSAGE);
-					ChangePasswordPanel changePanel = new ChangePasswordPanel();
+					//Launch change password frame
+					ChangePasswordFrame changeFrame = new ChangePasswordFrame(user);
+					changeFrame.start();
 					
 				}
+				else{
+					JOptionPane.showMessageDialog(null, "Successful logon!\n"
+							+ "Continuing to Home Screen", "Success!", JOptionPane.INFORMATION_MESSAGE);
+									//Go to home screen View and pass user information
+					System.out.println("Successfully logged on");
+					Controller homeScreen = new Controller(user);
+					homeScreen.showFrame();
+				}
 				//Go to home screen View and pass user information
-				System.out.println("Successfully logged on");
-				Controller homeScreen = new Controller();
-				homeScreen.showFrame();
+				System.out.println("Successfully logged on");			
 			}
 		} catch( IOException e1 ){
 			JOptionPane.showMessageDialog(null, "Unsuccessful logon.\n"

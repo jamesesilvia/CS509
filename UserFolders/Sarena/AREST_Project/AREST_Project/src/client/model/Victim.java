@@ -1,9 +1,6 @@
 package client.model;
 
 
-
-
-
 /**
  * A victim is an Individual who has been allegedly abused by an Abuser.
  * @author Matt Orsini
@@ -11,22 +8,18 @@ package client.model;
  */
 public class Victim extends Individual {
 
-	// Configurable? Probably not in Java.
-	private static final int MAX_NUM_COMMUNICATION_NEEDS = 3;
-	private static final int MAX_NUM_DISABILITIES        = 20;
-		
-	private boolean male;
-	private boolean female;
-	private String dateOfBirth;
+	private String sex;
+	private String dob;
 	private String age;
 	private String maritalStatus; 
 	
-	private String[] disabilities = new String[MAX_NUM_DISABILITIES];
+	private String disability;
 	private String ethnicity;
-	private String[] comNeeds = new String [MAX_NUM_COMMUNICATION_NEEDS];
-	private boolean awareOfReport;
+	private String communicationNeeds;
+	private String currentlyServedBy;
+	private boolean awarenessOfReport;
 	private String typeOfService;
-	private String[] typesOfAbuse;
+	private String typesOfAbuse;
 	private String freqOfAbuse;
 	private String dateOfLastIncident;
 
@@ -37,55 +30,20 @@ public class Victim extends Individual {
 		// FIXME: Empty constructor.
 	}
 
-	/**
-	 * Returns if the Victim is a male.
-	 * @return male
-	 */
-	public boolean isMale() {
-		return male;
-	}
-	/**
-	 * Sets the Victim to male. Victims cannot be male and female, so female will be cleared.
-	 * @param male
-	 */
-	public void setMale(boolean male) {
-		if(male) {
-			this.male = male;
-			setFemale(false);
-		}
-	}
-
-	/**
-	 * Returns if the Victim is a female.
-	 * @return female
-	 */
-	public boolean isFemale() {
-		return female;
-	}
-	/**
-	 * Sets the Victim is a female. Victims cannot be male and female, so male will be cleared.
-	 * @param female
-	 */
-	public void setFemale(boolean female) {
-		if(female){
-			this.female = female;
-			setMale(false);
-		}
-	}
 
 	/**
 	 * Returns the date of birth for the Victim.
-	 * @return dateOfBirth
+	 * @return the date of birth
 	 */
-	public String getDateOfBirth() {
-		return dateOfBirth;
+	public String getDob() {
+		return dob;
 	}
 	/**
 	 * Set the date of birth for the Victim.
 	 * @param dateOfBirth
 	 */
-	public void setDateOfBirth(String dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
+	public void setDob(String dob) {
+		this.dob = dob;
 	}
 
 	/**
@@ -95,6 +53,7 @@ public class Victim extends Individual {
 	public String getAge() {
 		return age;
 	}
+	
 	/**
 	 * Set the age of the Victim.
 	 * @param string
@@ -121,28 +80,19 @@ public class Victim extends Individual {
 	/**
 	 * Sets the disabilities for this client.
 	 * @param disability  - the disability
-	 * @param n           - the index
 	 */
-	public void setDisabilities(String disability, int n){
-		this.disabilities[n] = disability;
+	public void setDisabilities(String disability){
+		this.disability = disability;
 	}
 	
 	/**
 	 * Gets all disabilities for this client.
 	 * @return disabilities - the disability array.
 	 */
-	public String[] getDisabilities(){
-		return disabilities;
+	public String getDisability(){
+		return disability;
 	}
 	
-	/**
-	 * Gets the disability at the specified index.
-	 * @return disabilities[n] - the disability at the position n.
-	 */
-	public String getDisabilityAt(int n) {
-		return disabilities[n];
-	}
-
 	/**
 	 * Get the ethnicity for this client.
 	 * @return ethnicity - the ethnicity of the client.
@@ -163,30 +113,30 @@ public class Victim extends Individual {
 	 * Set the communication needs for thsi client.
 	 * @param comNeeds
 	 */
-	public void setComNeeds(String comNeeds, int n){
-		this.comNeeds[n] = comNeeds;
+	public void setComNeeds(String communicationNeeds) {
+		this.communicationNeeds = communicationNeeds;
 	}
 	
 	/**
 	 * Get the communication needs for this client.
 	 */
-	public String[] getComNeeds() {
-		return comNeeds;
+	public String getCommunicationNeeds() {
+		return communicationNeeds;
 	}
 
 	
 	/**
 	 * @return if the client is aware of this abuse report.
 	 */
-	public boolean isAwareOfReport() {
-		return awareOfReport;
+	public boolean isAwarenessOfReport() {
+		return awarenessOfReport;
 	}
 	
 	/**
 	 * @param awareOfReport is the client's awareness of this abuse report.
 	 */
-	public void setAwareOfReport(boolean awareOfReport) {
-		this.awareOfReport = awareOfReport;
+	public void setAwareOfReport(boolean awarenessOfReport) {
+		this.awarenessOfReport = awarenessOfReport;
 	}
 
 	/**
@@ -209,27 +159,18 @@ public class Victim extends Individual {
 	 * Get all types of abuse.
 	 * @return the typesOfAbuse
 	 */
-	public String[] getTypesOfAbuse() {
+	public String getTypesOfAbuse() {
 		return typesOfAbuse;
 	}
 	
 	/**
-	 * Get the type of abuse at the specified index.
-	 * @param n - the index to get the abuse from.
-	 * @return the type of abuse
+	 * Set all types of abuse.
+	 * @param typesOfAbuse - the types of abuse.
 	 */
-	public String getTypeOfAbuseAt(int n) {
-		return typesOfAbuse[n];
+	public void setTypesOfAbuse(String typesOfAbuse) {
+		this.typesOfAbuse = typesOfAbuse;
 	}
-
-	/**
-	 * Set the types of abuse;
-	 * @param typesOfAbuse
-	 */
-	public void setTypeOfAbuseAt(String typeOfAbuse, int n) {
-		this.typesOfAbuse[n] = typeOfAbuse;
-	}
-
+	
 	/**
 	 * Gets the frequency of abuse.
 	 * @return the freqOfAbuse
@@ -260,6 +201,23 @@ public class Victim extends Individual {
 	 */
 	public void setDateOfLastIncident(String dateOfLastIncident) {
 		this.dateOfLastIncident = dateOfLastIncident;
+	}
+
+	/**
+	 * Returns the services provided to this victim.
+	 * @return the services provided to this victim.
+	 */
+	public String getCurrentlyServedBy() {
+		return currentlyServedBy;
+	}
+	
+	
+	/**
+	 * Set the services provided to this victim.
+	 * @param currServedBy - the services provided to this victim.
+	 */
+	public void setCurrServedBy(String currServedBy) {
+		this.currentlyServedBy = currServedBy;
 	}
 	
 	

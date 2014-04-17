@@ -2,12 +2,14 @@ package client.view;
 
 import javax.swing.JFrame;
 
+import client.model.UserContainer;
+
 public class DeleteUserFrame extends JFrame {
 	
 	private DeleteUserPanel currentPanel;
 	
-	public DeleteUserFrame(){		
-		currentPanel = new DeleteUserPanel();
+	public DeleteUserFrame(UserContainer _currentUser){		
+		currentPanel = new DeleteUserPanel(_currentUser);
 		setTitle("Delete User");
 		
 		setupFrame();

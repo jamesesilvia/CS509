@@ -49,6 +49,7 @@ public class ViewAllUsersFrame extends JFrame{
 	private static final String CREATE_REPORT = "CREATE_REPORT";
 	
 	private JFrame mframe;
+	private UserContainer currentUser;
 	
 	private Controller controller;
 	private JPanel panel;
@@ -59,15 +60,14 @@ public class ViewAllUsersFrame extends JFrame{
 	private Resty getUser = new Resty();
 	private JSONResource getUserResponse;
 	private JSONArray getUserResponseArray;
-	private JsonNode getUserNode;
 	List<UserContainer> listOfUsers;
-	private List<String> json;
 
 
 	/**
 	 * Create the application.
 	 */
-	public ViewAllUsersFrame(Controller _controller) {
+	public ViewAllUsersFrame(UserContainer _currentUser) {
+		currentUser = _currentUser;
 		initialize();
 	}
 
@@ -130,7 +130,7 @@ public class ViewAllUsersFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent action) {
 				if(action.getID() == ActionEvent.ACTION_PERFORMED) {
-					controller = new Controller();
+					controller = new Controller(currentUser);
 					mframe.setVisible(false);
 					controller.showFrame();
 				}

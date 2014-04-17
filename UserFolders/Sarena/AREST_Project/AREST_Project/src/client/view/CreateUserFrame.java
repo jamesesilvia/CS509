@@ -2,12 +2,14 @@ package client.view;
 
 import javax.swing.JFrame;
 
+import client.model.UserContainer;
+
 public class CreateUserFrame extends JFrame {
 	
 	private CreateUserPanel currentPanel;
 	
-	public CreateUserFrame(){		
-		currentPanel = new CreateUserPanel();
+	public CreateUserFrame(UserContainer _currentUser){		
+		currentPanel = new CreateUserPanel(_currentUser);
 		setTitle("Create New User Account");
 		
 		setupFrame();

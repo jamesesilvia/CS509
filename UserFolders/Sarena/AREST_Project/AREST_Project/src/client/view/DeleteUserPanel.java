@@ -15,19 +15,24 @@ import javax.swing.JPasswordField;
 import client.controller.CreateUserController;
 import client.controller.DeleteUserController;
 import client.controller.LogonController;
+import client.model.UserContainer;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 public class DeleteUserPanel extends JPanel {
+	private UserContainer currentUser;
+	
 	private JTextField userNameField;	
 	private JLabel lblUsername;	
 	private JButton btnSubmit;
 	private DeleteUserController controller;
 	private String username;
 	
-	public DeleteUserPanel() {
+	public DeleteUserPanel(UserContainer _currentUser) {
+		currentUser = _currentUser;
+		
 		//Username
 		lblUsername = new JLabel("Username:");
 		userNameField = new JTextField();

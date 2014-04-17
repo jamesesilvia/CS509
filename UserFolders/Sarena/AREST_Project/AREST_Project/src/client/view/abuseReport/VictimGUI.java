@@ -33,6 +33,12 @@ import common.DocumentSizeFilter;
 
 public class VictimGUI extends JPanel implements CreateReportInterface {
 	
+	// Bumper on left.
+	private Insets leftInsetBumper = new Insets(5, 10, 5, 5);
+	
+	// Bumper on top.
+	private Insets topInsetBumper = new Insets(10, 10, 5, 5); 
+	
 	private DocumentSizeFilter filter;
 	
 	private JTextField monthText;
@@ -83,7 +89,6 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 	private JTextPane lastNameNotSetWarning;
 	private JTextPane comNotSetWarning;
 	private JFormattedTextField otherEthnicityTextField;
-	private JTextPane phoneHyphon;
 	private JTextPane phoneNotSetWarning;
 	private JTextField otherComNeedsTextField;
 	
@@ -107,132 +112,560 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 	private JCheckBox ttyCheckBox;
 	private JCheckBox signInterCheckBox;
 	private JCheckBox otherComNeedsCheckBox;
+	private JPanel panel;
+	private JPanel panel_1;
 
 	
 	public VictimGUI() {
 		setToolTipText("Please enter information regarding the Alleged Victim.");
 		// To configure JTextComponents
 		filter = new DocumentSizeFilter(10);
-
 		
-		DisabilityPanel = new JPanel();
-		DisabilityPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		
+
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{800, 0};
+		gridBagLayout.rowHeights = new int[]{223, 172, 161, 113, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		setLayout(gridBagLayout);
 		
 		VictimPanel = new JPanel();
 		VictimPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		GridBagConstraints gbc_VictimPanel = new GridBagConstraints();
+		gbc_VictimPanel.weighty = 0.3;
+		gbc_VictimPanel.fill = GridBagConstraints.BOTH;
+		gbc_VictimPanel.insets = new Insets(10, 10, 5, 10);
+		gbc_VictimPanel.gridx = 0;
+		gbc_VictimPanel.gridy = 0;
+		add(VictimPanel, gbc_VictimPanel);
+		GridBagLayout gbl_VictimPanel = new GridBagLayout();
+		gbl_VictimPanel.columnWidths = new int[]{55, 0, 301, 109, 30, 302, 0};
+		gbl_VictimPanel.rowHeights = new int[]{19, 21, 22, 20, 21, 21, 0};
+		gbl_VictimPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_VictimPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		VictimPanel.setLayout(gbl_VictimPanel);
+		
+		addrNotSetWarning = new JTextPane();
+		addrNotSetWarning.setVisible(false);
+		
+		allegedVictimLabel = new JLabel("Alleged Victim");
+		allegedVictimLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		GridBagConstraints gbc_allegedVictimLabel = new GridBagConstraints();
+		gbc_allegedVictimLabel.anchor = GridBagConstraints.NORTHWEST;
+		gbc_allegedVictimLabel.insets = topInsetBumper;
+		gbc_allegedVictimLabel.gridx = 0;
+		gbc_allegedVictimLabel.gridy = 0;
+		VictimPanel.add(allegedVictimLabel, gbc_allegedVictimLabel);
+		
+		firstNameLabel = new JLabel("First Name:");
+		GridBagConstraints gbc_firstNameLabel = new GridBagConstraints();
+		gbc_firstNameLabel.anchor = GridBagConstraints.NORTHEAST;
+		gbc_firstNameLabel.insets = leftInsetBumper;
+		gbc_firstNameLabel.gridx = 0;
+		gbc_firstNameLabel.gridy = 1;
+		VictimPanel.add(firstNameLabel, gbc_firstNameLabel);
+		
+		firstNameNotSetWarning = new JTextPane();
+		firstNameNotSetWarning.setVisible(false);
+		firstNameNotSetWarning.setEditable(false);
+		firstNameNotSetWarning.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		firstNameNotSetWarning.setForeground(Color.RED);
+		firstNameNotSetWarning.setText("*");
+		firstNameNotSetWarning.setBackground(SystemColor.menu);
+		GridBagConstraints gbc_firstNameNotSetWarning = new GridBagConstraints();
+		gbc_firstNameNotSetWarning.anchor = GridBagConstraints.NORTHWEST;
+		gbc_firstNameNotSetWarning.insets = new Insets(0, 0, 5, 5);
+		gbc_firstNameNotSetWarning.gridx = 1;
+		gbc_firstNameNotSetWarning.gridy = 1;
+		VictimPanel.add(firstNameNotSetWarning, gbc_firstNameNotSetWarning);
+		
+		firstNameText = new JFormattedTextField();
+		filter.setupTextField(firstNameText, DocumentSizeFilter.CHAR, 20);
+		filter.setupTextField(firstNameText, DocumentSizeFilter.CHAR, 20);
+		GridBagConstraints gbc_firstNameText = new GridBagConstraints();
+		gbc_firstNameText.anchor = GridBagConstraints.NORTH;
+		gbc_firstNameText.fill = GridBagConstraints.HORIZONTAL;
+		gbc_firstNameText.insets = new Insets(0, 0, 5, 5);
+		gbc_firstNameText.gridx = 2;
+		gbc_firstNameText.gridy = 1;
+		VictimPanel.add(firstNameText, gbc_firstNameText);
+		
+		lastNameLabel = new JLabel("Last Name:");
+		GridBagConstraints gbc_lastNameLabel = new GridBagConstraints();
+		gbc_lastNameLabel.weightx = 0.1;
+		gbc_lastNameLabel.anchor = GridBagConstraints.EAST;
+		gbc_lastNameLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lastNameLabel.gridx = 3;
+		gbc_lastNameLabel.gridy = 1;
+		VictimPanel.add(lastNameLabel, gbc_lastNameLabel);
+		
+		lastNameNotSetWarning = new JTextPane();
+		lastNameNotSetWarning.setVisible(false);
+		lastNameNotSetWarning.setText("*");
+		lastNameNotSetWarning.setForeground(Color.RED);
+		lastNameNotSetWarning.setEditable(false);
+		lastNameNotSetWarning.setBackground(SystemColor.menu);
+		GridBagConstraints gbc_lastNameNotSetWarning = new GridBagConstraints();
+		gbc_lastNameNotSetWarning.anchor = GridBagConstraints.NORTHWEST;
+		gbc_lastNameNotSetWarning.insets = new Insets(0, 0, 5, 5);
+		gbc_lastNameNotSetWarning.gridx = 4;
+		gbc_lastNameNotSetWarning.gridy = 1;
+		VictimPanel.add(lastNameNotSetWarning, gbc_lastNameNotSetWarning);
+		
+		lastNameText = new JFormattedTextField();
+		GridBagConstraints gbc_lastNameText = new GridBagConstraints();
+		gbc_lastNameText.weightx = 0.8;
+		gbc_lastNameText.anchor = GridBagConstraints.NORTH;
+		gbc_lastNameText.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lastNameText.insets = new Insets(0, 0, 5, 10);
+		gbc_lastNameText.gridx = 5;
+		gbc_lastNameText.gridy = 1;
+		VictimPanel.add(lastNameText, gbc_lastNameText);
+		
+		addressLabel = new JLabel("Address:");
+		GridBagConstraints gbc_addressLabel = new GridBagConstraints();
+		gbc_addressLabel.anchor = GridBagConstraints.NORTHEAST;
+		gbc_addressLabel.insets = leftInsetBumper;
+		gbc_addressLabel.gridx = 0;
+		gbc_addressLabel.gridy = 2;
+		VictimPanel.add(addressLabel, gbc_addressLabel);
+		addrNotSetWarning.setEditable(false);
+		addrNotSetWarning.setText("*");
+		addrNotSetWarning.setForeground(Color.RED);
+		addrNotSetWarning.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		addrNotSetWarning.setBackground(SystemColor.menu);
+		GridBagConstraints gbc_addrNotSetWarning = new GridBagConstraints();
+		gbc_addrNotSetWarning.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_addrNotSetWarning.insets = new Insets(0, 0, 5, 5);
+		gbc_addrNotSetWarning.gridx = 1;
+		gbc_addrNotSetWarning.gridy = 2;
+		VictimPanel.add(addrNotSetWarning, gbc_addrNotSetWarning);
+		
+		addressTextArea = new JTextArea();
+		addressTextArea.setWrapStyleWord(true);
+		addressTextArea.setLineWrap(true);
+		GridBagConstraints gbc_addressTextArea = new GridBagConstraints();
+		gbc_addressTextArea.fill = GridBagConstraints.BOTH;
+		gbc_addressTextArea.insets = new Insets(0, 0, 5, 5);
+		gbc_addressTextArea.gridheight = 2;
+		gbc_addressTextArea.gridx = 2;
+		gbc_addressTextArea.gridy = 2;
+		VictimPanel.add(addressTextArea, gbc_addressTextArea);
+		
+		sexLabel = new JLabel("Sex:");
+		GridBagConstraints gbc_sexLabel = new GridBagConstraints();
+		gbc_sexLabel.anchor = GridBagConstraints.NORTHEAST;
+		gbc_sexLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_sexLabel.gridx = 3;
+		gbc_sexLabel.gridy = 2;
+		VictimPanel.add(sexLabel, gbc_sexLabel);
+		
+		sexNotSetWarning = new JTextPane();
+		sexNotSetWarning.setEditable(false);
+		sexNotSetWarning.setVisible(false);
+		sexNotSetWarning.setText("*");
+		sexNotSetWarning.setForeground(Color.RED);
+		sexNotSetWarning.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		sexNotSetWarning.setBackground(SystemColor.menu);
+		GridBagConstraints gbc_sexNotSetWarning = new GridBagConstraints();
+		gbc_sexNotSetWarning.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_sexNotSetWarning.insets = new Insets(0, 0, 5, 5);
+		gbc_sexNotSetWarning.gridx = 4;
+		gbc_sexNotSetWarning.gridy = 2;
+		VictimPanel.add(sexNotSetWarning, gbc_sexNotSetWarning);
+		
+				
+		sexCombo = new JComboBox();
+		sexCombo.setModel(new DefaultComboBoxModel(new String[] {"<Select One>", "Male", "Female"}));
+		GridBagConstraints gbc_sexCombo = new GridBagConstraints();
+		gbc_sexCombo.anchor = GridBagConstraints.NORTH;
+		gbc_sexCombo.fill = GridBagConstraints.HORIZONTAL;
+		gbc_sexCombo.insets = new Insets(0, 0, 5, 10);
+		gbc_sexCombo.gridx = 5;
+		gbc_sexCombo.gridy = 2;
+		VictimPanel.add(sexCombo, gbc_sexCombo);
+		
+		lblTelephone = new JLabel("Telephone");
+		GridBagConstraints gbc_lblTelephone = new GridBagConstraints();
+		gbc_lblTelephone.anchor = GridBagConstraints.SOUTHEAST;
+		gbc_lblTelephone.insets = new Insets(0, 0, 5, 5);
+		gbc_lblTelephone.gridx = 3;
+		gbc_lblTelephone.gridy = 3;
+		VictimPanel.add(lblTelephone, gbc_lblTelephone);
+		
+		phoneNotSetWarning = new JTextPane();
+		phoneNotSetWarning.setVisible(false);
+		phoneNotSetWarning.setForeground(Color.RED);
+		phoneNotSetWarning.setEditable(false);
+		phoneNotSetWarning.setBackground(SystemColor.menu);
+		phoneNotSetWarning.setText("*");
+		GridBagConstraints gbc_phoneNotSetWarning = new GridBagConstraints();
+		gbc_phoneNotSetWarning.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_phoneNotSetWarning.insets = new Insets(0, 0, 5, 5);
+		gbc_phoneNotSetWarning.gridx = 4;
+		gbc_phoneNotSetWarning.gridy = 3;
+		VictimPanel.add(phoneNotSetWarning, gbc_phoneNotSetWarning);
+		
+		panel_1 = new JPanel();
+		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+		gbc_panel_1.anchor = GridBagConstraints.SOUTH;
+		gbc_panel_1.insets = new Insets(0, 0, 5, 10);
+		gbc_panel_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_panel_1.gridx = 5;
+		gbc_panel_1.gridy = 3;
+		VictimPanel.add(panel_1, gbc_panel_1);
+		GridBagLayout gbl_panel_1 = new GridBagLayout();
+		gbl_panel_1.columnWidths = new int[]{0, 0, 0, 0};
+		gbl_panel_1.rowHeights = new int[]{0, 0};
+		gbl_panel_1.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_1.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		panel_1.setLayout(gbl_panel_1);
+		phoneAreaCode = new JFormattedTextField();
+		GridBagConstraints gbc_phoneAreaCode = new GridBagConstraints();
+		gbc_phoneAreaCode.fill = GridBagConstraints.BOTH;
+		gbc_phoneAreaCode.weightx = 0.2;
+		gbc_phoneAreaCode.insets = new Insets(0, 0, 0, 5);
+		gbc_phoneAreaCode.gridx = 0;
+		gbc_phoneAreaCode.gridy = 0;
+		panel_1.add(phoneAreaCode, gbc_phoneAreaCode);
+		filter.setupTextField(phoneAreaCode, DocumentSizeFilter.NO, 3);
+		phoneFirstThree = new JFormattedTextField();
+		GridBagConstraints gbc_phoneFirstThree = new GridBagConstraints();
+		gbc_phoneFirstThree.fill = GridBagConstraints.BOTH;
+		gbc_phoneFirstThree.weightx = 0.2;
+		gbc_phoneFirstThree.insets = new Insets(0, 0, 0, 5);
+		gbc_phoneFirstThree.gridx = 1;
+		gbc_phoneFirstThree.gridy = 0;
+		panel_1.add(phoneFirstThree, gbc_phoneFirstThree);
+		filter.setupTextField(phoneFirstThree, DocumentSizeFilter.NO, 3);
+		phoneLastFour = new JFormattedTextField();
+		GridBagConstraints gbc_phoneLastFour = new GridBagConstraints();
+		gbc_phoneLastFour.fill = GridBagConstraints.BOTH;
+		gbc_phoneLastFour.weightx = 0.4;
+		gbc_phoneLastFour.gridx = 2;
+		gbc_phoneLastFour.gridy = 0;
+		panel_1.add(phoneLastFour, gbc_phoneLastFour);
+		filter.setupTextField(phoneLastFour, DocumentSizeFilter.NO, 4);
+		
+		dobLabel = new JLabel("DOB: ");
+		GridBagConstraints gbc_dobLabel = new GridBagConstraints();
+		gbc_dobLabel.weighty = 1.0;
+		gbc_dobLabel.anchor = GridBagConstraints.EAST;
+		gbc_dobLabel.insets = leftInsetBumper;
+		gbc_dobLabel.gridx = 0;
+		gbc_dobLabel.gridy = 4;
+		VictimPanel.add(dobLabel, gbc_dobLabel);
+		
+		dobNotSetWarning = new JTextPane();
+		dobNotSetWarning.setVisible(false);
+		dobNotSetWarning.setEditable(false);
+		dobNotSetWarning.setText("*");
+		dobNotSetWarning.setForeground(Color.RED);
+		dobNotSetWarning.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		dobNotSetWarning.setBackground(SystemColor.menu);
+		GridBagConstraints gbc_dobNotSetWarning = new GridBagConstraints();
+		gbc_dobNotSetWarning.anchor = GridBagConstraints.WEST;
+		gbc_dobNotSetWarning.insets = new Insets(0, 0, 5, 5);
+		gbc_dobNotSetWarning.gridx = 1;
+		gbc_dobNotSetWarning.gridy = 4;
+		VictimPanel.add(dobNotSetWarning, gbc_dobNotSetWarning);
+		
+		panel = new JPanel();
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.insets = new Insets(0, 0, 5, 5);
+		gbc_panel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_panel.gridx = 2;
+		gbc_panel.gridy = 4;
+		VictimPanel.add(panel, gbc_panel);
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[]{0, 0, 0, 0};
+		gbl_panel.rowHeights = new int[]{0, 0};
+		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		panel.setLayout(gbl_panel);
+		
+		dayText = new JTextField();
+		GridBagConstraints gbc_dayText = new GridBagConstraints();
+		gbc_dayText.fill = GridBagConstraints.BOTH;
+		gbc_dayText.weightx = 0.2;
+		gbc_dayText.insets = new Insets(0, 0, 0, 5);
+		gbc_dayText.gridx = 0;
+		gbc_dayText.gridy = 0;
+		panel.add(dayText, gbc_dayText);
+		dayText.setText("DD");
+		dayText.setColumns(10);
+		filter.setupTextField(dayText, DocumentSizeFilter.NO, 2);
+		
+		monthText = new JTextField();
+		GridBagConstraints gbc_monthText = new GridBagConstraints();
+		gbc_monthText.fill = GridBagConstraints.BOTH;
+		gbc_monthText.weightx = 0.2;
+		gbc_monthText.insets = new Insets(0, 0, 0, 5);
+		gbc_monthText.gridx = 1;
+		gbc_monthText.gridy = 0;
+		panel.add(monthText, gbc_monthText);
+		monthText.setText("MM");
+		monthText.setColumns(10);
+		filter.setupTextField(monthText, DocumentSizeFilter.NO, 2);
+		
+		yearText = new JTextField();
+		GridBagConstraints gbc_yearText = new GridBagConstraints();
+		gbc_yearText.fill = GridBagConstraints.BOTH;
+		gbc_yearText.weightx = 0.4;
+		gbc_yearText.gridx = 2;
+		gbc_yearText.gridy = 0;
+		panel.add(yearText, gbc_yearText);
+		yearText.setText("YYYY");
+		yearText.setColumns(10);
+		filter.setupTextField(yearText, DocumentSizeFilter.NO, 4);
+		
+		ageLabel = new JLabel("Age:");
+		GridBagConstraints gbc_ageLabel = new GridBagConstraints();
+		gbc_ageLabel.anchor = GridBagConstraints.EAST;
+		gbc_ageLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_ageLabel.gridx = 3;
+		gbc_ageLabel.gridy = 4;
+		VictimPanel.add(ageLabel, gbc_ageLabel);
+		
+		ageNotSetWarning = new JTextPane();
+		ageNotSetWarning.setVisible(false);
+		ageNotSetWarning.setEditable(false);
+		ageNotSetWarning.setText("*");
+		ageNotSetWarning.setForeground(Color.RED);
+		ageNotSetWarning.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		ageNotSetWarning.setBackground(SystemColor.menu);
+		GridBagConstraints gbc_ageNotSetWarning = new GridBagConstraints();
+		gbc_ageNotSetWarning.anchor = GridBagConstraints.WEST;
+		gbc_ageNotSetWarning.insets = new Insets(0, 0, 5, 5);
+		gbc_ageNotSetWarning.gridx = 4;
+		gbc_ageNotSetWarning.gridy = 4;
+		VictimPanel.add(ageNotSetWarning, gbc_ageNotSetWarning);
+		
+		ageText = new JTextField();
+		ageText.setColumns(10);
+		filter.setupTextField(ageText, DocumentSizeFilter.NO, 3);
+		GridBagConstraints gbc_ageText = new GridBagConstraints();
+		gbc_ageText.fill = GridBagConstraints.HORIZONTAL;
+		gbc_ageText.insets = new Insets(0, 0, 5, 10);
+		gbc_ageText.gridx = 5;
+		gbc_ageText.gridy = 4;
+		VictimPanel.add(ageText, gbc_ageText);
+		
+		maritalStatusLabel = new JLabel("Marital Status:");
+		GridBagConstraints gbc_maritalStatusLabel = new GridBagConstraints();
+		gbc_maritalStatusLabel.anchor = GridBagConstraints.NORTHEAST;
+		gbc_maritalStatusLabel.insets = new Insets(5, 10, 15, 5);
+		gbc_maritalStatusLabel.gridx = 0;
+		gbc_maritalStatusLabel.gridy = 5;
+		VictimPanel.add(maritalStatusLabel, gbc_maritalStatusLabel);
+		
+		maritalStatusNotSetWarning = new JTextPane();
+		maritalStatusNotSetWarning.setEditable(false);
+		maritalStatusNotSetWarning.setVisible(false);
+		maritalStatusNotSetWarning.setText("*");
+		maritalStatusNotSetWarning.setForeground(Color.RED);
+		maritalStatusNotSetWarning.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		maritalStatusNotSetWarning.setBackground(SystemColor.menu);
+		GridBagConstraints gbc_maritalStatusNotSetWarning = new GridBagConstraints();
+		gbc_maritalStatusNotSetWarning.anchor = GridBagConstraints.NORTHWEST;
+		gbc_maritalStatusNotSetWarning.insets = new Insets(0, 0, 0, 5);
+		gbc_maritalStatusNotSetWarning.gridx = 1;
+		gbc_maritalStatusNotSetWarning.gridy = 5;
+		VictimPanel.add(maritalStatusNotSetWarning, gbc_maritalStatusNotSetWarning);
+		
+		maritalStatusText = new JTextField();
+		maritalStatusText.setColumns(10);
+		filter.setupTextField(maritalStatusText, DocumentSizeFilter.CHAR, 10);
+		GridBagConstraints gbc_maritalStatusText = new GridBagConstraints();
+		gbc_maritalStatusText.insets = new Insets(0, 0, 0, 5);
+		gbc_maritalStatusText.anchor = GridBagConstraints.NORTH;
+		gbc_maritalStatusText.fill = GridBagConstraints.HORIZONTAL;
+		gbc_maritalStatusText.gridx = 2;
+		gbc_maritalStatusText.gridy = 5;
+		VictimPanel.add(maritalStatusText, gbc_maritalStatusText);
+		
+				
+				DisabilityPanel = new JPanel();
+				DisabilityPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+				GridBagConstraints gbc_DisabilityPanel = new GridBagConstraints();
+				gbc_DisabilityPanel.weightx = 1.0;
+				gbc_DisabilityPanel.weighty = 0.1;
+				gbc_DisabilityPanel.fill = GridBagConstraints.BOTH;
+				gbc_DisabilityPanel.insets = new Insets(0, 10, 5, 10);
+				gbc_DisabilityPanel.gridx = 0;
+				gbc_DisabilityPanel.gridy = 1;
+				add(DisabilityPanel, gbc_DisabilityPanel);
+				GridBagLayout gbl_DisabilityPanel = new GridBagLayout();
+				gbl_DisabilityPanel.columnWidths = new int[]{210, 0, 471, 0};
+				gbl_DisabilityPanel.rowHeights = new int[]{22, 125, 0};
+				gbl_DisabilityPanel.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+				gbl_DisabilityPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+				DisabilityPanel.setLayout(gbl_DisabilityPanel);
+				
+				disabilityLabel = new JLabel("Disability: (check as apply)");
+				disabilityLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+				GridBagConstraints gbc_disabilityLabel = new GridBagConstraints();
+				gbc_disabilityLabel.anchor = GridBagConstraints.SOUTHWEST;
+				gbc_disabilityLabel.insets = topInsetBumper;
+				gbc_disabilityLabel.gridx = 0;
+				gbc_disabilityLabel.gridy = 0;
+				DisabilityPanel.add(disabilityLabel, gbc_disabilityLabel);
+				
+				disabilityNotSetWarning = new JTextPane();
+				disabilityNotSetWarning.setVisible(false);
+				disabilityNotSetWarning.setEditable(false);
+				disabilityNotSetWarning.setForeground(Color.RED);
+				disabilityNotSetWarning.setText("*");
+				disabilityNotSetWarning.setBackground(SystemColor.menu);
+				GridBagConstraints gbc_disabilityNotSetWarning = new GridBagConstraints();
+				gbc_disabilityNotSetWarning.anchor = GridBagConstraints.NORTHWEST;
+				gbc_disabilityNotSetWarning.insets = new Insets(0, 0, 5, 5);
+				gbc_disabilityNotSetWarning.gridx = 1;
+				gbc_disabilityNotSetWarning.gridy = 0;
+				DisabilityPanel.add(disabilityNotSetWarning, gbc_disabilityNotSetWarning);
+				
+				disabilityCbPanel = new JPanel();
+				GridBagLayout gbl_disabilityCbPanel = new GridBagLayout();
+				gbl_disabilityCbPanel.columnWidths = new int[] {100, 100, 100, 90};
+				gbl_disabilityCbPanel.rowHeights = new int[] {20, 20, 20, 20};
+				gbl_disabilityCbPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
+				gbl_disabilityCbPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0};
+				disabilityCbPanel.setLayout(gbl_disabilityCbPanel);
+				
+				chckbxMentalRetardation = new JCheckBox("Mental Retardation");
+				GridBagConstraints gbc_chckbxMentalRetardation = new GridBagConstraints();
+				gbc_chckbxMentalRetardation.anchor = GridBagConstraints.WEST;
+				gbc_chckbxMentalRetardation.insets = new Insets(0, 0, 5, 5);
+				gbc_chckbxMentalRetardation.gridx = 0;
+				gbc_chckbxMentalRetardation.gridy = 0;
+				disabilityCbPanel.add(chckbxMentalRetardation, gbc_chckbxMentalRetardation);
+				
+				chckbxMobility = new JCheckBox("Mobility");
+				GridBagConstraints gbc_chckbxMobility = new GridBagConstraints();
+				gbc_chckbxMobility.anchor = GridBagConstraints.WEST;
+				gbc_chckbxMobility.fill = GridBagConstraints.VERTICAL;
+				gbc_chckbxMobility.insets = new Insets(0, 0, 5, 5);
+				gbc_chckbxMobility.gridx = 2;
+				gbc_chckbxMobility.gridy = 0;
+				disabilityCbPanel.add(chckbxMobility, gbc_chckbxMobility);
+				
+				chckbxVisual = new JCheckBox("Visual");
+				GridBagConstraints gbc_chckbxVisual = new GridBagConstraints();
+				gbc_chckbxVisual.anchor = GridBagConstraints.WEST;
+				gbc_chckbxVisual.fill = GridBagConstraints.VERTICAL;
+				gbc_chckbxVisual.insets = new Insets(0, 0, 5, 0);
+				gbc_chckbxVisual.gridx = 4;
+				gbc_chckbxVisual.gridy = 0;
+				disabilityCbPanel.add(chckbxVisual, gbc_chckbxVisual);
+				chckbxMultipleSclerosis = new JCheckBox("Multiple Sclerosis");
+				GridBagConstraints gbc_chckbxMultipleSclerosis = new GridBagConstraints();
+				gbc_chckbxMultipleSclerosis.anchor = GridBagConstraints.WEST;
+				gbc_chckbxMultipleSclerosis.insets = new Insets(0, 0, 5, 5);
+				gbc_chckbxMultipleSclerosis.gridx = 0;
+				gbc_chckbxMultipleSclerosis.gridy = 1;
+				disabilityCbPanel.add(chckbxMultipleSclerosis, gbc_chckbxMultipleSclerosis);
+				chckbxMentalIllness = new JCheckBox("Mental Illness");
+				GridBagConstraints gbc_chckbxMentalIllness = new GridBagConstraints();
+				gbc_chckbxMentalIllness.anchor = GridBagConstraints.WEST;
+				gbc_chckbxMentalIllness.fill = GridBagConstraints.VERTICAL;
+				gbc_chckbxMentalIllness.insets = new Insets(0, 0, 5, 5);
+				gbc_chckbxMentalIllness.gridx = 2;
+				gbc_chckbxMentalIllness.gridy = 1;
+				disabilityCbPanel.add(chckbxMentalIllness, gbc_chckbxMentalIllness);
+				chckbxDeafHard = new JCheckBox("Deaf / Hard of Hearing");
+				GridBagConstraints gbc_chckbxDeafHard = new GridBagConstraints();
+				gbc_chckbxDeafHard.anchor = GridBagConstraints.WEST;
+				gbc_chckbxDeafHard.fill = GridBagConstraints.VERTICAL;
+				gbc_chckbxDeafHard.insets = new Insets(0, 0, 5, 0);
+				gbc_chckbxDeafHard.gridx = 4;
+				gbc_chckbxDeafHard.gridy = 1;
+				disabilityCbPanel.add(chckbxDeafHard, gbc_chckbxDeafHard);
+				chckbxCerebralPalsy = new JCheckBox("Cerebral Palsy");
+				GridBagConstraints gbc_chckbxCerebralPalsy = new GridBagConstraints();
+				gbc_chckbxCerebralPalsy.anchor = GridBagConstraints.WEST;
+				gbc_chckbxCerebralPalsy.insets = new Insets(0, 0, 5, 5);
+				gbc_chckbxCerebralPalsy.gridx = 0;
+				gbc_chckbxCerebralPalsy.gridy = 2;
+				disabilityCbPanel.add(chckbxCerebralPalsy, gbc_chckbxCerebralPalsy);
+				chckbxHeadInjury = new JCheckBox("Head Injury");
+				GridBagConstraints gbc_chckbxHeadInjury = new GridBagConstraints();
+				gbc_chckbxHeadInjury.anchor = GridBagConstraints.WEST;
+				gbc_chckbxHeadInjury.fill = GridBagConstraints.VERTICAL;
+				gbc_chckbxHeadInjury.insets = new Insets(0, 0, 5, 5);
+				gbc_chckbxHeadInjury.gridx = 2;
+				gbc_chckbxHeadInjury.gridy = 2;
+				disabilityCbPanel.add(chckbxHeadInjury, gbc_chckbxHeadInjury);
+				chckbxSeizures = new JCheckBox("Seizures");
+				GridBagConstraints gbc_chckbxSeizures = new GridBagConstraints();
+				gbc_chckbxSeizures.anchor = GridBagConstraints.WEST;
+				gbc_chckbxSeizures.fill = GridBagConstraints.VERTICAL;
+				gbc_chckbxSeizures.insets = new Insets(0, 0, 0, 5);
+				gbc_chckbxSeizures.gridx = 0;
+				gbc_chckbxSeizures.gridy = 3;
+				disabilityCbPanel.add(chckbxSeizures, gbc_chckbxSeizures);
+				chckbxOtherspecify = new JCheckBox("Other (specify)");
+				chckbxOtherspecify.addItemListener(new ItemListener() {
+					
+					@Override
+					public void itemStateChanged(ItemEvent event) {
+						if(event.getStateChange() == ItemEvent.SELECTED) {
+							disabilityOtherTextField.setEnabled(true);
+						} else if(event.getStateChange() == ItemEvent.DESELECTED) {
+							disabilityOtherTextField.setEnabled(false);
+							disabilityOtherTextField.setText("");
+						}
+					}
+				});
+				GridBagConstraints gbc_chckbxOtherspecify = new GridBagConstraints();
+				gbc_chckbxOtherspecify.anchor = GridBagConstraints.WEST;
+				gbc_chckbxOtherspecify.insets = new Insets(0, 0, 0, 5);
+				gbc_chckbxOtherspecify.gridx = 2;
+				gbc_chckbxOtherspecify.gridy = 3;
+				disabilityCbPanel.add(chckbxOtherspecify, gbc_chckbxOtherspecify);
+				
+				disabilityOtherTextField = new JFormattedTextField();
+				disabilityOtherTextField.setEnabled(false);
+				filter.setupTextField(disabilityOtherTextField, DocumentSizeFilter.ANY, 30);
+				GridBagConstraints gbc_disabilityOtherTextField = new GridBagConstraints();
+				gbc_disabilityOtherTextField.gridwidth = 2;
+				gbc_disabilityOtherTextField.fill = GridBagConstraints.BOTH;
+				gbc_disabilityOtherTextField.gridx = 3;
+				gbc_disabilityOtherTextField.gridy = 3;
+				disabilityCbPanel.add(disabilityOtherTextField, gbc_disabilityOtherTextField);
+				GridBagConstraints gbc_disabilityCbPanel = new GridBagConstraints();
+				gbc_disabilityCbPanel.weightx = 1.0;
+				gbc_disabilityCbPanel.fill = GridBagConstraints.VERTICAL;
+				gbc_disabilityCbPanel.gridwidth = 3;
+				gbc_disabilityCbPanel.gridx = 0;
+				gbc_disabilityCbPanel.gridy = 1;
+				DisabilityPanel.add(disabilityCbPanel, gbc_disabilityCbPanel);
 		
 		ethnicityPanel = new JPanel();
 		ethnicityPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		
-		ComNeedsPanel = new JPanel();
-		ComNeedsPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		
-		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(ComNeedsPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(ethnicityPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
-						.addComponent(VictimPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
-						.addComponent(DisabilityPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE))
-					.addContainerGap(15, Short.MAX_VALUE))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(VictimPanel, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(DisabilityPanel, GroupLayout.PREFERRED_SIZE, 172, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(ethnicityPanel, GroupLayout.PREFERRED_SIZE, 161, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(ComNeedsPanel, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(17, Short.MAX_VALUE))
-		);
-		
-		communicationNeedsLabel = new JLabel("Communication Needs:");
-		communicationNeedsLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		
-		comNeedsCbPanel = new JPanel();
-		
-		comNotSetWarning = new JTextPane();
-		comNotSetWarning.setBackground(SystemColor.menu);
-		comNotSetWarning.setEditable(false);
-		comNotSetWarning.setForeground(Color.RED);
-		comNotSetWarning.setText("*");
-		comNotSetWarning.setVisible(false);
-		GroupLayout gl_ComNeedsPanel = new GroupLayout(ComNeedsPanel);
-		gl_ComNeedsPanel.setHorizontalGroup(
-			gl_ComNeedsPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_ComNeedsPanel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_ComNeedsPanel.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(comNeedsCbPanel, GroupLayout.PREFERRED_SIZE, 679, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_ComNeedsPanel.createSequentialGroup()
-							.addComponent(communicationNeedsLabel)
-							.addGap(18)
-							.addComponent(comNotSetWarning, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap())
-		);
-		gl_ComNeedsPanel.setVerticalGroup(
-			gl_ComNeedsPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_ComNeedsPanel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_ComNeedsPanel.createParallelGroup(Alignment.TRAILING)
-						.addComponent(communicationNeedsLabel)
-						.addComponent(comNotSetWarning, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(comNeedsCbPanel, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		GridBagLayout gbl_comNeedsCbPanel = new GridBagLayout();
-		gbl_comNeedsCbPanel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_comNeedsCbPanel.rowHeights = new int[] {30};
-		gbl_comNeedsCbPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_comNeedsCbPanel.rowWeights = new double[]{0.0};
-		comNeedsCbPanel.setLayout(gbl_comNeedsCbPanel);
-		
-		ttyCheckBox = new JCheckBox("TTY");
-		GridBagConstraints gbc_ttyCheckBox = new GridBagConstraints();
-		gbc_ttyCheckBox.insets = new Insets(0, 0, 0, 5);
-		gbc_ttyCheckBox.gridx = 2;
-		gbc_ttyCheckBox.gridy = 0;
-		comNeedsCbPanel.add(ttyCheckBox, gbc_ttyCheckBox);
-		
-		signInterCheckBox = new JCheckBox("Sign Interpreter");
-		GridBagConstraints gbc_signInterCheckBox = new GridBagConstraints();
-		gbc_signInterCheckBox.insets = new Insets(0, 0, 0, 5);
-		gbc_signInterCheckBox.gridx = 5;
-		gbc_signInterCheckBox.gridy = 0;
-		comNeedsCbPanel.add(signInterCheckBox, gbc_signInterCheckBox);
-		
-		otherComNeedsCheckBox = new JCheckBox("Other (Specify):");
-		GridBagConstraints gbc_otherComNeedsCheckBox = new GridBagConstraints();
-		gbc_otherComNeedsCheckBox.insets = new Insets(0, 0, 0, 5);
-		gbc_otherComNeedsCheckBox.gridx = 8;
-		gbc_otherComNeedsCheckBox.gridy = 0;
-		comNeedsCbPanel.add(otherComNeedsCheckBox, gbc_otherComNeedsCheckBox);
-		
-		otherComNeedsTextField = new JTextField();
-		GridBagConstraints gbc_otherComNeedsTextField = new GridBagConstraints();
-		gbc_otherComNeedsTextField.gridwidth = 2;
-		gbc_otherComNeedsTextField.insets = new Insets(0, 0, 0, 5);
-		gbc_otherComNeedsTextField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_otherComNeedsTextField.gridx = 9;
-		gbc_otherComNeedsTextField.gridy = 0;
-		comNeedsCbPanel.add(otherComNeedsTextField, gbc_otherComNeedsTextField);
-		otherComNeedsTextField.setColumns(10);
-		filter.setupTextField(otherComNeedsTextField, DocumentSizeFilter.AL_NO, 30);
-		
-		ComNeedsPanel.setLayout(gl_ComNeedsPanel);
+		GridBagConstraints gbc_ethnicityPanel = new GridBagConstraints();
+		gbc_ethnicityPanel.weightx = 1.0;
+		gbc_ethnicityPanel.weighty = 0.1;
+		gbc_ethnicityPanel.fill = GridBagConstraints.BOTH;
+		gbc_ethnicityPanel.insets = new Insets(0, 10, 5, 10);
+		gbc_ethnicityPanel.gridx = 0;
+		gbc_ethnicityPanel.gridy = 2;
+		add(ethnicityPanel, gbc_ethnicityPanel);
+		GridBagLayout gbl_ethnicityPanel = new GridBagLayout();
+		gbl_ethnicityPanel.columnWidths = new int[]{126, 0, 46, 0};
+		gbl_ethnicityPanel.rowHeights = new int[]{22, 95, 0};
+		gbl_ethnicityPanel.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_ethnicityPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		ethnicityPanel.setLayout(gbl_ethnicityPanel);
 		
 		ethnicityLabel = new JLabel("Client's Ethnicity");
 		ethnicityLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		
-		ethnicityCbPanel = new JPanel();
+		GridBagConstraints gbc_ethnicityLabel = new GridBagConstraints();
+		gbc_ethnicityLabel.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_ethnicityLabel.insets = topInsetBumper;
+		gbc_ethnicityLabel.gridx = 0;
+		gbc_ethnicityLabel.gridy = 0;
+		ethnicityPanel.add(ethnicityLabel, gbc_ethnicityLabel);
 		
 		ethnicityNotSetWarning = new JTextPane();
 		ethnicityNotSetWarning.setVisible(false);
@@ -240,32 +673,14 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 		ethnicityNotSetWarning.setForeground(Color.RED);
 		ethnicityNotSetWarning.setEditable(false);
 		ethnicityNotSetWarning.setBackground(SystemColor.menu);
-		GroupLayout gl_ethnicityPanel = new GroupLayout(ethnicityPanel);
-		gl_ethnicityPanel.setHorizontalGroup(
-			gl_ethnicityPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_ethnicityPanel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_ethnicityPanel.createParallelGroup(Alignment.LEADING, false)
-						.addGroup(gl_ethnicityPanel.createSequentialGroup()
-							.addComponent(ethnicityCbPanel, GroupLayout.PREFERRED_SIZE, 679, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addGroup(gl_ethnicityPanel.createSequentialGroup()
-							.addComponent(ethnicityLabel)
-							.addGap(18)
-							.addComponent(ethnicityNotSetWarning, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
-							.addGap(414))))
-		);
-		gl_ethnicityPanel.setVerticalGroup(
-			gl_ethnicityPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_ethnicityPanel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_ethnicityPanel.createParallelGroup(Alignment.TRAILING)
-						.addComponent(ethnicityLabel)
-						.addComponent(ethnicityNotSetWarning, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(ethnicityCbPanel, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(81, Short.MAX_VALUE))
-		);
+		GridBagConstraints gbc_ethnicityNotSetWarning = new GridBagConstraints();
+		gbc_ethnicityNotSetWarning.anchor = GridBagConstraints.NORTHWEST;
+		gbc_ethnicityNotSetWarning.insets = new Insets(0, 0, 5, 5);
+		gbc_ethnicityNotSetWarning.gridx = 1;
+		gbc_ethnicityNotSetWarning.gridy = 0;
+		ethnicityPanel.add(ethnicityNotSetWarning, gbc_ethnicityNotSetWarning);
+		
+		ethnicityCbPanel = new JPanel();
 		GridBagLayout gbl_ethnicityCbPanel = new GridBagLayout();
 		gbl_ethnicityCbPanel.columnWidths = new int[] {100, 100, 100, 100, 100};
 		gbl_ethnicityCbPanel.rowHeights = new int[]{20, 20, 20};
@@ -276,7 +691,7 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 		caucasianCheckBox = new JCheckBox("Caucasian");
 		GridBagConstraints gbc_caucasianCheckBox = new GridBagConstraints();
 		gbc_caucasianCheckBox.anchor = GridBagConstraints.NORTHWEST;
-		gbc_caucasianCheckBox.insets = new Insets(0, 0, 5, 5);
+		gbc_caucasianCheckBox.insets = leftInsetBumper;
 		gbc_caucasianCheckBox.gridx = 0;
 		gbc_caucasianCheckBox.gridy = 0;
 		ethnicityCbPanel.add(caucasianCheckBox, gbc_caucasianCheckBox);
@@ -290,7 +705,7 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 		africanAmericanCheckBox = new JCheckBox("African American");
 		GridBagConstraints gbc_africanAmericanCheckBox = new GridBagConstraints();
 		gbc_africanAmericanCheckBox.anchor = GridBagConstraints.NORTHWEST;
-		gbc_africanAmericanCheckBox.insets = new Insets(0, 0, 5, 5);
+		gbc_africanAmericanCheckBox.insets = leftInsetBumper;
 		gbc_africanAmericanCheckBox.gridx = 0;
 		gbc_africanAmericanCheckBox.gridy = 1;
 		ethnicityCbPanel.add(africanAmericanCheckBox, gbc_africanAmericanCheckBox);
@@ -304,7 +719,7 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 		hispanicCheckBox = new JCheckBox("Hispanic");
 		GridBagConstraints gbc_hispanicCheckBox = new GridBagConstraints();
 		gbc_hispanicCheckBox.anchor = GridBagConstraints.NORTHWEST;
-		gbc_hispanicCheckBox.insets = new Insets(0, 0, 0, 5);
+		gbc_hispanicCheckBox.insets = leftInsetBumper;
 		gbc_hispanicCheckBox.gridx = 0;
 		gbc_hispanicCheckBox.gridy = 2;
 		ethnicityCbPanel.add(hispanicCheckBox, gbc_hispanicCheckBox);
@@ -316,15 +731,105 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 		gbc_otherEthnicityCheckBox.gridy = 2;
 		ethnicityCbPanel.add(otherEthnicityCheckBox, gbc_otherEthnicityCheckBox);
 		otherEthnicityTextField = new JFormattedTextField();
+		otherEthnicityTextField.setEnabled(false);
 		GridBagConstraints gbc_otherEthnicityTextField = new GridBagConstraints();
 		gbc_otherEthnicityTextField.gridwidth = 2;
-		gbc_otherEthnicityTextField.fill = GridBagConstraints.BOTH;
+		gbc_otherEthnicityTextField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_otherEthnicityTextField.gridx = 3;
 		gbc_otherEthnicityTextField.gridy = 2;
 		ethnicityCbPanel.add(otherEthnicityTextField, gbc_otherEthnicityTextField);
-		ethnicityPanel.setLayout(gl_ethnicityPanel);
+		GridBagConstraints gbc_ethnicityCbPanel = new GridBagConstraints();
+		gbc_ethnicityCbPanel.gridwidth = 3;
+		gbc_ethnicityCbPanel.insets = new Insets(0, 0, 0, 10);
+		gbc_ethnicityCbPanel.weightx = 1.0;
+		gbc_ethnicityCbPanel.fill = GridBagConstraints.VERTICAL;
+		gbc_ethnicityCbPanel.gridx = 0;
+		gbc_ethnicityCbPanel.gridy = 1;
+		ethnicityPanel.add(ethnicityCbPanel, gbc_ethnicityCbPanel);
 		
+		ComNeedsPanel = new JPanel();
+		ComNeedsPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		GridBagConstraints gbc_ComNeedsPanel = new GridBagConstraints();
+		gbc_ComNeedsPanel.weightx = 1.0;
+		gbc_ComNeedsPanel.weighty = 0.1;
+		gbc_ComNeedsPanel.fill = GridBagConstraints.BOTH;
+		gbc_ComNeedsPanel.gridx = 0;
+		gbc_ComNeedsPanel.gridy = 3;
+		gbc_ComNeedsPanel.insets = new Insets(0, 10, 10, 10);
+		add(ComNeedsPanel, gbc_ComNeedsPanel);
+		GridBagLayout gbl_ComNeedsPanel = new GridBagLayout();
+		gbl_ComNeedsPanel.columnWidths = new int[]{170, 14, 422, 0};
+		gbl_ComNeedsPanel.rowHeights = new int[]{29, 57, 0};
+		gbl_ComNeedsPanel.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_ComNeedsPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		ComNeedsPanel.setLayout(gbl_ComNeedsPanel);
 		
+		communicationNeedsLabel = new JLabel("Communication Needs:");
+		communicationNeedsLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		GridBagConstraints gbc_communicationNeedsLabel = new GridBagConstraints();
+		gbc_communicationNeedsLabel.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_communicationNeedsLabel.insets = topInsetBumper;
+		gbc_communicationNeedsLabel.gridy = 0;
+		ComNeedsPanel.add(communicationNeedsLabel, gbc_communicationNeedsLabel);
+		
+		comNotSetWarning = new JTextPane();
+		comNotSetWarning.setBackground(SystemColor.menu);
+		comNotSetWarning.setEditable(false);
+		comNotSetWarning.setForeground(Color.RED);
+		comNotSetWarning.setText("*");
+		comNotSetWarning.setVisible(false);
+		GridBagConstraints gbc_comNotSetWarning = new GridBagConstraints();
+		gbc_comNotSetWarning.anchor = GridBagConstraints.WEST;
+		gbc_comNotSetWarning.fill = GridBagConstraints.VERTICAL;
+		gbc_comNotSetWarning.insets = new Insets(0, 0, 5, 5);
+		gbc_comNotSetWarning.gridx = 1;
+		gbc_comNotSetWarning.gridy = 0;
+		ComNeedsPanel.add(comNotSetWarning, gbc_comNotSetWarning);
+		
+		comNeedsCbPanel = new JPanel();
+		GridBagLayout gbl_comNeedsCbPanel = new GridBagLayout();
+		gbl_comNeedsCbPanel.columnWidths = new int[]{0, 0, 0, 0, 0};
+		gbl_comNeedsCbPanel.rowHeights = new int[] {30};
+		gbl_comNeedsCbPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_comNeedsCbPanel.rowWeights = new double[]{0.0};
+		comNeedsCbPanel.setLayout(gbl_comNeedsCbPanel);
+		
+		ttyCheckBox = new JCheckBox("TTY");
+		GridBagConstraints gbc_ttyCheckBox = new GridBagConstraints();
+		gbc_ttyCheckBox.insets = new Insets(0, 0, 0, 5);
+		gbc_ttyCheckBox.gridx = 0;
+		gbc_ttyCheckBox.gridy = 0;
+		comNeedsCbPanel.add(ttyCheckBox, gbc_ttyCheckBox);
+		
+		signInterCheckBox = new JCheckBox("Sign Interpreter");
+		GridBagConstraints gbc_signInterCheckBox = new GridBagConstraints();
+		gbc_signInterCheckBox.insets = new Insets(0, 0, 0, 5);
+		gbc_signInterCheckBox.gridx = 1;
+		gbc_signInterCheckBox.gridy = 0;
+		comNeedsCbPanel.add(signInterCheckBox, gbc_signInterCheckBox);
+		
+		otherComNeedsCheckBox = new JCheckBox("Other (Specify):");
+		GridBagConstraints gbc_otherComNeedsCheckBox = new GridBagConstraints();
+		gbc_otherComNeedsCheckBox.insets = new Insets(0, 0, 0, 5);
+		gbc_otherComNeedsCheckBox.gridx = 2;
+		gbc_otherComNeedsCheckBox.gridy = 0;
+		comNeedsCbPanel.add(otherComNeedsCheckBox, gbc_otherComNeedsCheckBox);
+		
+		otherComNeedsTextField = new JTextField();
+		GridBagConstraints gbc_otherComNeedsTextField = new GridBagConstraints();
+		gbc_otherComNeedsTextField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_otherComNeedsTextField.gridx = 3;
+		gbc_otherComNeedsTextField.gridy = 0;
+		comNeedsCbPanel.add(otherComNeedsTextField, gbc_otherComNeedsTextField);
+		otherComNeedsTextField.setColumns(10);
+		filter.setupTextField(otherComNeedsTextField, DocumentSizeFilter.AL_NO, 30);
+		GridBagConstraints gbc_comNeedsCbPanel = new GridBagConstraints();
+		gbc_comNeedsCbPanel.fill = GridBagConstraints.VERTICAL;
+		gbc_comNeedsCbPanel.gridx = 2;
+		gbc_comNeedsCbPanel.gridy = 1;
+		ComNeedsPanel.add(comNeedsCbPanel, gbc_comNeedsCbPanel);
+		
+		filter.setupTextField(otherEthnicityTextField, DocumentSizeFilter.ANY, 30);
 		for(int i=0; i<ethnicityCbPanel.getComponents().length; i++) {
 			if(ethnicityCbPanel.getComponent(i) instanceof JCheckBox) {
 				JCheckBox myCb = new JCheckBox();
@@ -335,6 +840,13 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 					public void itemStateChanged(ItemEvent event) {
 						if((event.getStateChange() == ItemEvent.SELECTED) || (event.getStateChange() == ItemEvent.DESELECTED)) {
 							toggleAllCheckBoxesInPanel(ethnicityCbPanel, event.getItem());
+							// Other ethnicity implies that the text field should be enabled.
+							if(event.getSource().equals(otherEthnicityCheckBox)) {
+								otherEthnicityTextField.setEnabled(otherEthnicityCheckBox.isSelected());
+								// Clear the text in this text field.
+								if(!otherEthnicityCheckBox.isSelected())
+									otherEthnicityTextField.setText("");
+							}
 						}
 						
 					}
@@ -342,415 +854,6 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 			}
 		}
 		
-		allegedVictimLabel = new JLabel("Alleged Victim");
-		allegedVictimLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		
-		firstNameLabel = new JLabel("First Name:");
-		
-		firstNameNotSetWarning = new JTextPane();
-		firstNameNotSetWarning.setVisible(false);
-		firstNameNotSetWarning.setEditable(false);
-		firstNameNotSetWarning.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		firstNameNotSetWarning.setForeground(Color.RED);
-		firstNameNotSetWarning.setText("*");
-		firstNameNotSetWarning.setBackground(SystemColor.menu);
-		
-		addressLabel = new JLabel("Address:");
-		
-		addrNotSetWarning = new JTextPane();
-		addrNotSetWarning.setVisible(false);
-		addrNotSetWarning.setEditable(false);
-		addrNotSetWarning.setText("*");
-		addrNotSetWarning.setForeground(Color.RED);
-		addrNotSetWarning.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		addrNotSetWarning.setBackground(SystemColor.menu);
-		
-		dobLabel = new JLabel("DOB: ");
-		
-		dobNotSetWarning = new JTextPane();
-		dobNotSetWarning.setVisible(false);
-		dobNotSetWarning.setEditable(false);
-		dobNotSetWarning.setText("*");
-		dobNotSetWarning.setForeground(Color.RED);
-		dobNotSetWarning.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		dobNotSetWarning.setBackground(SystemColor.menu);
-		
-		maritalStatusLabel = new JLabel("Marital Status:");
-		
-		maritalStatusNotSetWarning = new JTextPane();
-		maritalStatusNotSetWarning.setEditable(false);
-		maritalStatusNotSetWarning.setVisible(false);
-		maritalStatusNotSetWarning.setText("*");
-		maritalStatusNotSetWarning.setForeground(Color.RED);
-		maritalStatusNotSetWarning.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		maritalStatusNotSetWarning.setBackground(SystemColor.menu);
-		
-		maritalStatusText = new JTextField();
-		maritalStatusText.setColumns(10);
-		filter.setupTextField(maritalStatusText, DocumentSizeFilter.CHAR, 10);
-		
-		ageNotSetWarning = new JTextPane();
-		ageNotSetWarning.setVisible(false);
-		ageNotSetWarning.setEditable(false);
-		ageNotSetWarning.setText("*");
-		ageNotSetWarning.setForeground(Color.RED);
-		ageNotSetWarning.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		ageNotSetWarning.setBackground(SystemColor.menu);
-		
-		ageLabel = new JLabel("Age:");
-		
-		monthText = new JTextField();
-		monthText.setText("MM");
-		monthText.setColumns(10);
-		filter.setupTextField(monthText, DocumentSizeFilter.NO, 2);
-		
-		dayText = new JTextField();
-		dayText.setText("DD");
-		dayText.setColumns(10);
-		filter.setupTextField(dayText, DocumentSizeFilter.NO, 2);
-		
-		sexNotSetWarning = new JTextPane();
-		sexNotSetWarning.setEditable(false);
-		sexNotSetWarning.setVisible(false);
-		sexNotSetWarning.setText("*");
-		sexNotSetWarning.setForeground(Color.RED);
-		sexNotSetWarning.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		sexNotSetWarning.setBackground(SystemColor.menu);
-		
-		sexLabel = new JLabel("Sex:");
-		
-		addressTextArea = new JTextArea();
-		addressTextArea.setWrapStyleWord(true);
-		addressTextArea.setLineWrap(true);
-		
-		firstNameText = new JFormattedTextField();
-		filter.setupTextField(firstNameText, DocumentSizeFilter.CHAR, 20);
-				
-		lastNameLabel = new JLabel("Last Name:");
-				
-		lastNameText = new JFormattedTextField();
-		filter.setupTextField(firstNameText, DocumentSizeFilter.CHAR, 20);
-		
-				
-		sexCombo = new JComboBox();
-		sexCombo.setModel(new DefaultComboBoxModel(new String[] {"<Select One>", "Male", "Female"}));
-				
-		yearText = new JTextField();
-		yearText.setText("YYYY");
-		yearText.setColumns(10);
-		filter.setupTextField(yearText, DocumentSizeFilter.NO, 4);
-				
-		ageText = new JTextField();
-		ageText.setColumns(10);
-		filter.setupTextField(ageText, DocumentSizeFilter.NO, 3);
-				
-		lastNameNotSetWarning = new JTextPane();
-		lastNameNotSetWarning.setVisible(false);
-		lastNameNotSetWarning.setText("*");
-		lastNameNotSetWarning.setForeground(Color.RED);
-		lastNameNotSetWarning.setEditable(false);
-		lastNameNotSetWarning.setBackground(SystemColor.menu);
-		
-		lblTelephone = new JLabel("Telephone");
-		phoneAreaCode = new JFormattedTextField();
-		filter.setupTextField(phoneAreaCode, DocumentSizeFilter.NO, 3);
-		phoneFirstThree = new JFormattedTextField();
-		filter.setupTextField(phoneFirstThree, DocumentSizeFilter.NO, 3);
-		phoneLastFour = new JFormattedTextField();
-		filter.setupTextField(phoneLastFour, DocumentSizeFilter.NO, 4);
-		
-		phoneHyphon = new JTextPane();
-		phoneHyphon.setBackground(SystemColor.menu);
-		phoneHyphon.setText("-");
-		
-		phoneNotSetWarning = new JTextPane();
-		phoneNotSetWarning.setVisible(false);
-		phoneNotSetWarning.setForeground(Color.RED);
-		phoneNotSetWarning.setEditable(false);
-		phoneNotSetWarning.setBackground(SystemColor.menu);
-		phoneNotSetWarning.setText("*");
-		GroupLayout gl_VictimPanel = new GroupLayout(VictimPanel);
-		gl_VictimPanel.setHorizontalGroup(
-			gl_VictimPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_VictimPanel.createSequentialGroup()
-					.addGap(22)
-					.addGroup(gl_VictimPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_VictimPanel.createSequentialGroup()
-							.addComponent(maritalStatusLabel)
-							.addGap(192)
-							.addComponent(sexNotSetWarning, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_VictimPanel.createSequentialGroup()
-							.addGroup(gl_VictimPanel.createParallelGroup(Alignment.LEADING, false)
-								.addGroup(gl_VictimPanel.createSequentialGroup()
-									.addComponent(firstNameLabel)
-									.addGap(13)
-									.addComponent(firstNameNotSetWarning, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_VictimPanel.createSequentialGroup()
-									.addComponent(addressLabel)
-									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(addrNotSetWarning, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_VictimPanel.createSequentialGroup()
-									.addComponent(dobLabel)
-									.addGap(18)
-									.addComponent(dobNotSetWarning, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_VictimPanel.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_VictimPanel.createSequentialGroup()
-									.addGroup(gl_VictimPanel.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(addressTextArea, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(firstNameText, GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE))
-									.addGap(18)
-									.addGroup(gl_VictimPanel.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_VictimPanel.createParallelGroup(Alignment.LEADING)
-											.addGroup(gl_VictimPanel.createSequentialGroup()
-												.addComponent(sexLabel)
-												.addGap(63)
-												.addComponent(sexCombo, 0, 195, Short.MAX_VALUE))
-											.addGroup(gl_VictimPanel.createSequentialGroup()
-												.addComponent(lastNameLabel, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)
-												.addPreferredGap(ComponentPlacement.RELATED, 195, Short.MAX_VALUE)))
-										.addGroup(gl_VictimPanel.createSequentialGroup()
-											.addComponent(lblTelephone, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(phoneNotSetWarning, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.UNRELATED)
-											.addComponent(phoneAreaCode, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
-											.addGap(2)
-											.addComponent(phoneHyphon, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(phoneFirstThree, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
-											.addGap(2)
-											.addComponent(phoneLastFour, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE))))
-								.addGroup(gl_VictimPanel.createSequentialGroup()
-									.addComponent(monthText, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(dayText, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(yearText, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
-									.addGroup(gl_VictimPanel.createParallelGroup(Alignment.TRAILING)
-										.addComponent(lastNameNotSetWarning, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
-										.addComponent(ageLabel))
-									.addGap(18)
-									.addGroup(gl_VictimPanel.createParallelGroup(Alignment.TRAILING, false)
-										.addGroup(gl_VictimPanel.createSequentialGroup()
-											.addPreferredGap(ComponentPlacement.UNRELATED)
-											.addComponent(ageNotSetWarning, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-											.addComponent(ageText, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
-										.addComponent(lastNameText, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)))
-								.addGroup(gl_VictimPanel.createSequentialGroup()
-									.addComponent(maritalStatusNotSetWarning, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addGap(18)
-									.addComponent(maritalStatusText, GroupLayout.PREFERRED_SIZE, 388, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED, 1, Short.MAX_VALUE)))))
-					.addGap(48))
-				.addGroup(gl_VictimPanel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(allegedVictimLabel)
-					.addContainerGap(460, Short.MAX_VALUE))
-		);
-		gl_VictimPanel.setVerticalGroup(
-			gl_VictimPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_VictimPanel.createSequentialGroup()
-					.addGroup(gl_VictimPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_VictimPanel.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(allegedVictimLabel)
-							.addGap(4)
-							.addGroup(gl_VictimPanel.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_VictimPanel.createSequentialGroup()
-									.addGroup(gl_VictimPanel.createParallelGroup(Alignment.LEADING)
-										.addComponent(firstNameLabel)
-										.addComponent(firstNameNotSetWarning, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addGroup(gl_VictimPanel.createParallelGroup(Alignment.BASELINE)
-											.addComponent(firstNameText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-											.addComponent(lastNameLabel)
-											.addComponent(lastNameText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-									.addGap(18)
-									.addGroup(gl_VictimPanel.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_VictimPanel.createParallelGroup(Alignment.TRAILING)
-											.addGroup(gl_VictimPanel.createSequentialGroup()
-												.addGroup(gl_VictimPanel.createParallelGroup(Alignment.TRAILING)
-													.addComponent(phoneHyphon, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-													.addGroup(gl_VictimPanel.createParallelGroup(Alignment.LEADING, false)
-														.addComponent(addressLabel)
-														.addComponent(addressTextArea, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
-														.addGroup(gl_VictimPanel.createSequentialGroup()
-															.addGroup(gl_VictimPanel.createParallelGroup(Alignment.LEADING)
-																.addComponent(sexLabel)
-																.addComponent(sexNotSetWarning, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-															.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-															.addGroup(gl_VictimPanel.createParallelGroup(Alignment.BASELINE)
-																.addComponent(lblTelephone)
-																.addComponent(phoneAreaCode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-																.addComponent(phoneLastFour, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-																.addComponent(phoneFirstThree, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-														.addComponent(phoneNotSetWarning, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-												.addGap(18)
-												.addGroup(gl_VictimPanel.createParallelGroup(Alignment.TRAILING)
-													.addGroup(gl_VictimPanel.createParallelGroup(Alignment.BASELINE)
-														.addComponent(monthText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-														.addComponent(dayText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-														.addComponent(yearText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-														.addComponent(ageText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-														.addComponent(ageLabel))
-													.addComponent(dobLabel)
-													.addComponent(ageNotSetWarning, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-											.addComponent(dobNotSetWarning, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-										.addComponent(addrNotSetWarning, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-									.addGap(18)
-									.addGroup(gl_VictimPanel.createParallelGroup(Alignment.LEADING)
-										.addComponent(maritalStatusText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(maritalStatusNotSetWarning, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(maritalStatusLabel)))
-								.addComponent(lastNameNotSetWarning, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(gl_VictimPanel.createSequentialGroup()
-							.addGap(72)
-							.addComponent(sexCombo, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(12, Short.MAX_VALUE))
-		);
-		VictimPanel.setLayout(gl_VictimPanel);
-		
-		disabilityLabel = new JLabel("Disability: (check as apply)");
-		disabilityLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		
-		disabilityNotSetWarning = new JTextPane();
-		disabilityNotSetWarning.setVisible(false);
-		disabilityNotSetWarning.setEditable(false);
-		disabilityNotSetWarning.setForeground(Color.RED);
-		disabilityNotSetWarning.setText("*");
-		disabilityNotSetWarning.setBackground(SystemColor.menu);
-		
-		disabilityCbPanel = new JPanel();
-		GroupLayout gl_DisabilityPanel = new GroupLayout(DisabilityPanel);
-		gl_DisabilityPanel.setHorizontalGroup(
-			gl_DisabilityPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_DisabilityPanel.createSequentialGroup()
-					.addGroup(gl_DisabilityPanel.createParallelGroup(Alignment.LEADING, false)
-						.addGroup(gl_DisabilityPanel.createSequentialGroup()
-							.addGap(14)
-							.addComponent(disabilityLabel)
-							.addGap(18)
-							.addComponent(disabilityNotSetWarning, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_DisabilityPanel.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(disabilityCbPanel, GroupLayout.PREFERRED_SIZE, 679, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap())
-		);
-		gl_DisabilityPanel.setVerticalGroup(
-			gl_DisabilityPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_DisabilityPanel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_DisabilityPanel.createParallelGroup(Alignment.TRAILING)
-						.addComponent(disabilityLabel)
-						.addComponent(disabilityNotSetWarning, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(disabilityCbPanel, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		GridBagLayout gbl_disabilityCbPanel = new GridBagLayout();
-		gbl_disabilityCbPanel.columnWidths = new int[] {100, 100, 100, 90};
-		gbl_disabilityCbPanel.rowHeights = new int[] {20, 20, 20, 20};
-		gbl_disabilityCbPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
-		gbl_disabilityCbPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0};
-		disabilityCbPanel.setLayout(gbl_disabilityCbPanel);
-		
-		chckbxMentalRetardation = new JCheckBox("Mental Retardation");
-		GridBagConstraints gbc_chckbxMentalRetardation = new GridBagConstraints();
-		gbc_chckbxMentalRetardation.gridwidth = 2;
-		gbc_chckbxMentalRetardation.anchor = GridBagConstraints.WEST;
-		gbc_chckbxMentalRetardation.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxMentalRetardation.gridx = 0;
-		gbc_chckbxMentalRetardation.gridy = 0;
-		disabilityCbPanel.add(chckbxMentalRetardation, gbc_chckbxMentalRetardation);
-		
-		chckbxMobility = new JCheckBox("Mobility");
-		GridBagConstraints gbc_chckbxMobility = new GridBagConstraints();
-		gbc_chckbxMobility.anchor = GridBagConstraints.WEST;
-		gbc_chckbxMobility.fill = GridBagConstraints.VERTICAL;
-		gbc_chckbxMobility.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxMobility.gridx = 2;
-		gbc_chckbxMobility.gridy = 0;
-		disabilityCbPanel.add(chckbxMobility, gbc_chckbxMobility);
-		
-		chckbxVisual = new JCheckBox("Visual");
-		GridBagConstraints gbc_chckbxVisual = new GridBagConstraints();
-		gbc_chckbxVisual.anchor = GridBagConstraints.WEST;
-		gbc_chckbxVisual.fill = GridBagConstraints.VERTICAL;
-		gbc_chckbxVisual.insets = new Insets(0, 0, 5, 0);
-		gbc_chckbxVisual.gridx = 4;
-		gbc_chckbxVisual.gridy = 0;
-		disabilityCbPanel.add(chckbxVisual, gbc_chckbxVisual);
-		chckbxMultipleSclerosis = new JCheckBox("Multiple Sclerosis");
-		GridBagConstraints gbc_chckbxMultipleSclerosis = new GridBagConstraints();
-		gbc_chckbxMultipleSclerosis.gridwidth = 2;
-		gbc_chckbxMultipleSclerosis.anchor = GridBagConstraints.WEST;
-		gbc_chckbxMultipleSclerosis.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxMultipleSclerosis.gridx = 0;
-		gbc_chckbxMultipleSclerosis.gridy = 1;
-		disabilityCbPanel.add(chckbxMultipleSclerosis, gbc_chckbxMultipleSclerosis);
-		chckbxMentalIllness = new JCheckBox("Mental Illness");
-		GridBagConstraints gbc_chckbxMentalIllness = new GridBagConstraints();
-		gbc_chckbxMentalIllness.anchor = GridBagConstraints.WEST;
-		gbc_chckbxMentalIllness.fill = GridBagConstraints.VERTICAL;
-		gbc_chckbxMentalIllness.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxMentalIllness.gridx = 2;
-		gbc_chckbxMentalIllness.gridy = 1;
-		disabilityCbPanel.add(chckbxMentalIllness, gbc_chckbxMentalIllness);
-		chckbxDeafHard = new JCheckBox("Deaf / Hard of Hearing");
-		GridBagConstraints gbc_chckbxDeafHard = new GridBagConstraints();
-		gbc_chckbxDeafHard.anchor = GridBagConstraints.WEST;
-		gbc_chckbxDeafHard.fill = GridBagConstraints.VERTICAL;
-		gbc_chckbxDeafHard.insets = new Insets(0, 0, 5, 0);
-		gbc_chckbxDeafHard.gridx = 4;
-		gbc_chckbxDeafHard.gridy = 1;
-		disabilityCbPanel.add(chckbxDeafHard, gbc_chckbxDeafHard);
-		chckbxCerebralPalsy = new JCheckBox("Cerebral Palsy");
-		GridBagConstraints gbc_chckbxCerebralPalsy = new GridBagConstraints();
-		gbc_chckbxCerebralPalsy.gridwidth = 2;
-		gbc_chckbxCerebralPalsy.anchor = GridBagConstraints.WEST;
-		gbc_chckbxCerebralPalsy.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxCerebralPalsy.gridx = 0;
-		gbc_chckbxCerebralPalsy.gridy = 2;
-		disabilityCbPanel.add(chckbxCerebralPalsy, gbc_chckbxCerebralPalsy);
-		chckbxHeadInjury = new JCheckBox("Head Injury");
-		GridBagConstraints gbc_chckbxHeadInjury = new GridBagConstraints();
-		gbc_chckbxHeadInjury.anchor = GridBagConstraints.WEST;
-		gbc_chckbxHeadInjury.fill = GridBagConstraints.VERTICAL;
-		gbc_chckbxHeadInjury.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxHeadInjury.gridx = 2;
-		gbc_chckbxHeadInjury.gridy = 2;
-		disabilityCbPanel.add(chckbxHeadInjury, gbc_chckbxHeadInjury);
-		chckbxSeizures = new JCheckBox("Seizures");
-		GridBagConstraints gbc_chckbxSeizures = new GridBagConstraints();
-		gbc_chckbxSeizures.gridwidth = 2;
-		gbc_chckbxSeizures.anchor = GridBagConstraints.WEST;
-		gbc_chckbxSeizures.fill = GridBagConstraints.VERTICAL;
-		gbc_chckbxSeizures.insets = new Insets(0, 0, 0, 5);
-		gbc_chckbxSeizures.gridx = 0;
-		gbc_chckbxSeizures.gridy = 3;
-		disabilityCbPanel.add(chckbxSeizures, gbc_chckbxSeizures);
-		chckbxOtherspecify = new JCheckBox("Other (specify)");
-		GridBagConstraints gbc_chckbxOtherspecify = new GridBagConstraints();
-		gbc_chckbxOtherspecify.anchor = GridBagConstraints.WEST;
-		gbc_chckbxOtherspecify.insets = new Insets(0, 0, 0, 5);
-		gbc_chckbxOtherspecify.gridx = 2;
-		gbc_chckbxOtherspecify.gridy = 3;
-		disabilityCbPanel.add(chckbxOtherspecify, gbc_chckbxOtherspecify);
-		
-		disabilityOtherTextField = new JFormattedTextField();
-		filter.setupTextField(disabilityOtherTextField, DocumentSizeFilter.ANY, 30);
-		GridBagConstraints gbc_disabilityOtherTextField = new GridBagConstraints();
-		gbc_disabilityOtherTextField.gridwidth = 2;
-		gbc_disabilityOtherTextField.fill = GridBagConstraints.BOTH;
-		gbc_disabilityOtherTextField.gridx = 3;
-		gbc_disabilityOtherTextField.gridy = 3;
-		disabilityCbPanel.add(disabilityOtherTextField, gbc_disabilityOtherTextField);
-		
-		DisabilityPanel.setLayout(gl_DisabilityPanel);
-		
-		setLayout(groupLayout);
 	}
 
 	/**
@@ -944,18 +1047,10 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 	 * @param cb         - the checkbox to leave enabled.
 	 */
 	public void toggleAllCheckBoxesInPanel(Container container, Object cb){
-		boolean enableText = false;
-		if(cb.equals((JCheckBox) otherEthnicityCheckBox)){
-			enableText = true;
-		}
 		for(int i=0; i<container.getComponents().length; i++){	
-			// Disable all components in this panel.
-			if(!container.getComponent(i).equals(cb)) {
-				container.getComponent(i).setEnabled(!container.getComponent(i).isEnabled());
-				// Check to see if the textfield should be saved and not disabled. This is only true 
-				// when "other (please specify)" is selected.
-				if((container.getComponent(i) instanceof JTextComponent) && enableText){
-					container.getComponent(i).setEnabled(true);
+			if(container.getComponent(i) instanceof JCheckBox) {
+				if(!container.getComponent(i).equals(cb)) {
+					container.getComponent(i).setEnabled(!container.getComponent(i).isEnabled());
 				}
 			}
 		}

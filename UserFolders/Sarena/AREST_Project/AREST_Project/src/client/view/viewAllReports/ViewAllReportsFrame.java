@@ -9,6 +9,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 
 import client.controller.Controller;
+import client.model.UserContainer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,13 +19,21 @@ import javax.swing.JTable;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.JTableHeader;
 import javax.swing.JPanel;
+
 import java.awt.BorderLayout;
+import java.io.IOException;
+import java.util.List;
+
 import javax.swing.JScrollPane;
 
 import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import us.monoid.json.JSONArray;
+import us.monoid.json.JSONException;
+import us.monoid.web.JSONResource;
 import us.monoid.web.Resty;
 import static us.monoid.web.Resty.*;
 
@@ -34,6 +43,7 @@ public class ViewAllReportsFrame extends JFrame{
 	private static final String CREATE_REPORT = "CREATE_REPORT";
 	
 	private JFrame mframe;
+	private UserContainer currentUser;
 	
 	private Controller controller;
 	private JPanel panel;
@@ -41,13 +51,17 @@ public class ViewAllReportsFrame extends JFrame{
 	private JTable table;
 	
 	private ObjectMapper mapper = new ObjectMapper();
-	private Resty r = new Resty();
+	private Resty getUser = new Resty();
+	private JSONResource getReportResponse;
+	private JSONArray getReportResponseArray;
+	List<UserContainer> listOfReports;
 	
 
 	/**
 	 * Create the application.
 	 */
-	public ViewAllReportsFrame(Controller _controller) {
+	public ViewAllReportsFrame(UserContainer _currentUser) {
+		currentUser = _currentUser;
 		initialize();
 	}
 
@@ -78,7 +92,35 @@ public class ViewAllReportsFrame extends JFrame{
 									{new Integer(3), "05/16/14", "Selina Gomez"}};
 		
 		// Grab reports from server
-		
+		// Grabe Users from the Server
+		getUser.alwaysSend("Content-Type", "application/json");
+		try {
+			getReportResponse = getUser.json("http://cs509-arest.herokuapp.com/report/getAll");
+			getReportResponseArray = getReportResponse.array();
+			String print = Integer.toString(getReportResponseArray.length());
+			System.out.println("length of array = " + print);
+			
+			// Get the user container(s) from the JSONArray
+			
+			// PENDING REPORT CONTAINER CLASS
+			/*for(int i = 0; i < getReportResponseArray.length(); i ++)
+			{
+				ReportContainer report = mapper.readValue(getReportResponseArray.getString(i), UserContainer.class);
+				System.out.println("Report Id: " + user.id);
+				System.out.println("Last name: " + user.lastName);
+				System.out.println("Username: " + user.userName);
+				tableContents[i][0] = user.firstName;
+				tableContents[i][1] = user.lastName;
+				tableContents[i][2] = user.userName;
+			}*/
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		// Button to go back to the HomeScreen
@@ -87,7 +129,7 @@ public class ViewAllReportsFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent action) {
 				if(action.getID() == ActionEvent.ACTION_PERFORMED) {
-					controller = new Controller();
+					controller = new Controller(currentUser);
 					mframe.setVisible(false);
 					controller.showFrame();
 				}
