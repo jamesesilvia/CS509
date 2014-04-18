@@ -20,7 +20,8 @@ public class CreateUserController{
 	JSONResource sendCreateResponse;
 	
 	public void createUser(String firstName, String lastName, String username, 
-			String password, String email, boolean supervisor) throws JsonGenerationException, JsonMappingException, IOException{
+			String password, String email, boolean supervisor, UserContainer _currentUser) throws JsonGenerationException, JsonMappingException, IOException{
+		
 		user.id = null;
 		user.firstLogon = true;
 		user.firstName = firstName;
@@ -38,15 +39,17 @@ public class CreateUserController{
 		sendCreateResponse = sendCreate.json("http://cs509-arest.herokuapp.com/user/create", content(json));
 		if (sendCreateResponse.status(200) == true){
 			//Successfully created the user!
-			//Return to homescreen
-			//Sarena
 			System.out.println("Created user!");
+			
+			Controller homeScreen = new Controller(_currentUser);
+			homeScreen.showFrame();
 		}
 		else{
 			JOptionPane.showMessageDialog(null, "Unable to create user!", "Error!", JOptionPane.ERROR_MESSAGE);
 			//Where to go from here?
 			//Home Screen, or try again? Make option pane a yes/no
-			
+			Controller homeScreen = new Controller(_currentUser);
+			homeScreen.showFrame();
 		}
 		
 	}

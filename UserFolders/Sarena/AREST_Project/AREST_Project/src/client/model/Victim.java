@@ -6,28 +6,28 @@ package client.model;
  * @author Matt Orsini
  *
  */
-public class Victim extends Individual {
+public class Victim extends PersonInfo {
 
-	private String sex;
-	private String dob;
-	private String age;
-	private String maritalStatus; 
+	//public Long id;
+	public String sex;
+	public String dob;
+	public String age;
+	public String maritalStatus; 
 	
-	private String disability;
-	private String ethnicity;
-	private String communicationNeeds;
-	private String currentlyServedBy;
-	private boolean awarenessOfReport;
-	private String typeOfService;
-	private String typesOfAbuse;
-	private String freqOfAbuse;
-	private String dateOfLastIncident;
+	public String disability;
+	public String ethnicity;
+	public String communicationNeeds;
+	public String currentlyServedBy;
+	public boolean awarenessOfReport;
+	public String typeOfService;
+	public String typesOfAbuse;
+	public String freqOfAbuse;
+	public String dateOfLastIncident;
 
 	/**
 	 * Constructor for Victim. Superclass is an Individual.
 	 */
 	public Victim(){
-		// FIXME: Empty constructor.
 	}
 
 
@@ -81,7 +81,7 @@ public class Victim extends Individual {
 	 * Sets the disabilities for this client.
 	 * @param disability  - the disability
 	 */
-	public void setDisabilities(String disability){
+	public void setDisability(String disability){
 		this.disability = disability;
 	}
 	
@@ -113,7 +113,7 @@ public class Victim extends Individual {
 	 * Set the communication needs for thsi client.
 	 * @param comNeeds
 	 */
-	public void setComNeeds(String communicationNeeds) {
+	public void setCommunicationNeeds(String communicationNeeds) {
 		this.communicationNeeds = communicationNeeds;
 	}
 	
@@ -216,8 +216,25 @@ public class Victim extends Individual {
 	 * Set the services provided to this victim.
 	 * @param currServedBy - the services provided to this victim.
 	 */
-	public void setCurrServedBy(String currServedBy) {
+	public void setCurrentlyServedBy(String currServedBy) {
 		this.currentlyServedBy = currServedBy;
+	}
+
+
+	/**
+	 * Gets the sex of this victim.
+	 * @return the sex of this victim.
+	 */
+	public String getSex() {
+		return sex;
+	}
+
+	/**
+	 * Sets the sex of this victim.
+	 * @param sex - the sex of this victim.
+	 */
+	public void setSex(String sex) {
+		this.sex = sex;
 	}
 	
 	

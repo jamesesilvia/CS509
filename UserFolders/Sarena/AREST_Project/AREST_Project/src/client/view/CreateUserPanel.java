@@ -5,14 +5,18 @@ import javax.swing.JLabel;
 
 import java.awt.Font;
 
+import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 
+import client.controller.Controller;
 import client.controller.CreateUserController;
 import client.model.UserContainer;
 
@@ -45,9 +49,11 @@ public class CreateUserPanel extends JPanel {
 	private boolean supervisor;
 	
 	private UserContainer currentUser;
+	private JFrame currentFrame;
 	
-	public CreateUserPanel(UserContainer _currentUser) {
+	public CreateUserPanel(final UserContainer _currentUser, final JFrame _currentFrame) {
 		currentUser = _currentUser;
+		currentFrame = _currentFrame;
 		
 		//First Name
 		lblFirstName = new JLabel("First Name:");
@@ -72,6 +78,53 @@ public class CreateUserPanel extends JPanel {
 		//Submit Button
 		btnSubmit = new JButton("Submit");
 		controller = new CreateUserController();
+		
+		_currentFrame.addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowOpened(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				Controller homeScreen = new Controller(_currentUser);
+				_currentFrame.dispose();
+				homeScreen.showFrame();
+				
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		
 		setupPanel();		
 	}		
@@ -150,7 +203,8 @@ public class CreateUserPanel extends JPanel {
 				passwordsEqual = controller.checkPasswords(password_1, password_2);				
 				if (passwordsEqual) {
 					try {
-						controller.createUser(firstName, lastName, username, password_1, email, supervisor);
+						currentFrame.dispose();
+						controller.createUser(firstName, lastName, username, password_1, email, supervisor, currentUser);
 					} catch (JsonGenerationException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

@@ -17,29 +17,10 @@ public interface CreateReportInterface {
 	boolean isValidInfo();
 	
 	/**
-	 * Commit any changes to the reporter object.
-	 * @param reporter - the reporter object to change.
-	 * @return - the updated reporter object.
+	 * Updates the report container during the create report process.
+	 * @param report
+	 * @return
 	 */
-	Reporter commitReporter(Reporter reporter);
-	/**
-	 * Commit any changes to the abuser object.
-	 * @param abuser - the abuser object to change.
-	 * @return - the updated abuser object.
-	 */
-	Abuser commitAbuser(Abuser abuser);
-	/**
-	 * Commit any changes to the victim object.
-	 * @param victim - the victim object to change.
-	 * @return - the updated victim object.
-	 */
-	Victim commitVictim(Victim victim);
-	
-	/**
-	 * Commit any changes to the guardian object.
-	 * @param guardian - the guardian object to change.
-	 * @return - the updated guardian object.
-	 */
-	Guardian commitGuardian(Guardian guardian);
+	public Report updateReport(Report report);
 	
 }

@@ -24,7 +24,7 @@ import client.model.*;
 import common.ArestPanel;
 import common.DocumentSizeFilter;
 
-public class ReporterGUI extends ArestPanel implements CreateReportInterface {
+public class ReporterGUI extends ArestPanel implements CreateReportInterface, ViewReportInterface {
 	
 	private boolean mandated = false;
 	private boolean nonmandated = false;
@@ -34,7 +34,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 	private JLabel lastNameLbl;
 	private JLabel addrLbl;
 	private JLabel relationshipLbl;
-	private JLabel telephoneLbl;
+	private JLabel phoneNumberLbl;
 	
 	private JTextArea addrTextArea;
 	
@@ -70,7 +70,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 	private JLabel abuserDobLabel;
 	private JFormattedTextField abuserDobDay;
 	private JTextPane abuserDobNotSetWarning;
-	private JLabel abuserTelephoneLabel;
+	private JLabel abuserphoneNumberLabel;
 	private JPanel reporterPhonePanel;
 	private JFormattedTextField phoneLastFour;
 	private JFormattedTextField phoneFirstThree;
@@ -99,6 +99,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 	private JTextPane abuserDobHyphon1;
 	private JTextPane abuserDobHyphon2;
 	private JTextPane abuserPhoneNotSetWarning;
+	private JPanel ReporterPanel;
 	
 	/**
 	 * Create the panel.
@@ -109,7 +110,7 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		setLayout(gridBagLayout);
 		
-		JPanel ReporterPanel = new JPanel();
+		ReporterPanel = new JPanel();
 		ReporterPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		GridBagLayout gbl_ReporterPanel = new GridBagLayout();
 		gbl_ReporterPanel.columnWidths = new int[] {0};
@@ -229,14 +230,14 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 				ReporterPanel.add(addrTextScrollPane, gbc_addrTextScrollPane);
 				addrTextScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 				
-				telephoneLbl = new JLabel("Daytime Telephone:");
-				GridBagConstraints gbc_telephoneLbl = new GridBagConstraints();
-				gbc_telephoneLbl.weighty = 0.1;
-				gbc_telephoneLbl.anchor = GridBagConstraints.NORTHEAST;
-				gbc_telephoneLbl.insets = new Insets(30, 10, 5, 5);//new Insets(0, 0, 5, 5);
-				gbc_telephoneLbl.gridx = 0;
-				gbc_telephoneLbl.gridy = 3;
-				ReporterPanel.add(telephoneLbl, gbc_telephoneLbl);
+				phoneNumberLbl = new JLabel("Daytime Telephone:");
+				GridBagConstraints gbc_phoneNumberLbl = new GridBagConstraints();
+				gbc_phoneNumberLbl.weighty = 0.1;
+				gbc_phoneNumberLbl.anchor = GridBagConstraints.NORTHEAST;
+				gbc_phoneNumberLbl.insets = new Insets(30, 10, 5, 5);//new Insets(0, 0, 5, 5);
+				gbc_phoneNumberLbl.gridx = 0;
+				gbc_phoneNumberLbl.gridy = 3;
+				ReporterPanel.add(phoneNumberLbl, gbc_phoneNumberLbl);
 				
 				phoneNotSetWarning = new JTextPane();
 				phoneNotSetWarning.setVisible(false);
@@ -669,13 +670,13 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		socSecurityPanel.add(socSerialNum, gbc_socSerialNum);
 		filter.setupTextField(socSerialNum, DocumentSizeFilter.NO, 4);
 		
-		abuserTelephoneLabel = new JLabel("Telephone:");
-		GridBagConstraints gbc_abuserTelephoneLabel = new GridBagConstraints();
-		gbc_abuserTelephoneLabel.anchor = GridBagConstraints.NORTHEAST;
-		gbc_abuserTelephoneLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_abuserTelephoneLabel.gridx = 3;
-		gbc_abuserTelephoneLabel.gridy = 4;
-		AbuserPanel.add(abuserTelephoneLabel, gbc_abuserTelephoneLabel);
+		abuserphoneNumberLabel = new JLabel("Telephone:");
+		GridBagConstraints gbc_abuserphoneNumberLabel = new GridBagConstraints();
+		gbc_abuserphoneNumberLabel.anchor = GridBagConstraints.NORTHEAST;
+		gbc_abuserphoneNumberLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_abuserphoneNumberLabel.gridx = 3;
+		gbc_abuserphoneNumberLabel.gridy = 4;
+		AbuserPanel.add(abuserphoneNumberLabel, gbc_abuserphoneNumberLabel);
 		
 		abuserPhoneNotSetWarning = new JTextPane();
 		abuserPhoneNotSetWarning.setVisible(false);
@@ -849,6 +850,11 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 
 	}
 
+	/*public void setPanelEnabled(boolean panelEnabled) {
+		ReporterPanel.setEnabled(panelEnabled);
+		AbuserPanel.setEnabled(panelEnabled);
+	}*/
+	
 	/**
 	 * Checks that all information has been entered for a Reporter.
 	 */
@@ -861,6 +867,10 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		return validInfo;
 	}
 
+	/**
+	 * Performs necessary checks to see if the abuser information is valid in this view.
+	 * @return true if valid, false otherwise.
+	 */
 	public boolean isAbuserPanelValid() {
 		boolean validInfo = true;
 		
@@ -967,47 +977,63 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface {
 		
 		return validInfo;
 	}
-	
-	/**
-	 * Returns a handle to a created Reporter Object. This object is populated with information from the panel.
-	 */
+
 	@Override
-	public Reporter commitReporter(Reporter reporter) {
+	public Report updateReport(Report report) {
+		Abuser abuser = report.getAbuser();
+		Reporter reporter = report.getReporter();
 		
 		reporter.setFirstName(firstNameTextField.getText());
 		reporter.setLastName(lastNameTextField.getText());
 		reporter.setAddress(addrTextArea.getText());
 		reporter.setMandated(mandatedCB.isSelected());
-		reporter.setTelephone(phoneAreaCode.getText().concat(phoneFirstThree.getText().concat(phoneLastFour.getText())));
+		reporter.setPhoneNumber(phoneAreaCode.getText().concat(phoneFirstThree.getText().concat(phoneLastFour.getText())));
 		reporter.setRelationshipToVictim(relationshipTextField.getText());
 		
-		return reporter;
-	}
-
-	
-	@Override
-	public Abuser commitAbuser(Abuser abuser) {
 		abuser.setFirstName(abuserFirstName.getText());
 		abuser.setLastName(abuserLastName.getText());
 		abuser.setAddress(abuserAddress.getText());
 		abuser.setRelationshipToVictim(abuserRelationship.getText());
 		abuser.setSocial(socAreaNumber.getText().concat(socGroupNum.getText().concat(socSerialNum.getText())));
-		abuser.setTelephone(abuserPhoneAreaCode.getText().concat(abuserPhoneFirstThree.getText().concat(abuserPhoneLastFour.getText())));
-		abuser.setDateOfBirth(abuserDobDay.getText().concat(abuserDobMon.getText().concat(abuserDobYear.getText())));
-		return abuser;
-	}
-
-	/**
-	 * Unimplemented for this class. The ReporterGUI only commits a Reporter and an Abuser.
-	 */
-	@Override
-	public Victim commitVictim(Victim victim) {
-		return null;
+		abuser.setPhoneNumber(abuserPhoneAreaCode.getText().concat(abuserPhoneFirstThree.getText().concat(abuserPhoneLastFour.getText())));
+		abuser.setDob(abuserDobDay.getText().concat(abuserDobMon.getText().concat(abuserDobYear.getText())));
+		
+		report.setReporter(reporter);
+		report.setAbuser(abuser);
+		
+		return report;
 	}
 
 	@Override
-	public Guardian commitGuardian(Guardian guardian) {
-		// TODO Auto-generated method stub
-		return null;
+	public void updatePanel(Report report) {
+		
+		// Configure the reporter fields.
+		firstNameTextField.setText(report.reporter.getFirstName());
+		lastNameTextField.setText(report.reporter.getLastName());
+		addrTextArea.setText(report.reporter.getAddress());
+		if(report.reporter.isMandated())
+			mandatedCB.setSelected(true);
+		else
+			notMandatedCB.setSelected(true);
+		phoneAreaCode.setText(report.reporter.getPhoneNumber().substring(0, 3));
+		phoneFirstThree.setText((String) report.reporter.getPhoneNumber().substring(3, 6));
+		phoneLastFour.setText(report.reporter.getPhoneNumber().substring(6, 10));
+		relationshipTextField.setText(report.reporter.getRelationshipToVictim());
+		
+		// Configure the abuser fields
+		abuserFirstName.setText(report.abuser.getFirstName());
+		abuserLastName.setText(report.abuser.getLastName());
+		abuserAddress.setText(report.abuser.getAddress());
+		abuserRelationship.setText(report.abuser.getRelationshipToVictim());
+		socAreaNumber.setText(report.abuser.getSocial().substring(0, 3));
+		socGroupNum.setText(report.abuser.getSocial().substring(3, 5));
+		socSerialNum.setText(report.abuser.getSocial().substring(5, 9));
+		abuserDobDay.setText(report.abuser.getDob().substring(0, 2));
+		abuserDobMon.setText(report.abuser.getDob().substring(2, 4));
+		abuserDobYear.setText(report.abuser.getDob().substring(4, 8));
+		abuserPhoneAreaCode.setText(report.abuser.getPhoneNumber().substring(0, 3));
+		abuserPhoneFirstThree.setText(report.abuser.getPhoneNumber().substring(3, 6));
+		abuserPhoneLastFour.setText(report.abuser.getPhoneNumber().substring(6, 10));
+		
 	}
 }

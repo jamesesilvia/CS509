@@ -14,10 +14,13 @@ import javax.swing.JButton;
 import javax.swing.JPasswordField;
 
 import client.controller.ChangePasswordController;
+import client.controller.Controller;
 import client.model.UserContainer;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 
 public class ChangePasswordPanel extends JPanel {
@@ -64,6 +67,54 @@ public class ChangePasswordPanel extends JPanel {
 			}
 		});
 
+		
+		mainFrame.addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowOpened(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				Controller homeScreen = new Controller(user);
+				mainFrame.dispose();
+				homeScreen.showFrame();
+				
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
 		//Panel setup
 		setupPanel();
 		
@@ -91,6 +142,10 @@ public class ChangePasswordPanel extends JPanel {
 		
 		//Button		
 		btnSubmit.setBounds(136, 114, 88, 29);
-		this.add(btnSubmit);				
+		this.add(btnSubmit);	
+		
+		
+
+		
 	}
 }

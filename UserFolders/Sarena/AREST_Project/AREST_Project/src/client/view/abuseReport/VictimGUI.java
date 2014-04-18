@@ -11,8 +11,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
@@ -21,9 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.LineBorder;
-import javax.swing.text.JTextComponent;
 
 import client.view.abuseReport.CreateReportInterface;
 import client.model.*;
@@ -31,7 +27,7 @@ import common.DocumentSizeFilter;
 
 // FIXME MOrsini: Add in warnings after fixing the reporter warnings
 
-public class VictimGUI extends JPanel implements CreateReportInterface {
+public class VictimGUI extends JPanel implements CreateReportInterface, ViewReportInterface {
 	
 	// Bumper on left.
 	private Insets leftInsetBumper = new Insets(5, 10, 5, 5);
@@ -972,18 +968,37 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 		return validInfo;
 	}
 
+	
+	/**
+	 * Disables the checkboxes in this panel. First, a search is performed to determine if the textfield
+	 * in this JPanel should be saved. If not, then all components are disabled. This forces
+	 * the user to only select one checkbox per panel.
+	 * @param container  - the panel to search for checkboxes.
+	 * @param cb         - the checkbox to leave enabled.
+	 */
+	public void toggleAllCheckBoxesInPanel(Container container, Object cb){
+		for(int i=0; i<container.getComponents().length; i++){	
+			if(container.getComponent(i) instanceof JCheckBox) {
+				if(!container.getComponent(i).equals(cb)) {
+					container.getComponent(i).setEnabled(!container.getComponent(i).isEnabled());
+				}
+			}
+		}
+	}
+
 	@Override
-	public Victim commitVictim(Victim victim) {
-		int disabilityIndex  = 0; 
-		int comNeedsIndex    = 0;
+	public Report updateReport(Report report) {
+		Victim victim = report.getVictim();
+		
+		String disability = "";
+		String comNeeds = "";
 		
 		victim.setFirstName(firstNameText.getText());
 		victim.setLastName(lastNameText.getText());
 		victim.setAddress(addressTextArea.getText());
-		victim.setTelephone(phoneAreaCode.getText().concat(phoneFirstThree.getText().concat(phoneLastFour.getText())));
-		victim.setFemale(sexCombo.getSelectedItem() == "Female");
-		victim.setMale(sexCombo.getSelectedItem() == "Male");
-		victim.setDateOfBirth(dayText.getText().concat("/").concat(monthText.getText().concat("/").concat(yearText.getText())));
+		victim.setPhoneNumber(phoneAreaCode.getText().concat(phoneFirstThree.getText().concat(phoneLastFour.getText())));
+		victim.setSex(sexCombo.getSelectedItem().toString());
+		victim.setDob(dayText.getText().concat("/").concat(monthText.getText().concat("/").concat(yearText.getText())));
 		victim.setAge(ageText.getText());
 		victim.setMaritalStatus(maritalStatusText.getText());
 		
@@ -994,15 +1009,16 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 				if(myCb.isSelected()) {
 					// Special case for the "other" option.
 					if(!myCb.equals(chckbxOtherspecify)) {
-						victim.setDisabilities(myCb.getText(), disabilityIndex++);
+						disability = disability.concat(myCb.getText() + " ");
 					} else {
 						// Instead of grabbing text from the checkbox, grab it from the text field
 						// when "other" is selected.
-						victim.setDisabilities(disabilityOtherTextField.getText(), disabilityIndex++);
+						disability = disability.concat(disabilityOtherTextField.getText());
 					}
 				}
 			}
 		}
+		victim.setDisability(disability);
 		
 		// Disability and ethnicity are similar. If other is set, must take the other text field.
 		for(int i=0; i<ethnicityCbPanel.getComponentCount(); i++){
@@ -1027,56 +1043,23 @@ public class VictimGUI extends JPanel implements CreateReportInterface {
 				if(cb.isSelected()) {
 					// Special case for "other" option.
 					if(!cb.equals(otherComNeedsCheckBox)) {
-						victim.setComNeeds(cb.getText(), comNeedsIndex++);
+						comNeeds = comNeeds.concat(cb.getText());
 					} else {
-						victim.setComNeeds(otherComNeedsTextField.getText(), comNeedsIndex++);
+						comNeeds = comNeeds.concat(otherComNeedsTextField.getText());
 					}
 				}
 			}
 		}
+		victim.setCommunicationNeeds(comNeeds);
 		
-		return victim;
-	}
-
-	
-	/**
-	 * Disables the checkboxes in this panel. First, a search is performed to determine if the textfield
-	 * in this JPanel should be saved. If not, then all components are disabled. This forces
-	 * the user to only select one checkbox per panel.
-	 * @param container  - the panel to search for checkboxes.
-	 * @param cb         - the checkbox to leave enabled.
-	 */
-	public void toggleAllCheckBoxesInPanel(Container container, Object cb){
-		for(int i=0; i<container.getComponents().length; i++){	
-			if(container.getComponent(i) instanceof JCheckBox) {
-				if(!container.getComponent(i).equals(cb)) {
-					container.getComponent(i).setEnabled(!container.getComponent(i).isEnabled());
-				}
-			}
-		}
-	}
-
-	/**
-	 * Not implemented by this class. VictimGUI only sets the victim object. 
-	 */
-	@Override
-	public Reporter commitReporter(Reporter reporter) {
-
-		return null;
-	}
-
-	/**
-	 * Not implemented by this class. VictimGUI only sets the victim object.
-	 */
-	@Override
-	public Abuser commitAbuser(Abuser abuser) {
-
-		return null;
+		report.setVictim(victim);
+		
+		return report;
 	}
 
 	@Override
-	public Guardian commitGuardian(Guardian guardian) {
+	public void updatePanel(Report report) {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 }

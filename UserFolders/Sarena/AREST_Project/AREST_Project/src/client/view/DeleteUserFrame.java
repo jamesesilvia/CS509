@@ -9,7 +9,7 @@ public class DeleteUserFrame extends JFrame {
 	private DeleteUserPanel currentPanel;
 	
 	public DeleteUserFrame(UserContainer _currentUser){		
-		currentPanel = new DeleteUserPanel(_currentUser);
+		currentPanel = new DeleteUserPanel(_currentUser, this);
 		setTitle("Delete User");
 		
 		setupFrame();

@@ -2,6 +2,7 @@ package client.controller;
 
 import java.io.IOException;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import us.monoid.web.AbstractResource;
@@ -15,13 +16,17 @@ import org.codehaus.jackson.map.ObjectMapper;
 import client.model.UserContainer;
 
 public class DeleteUserController {
+	private UserContainer currentUser;
+	private JFrame currentFrame;
 	String json;
 	public UserContainer user = new UserContainer();
 	ObjectMapper mapper = new ObjectMapper();
 	Resty sendDelete = new Resty();
 	AbstractResource deleteResponse;
 	
-	public void deleteUser(String username) throws IOException{
+	public void deleteUser(String username, UserContainer _currentUser) throws IOException{
+		currentUser = _currentUser;
+		
 		user.userName = username;
 		//Map java object to json object
 		json = mapper.writeValueAsString(user);
@@ -42,8 +47,12 @@ public class DeleteUserController {
 		}
 		// User does not exist
 		else{
-			
+			JOptionPane.showMessageDialog(null, "Problem deleting user: \n"
+					+ username, "Error!", JOptionPane.ERROR_MESSAGE);	
 		}
+		
+		Controller homeScreen = new Controller(currentUser);
+		homeScreen.showFrame();
 	}
 
 }

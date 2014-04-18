@@ -17,8 +17,14 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+
+import us.monoid.json.JSONException;
 
 
 // The controller class is the Home Screen
@@ -30,7 +36,7 @@ public class Controller {
 	
 	// AREST Panel's
 	private CreateReportGUI createReportGUI;
-	//private HomeScreenPanel homeScreenPanel;
+	private ViewReportGUI viewReportGUI;
 	private ViewAllReportsFrame viewAllReportsFrame;
 	private ViewAllUsersFrame viewAllUsersFrame;
 	private CreateUserFrame createUserFrame;
@@ -41,24 +47,6 @@ public class Controller {
 	
 	private Controller controller = this;
 	public static UserContainer currentUser;
-
-	/**
-	 * Launch the application.
-	 */
-	//public static void main(String[] args) {
-	//	EventQueue.invokeLater(new Runnable() {
-	//		public void run() {
-	//			try {
-	//				//logonPanel = new LogonPanel();
-	//				//logonPanel.showFrame();
-	//				Controller window = new Controller();
-	//				window.mframe.setVisible(true);
-	//			} catch (Exception e) {
-	//				e.printStackTrace();
-	//			}
-	//		}
-	//	});
-	//}
 
 	/**
 	 * Create the application.
@@ -90,9 +78,7 @@ public class Controller {
 			public void actionPerformed(ActionEvent action) {
 				if(action.getID() == ActionEvent.ACTION_PERFORMED) {
 					createReportGUI = new CreateReportGUI();
-					
-					mframe.setVisible(false);
-					createReportGUI.showFrame();
+
 				}
 			}
 		});
@@ -133,7 +119,21 @@ public class Controller {
 		viewReportButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent action) {
 				if(action.getID() == ActionEvent.ACTION_PERFORMED) {
-					// Put matt's changes in
+					try {
+						viewReportGUI = new ViewReportGUI(2L);
+					} catch (JsonGenerationException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (JsonMappingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 
 				}
 			}

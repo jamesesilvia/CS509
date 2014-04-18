@@ -24,14 +24,11 @@ import client.view.abuseReport.CreateReportInterface;
 import client.model.*;
 import common.DocumentSizeFilter;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
 /**
  * @author Matt
  *
  */
-public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInterface {
+public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInterface, ViewReportInterface {
 	private JTextField otherServedText;
 	
 	// Bumper on left.
@@ -837,37 +834,6 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 		return validInfo;
 	}
 
-	@Override
-	public Reporter commitReporter(Reporter reporter) {
-		return reporter;
-	}
-
-	@Override
-	public Abuser commitAbuser(Abuser abuser) {
-		return abuser;
-	}
-
-	@Override
-	public Victim commitVictim(Victim victim) {
-		// This can return many, so take them all.
-		victim.setCurrServedBy(getCheckBoxNames(currentlyServedByPanel, otherSpecifyCb, otherServedText));
-		// This should only return 1. So take the first.
-		victim.setTypeOfService(getCheckBoxNames(typeOfServicePanel, otherServiceCb, otherServiceText)[0]);
-		
-		// Must be either Yes or no, if yes is not set, then it MUST be no.
-		victim.setAwareOfReport(yesCb.isSelected());
-		
-		// This should only return 1 string. Take the first. Also, we don't have an other OR a text field to worry about.
-		victim.setFreqOfAbuse(getCheckBoxNames(frequencyOfAbusePanel, null, null)[0]);
-		
-		victim.setTypesOfAbuse(getCheckBoxNames(typesOfAbusePanel, otherTypeOfAbuseCb, otherTypeOfAbuseText));
-		return victim;
-	}
-	
-	@Override
-	public Guardian commitGuardian(Guardian guardian) {
-		return guardian;
-	}
 	
 	/**
 	 * Toggle all the checkboxes in the specified container (JPanel)
@@ -891,22 +857,22 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 	 * @param textComp  - the text component associated with the "other" checkbox.
 	 * @return a list of strings related to the panel. These are the names of the checkboxes and / or data in the text fields
 	 */
-	private String[] getCheckBoxNames(Container container, JCheckBox other, JTextComponent textComp) {
-		String[] contCheckBoxNames = new String[container.getComponentCount()];
+	private String getCheckBoxNames(Container container, JCheckBox other, JTextComponent textComp) {
+		String contCheckBoxNames = "";
 		boolean isOtherSet = false;
 		int j = 0;
 		for(int i=0; i<container.getComponentCount(); i++) {
 			if(container.getComponent(i) instanceof JCheckBox) {
 				JCheckBox myCb = (JCheckBox) container.getComponent(i);
 				if(myCb.isSelected() && !myCb.equals(other)){
-					contCheckBoxNames[j++] = container.getComponent(i).getName();
+					contCheckBoxNames = contCheckBoxNames.concat(myCb.getText());
 				} else if (myCb.isSelected() && myCb.equals(other)) {
 					isOtherSet = true;
 				}
 			}
 		}
 		if(isOtherSet){
-			contCheckBoxNames[j++] = textComp.getText();
+			contCheckBoxNames.concat(textComp.getText());
 		}
 		return contCheckBoxNames;
 	}
@@ -928,6 +894,33 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 		}
 		// Didn't find a match, return false
 		return false;
+	}
+
+	@Override
+	public Report updateReport(Report report) {
+		Victim victim = report.getVictim();
+
+		// This can return many, so take them all.
+		victim.setCurrentlyServedBy(getCheckBoxNames(currentlyServedByPanel, otherSpecifyCb, otherServedText));
+		// This should only return 1. So take the first.
+		victim.setTypeOfService(getCheckBoxNames(typeOfServicePanel, otherServiceCb, otherServiceText));
+		
+		// Must be either Yes or no, if yes is not set, then it MUST be no.
+		victim.setAwareOfReport(yesCb.isSelected());
+		
+		victim.setFreqOfAbuse(getCheckBoxNames(frequencyOfAbusePanel, null, null));
+		
+		victim.setTypesOfAbuse(getCheckBoxNames(typesOfAbusePanel, otherTypeOfAbuseCb, otherTypeOfAbuseText));
+		
+		report.setVictim(victim);
+		
+		return report;
+	}
+
+	@Override
+	public void updatePanel(Report report) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

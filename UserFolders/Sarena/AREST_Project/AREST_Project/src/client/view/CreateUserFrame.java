@@ -9,7 +9,7 @@ public class CreateUserFrame extends JFrame {
 	private CreateUserPanel currentPanel;
 	
 	public CreateUserFrame(UserContainer _currentUser){		
-		currentPanel = new CreateUserPanel(_currentUser);
+		currentPanel = new CreateUserPanel(_currentUser, this);
 		setTitle("Create New User Account");
 		
 		setupFrame();

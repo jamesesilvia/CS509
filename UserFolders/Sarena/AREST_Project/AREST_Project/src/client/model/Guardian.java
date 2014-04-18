@@ -1,11 +1,17 @@
 package client.model;
 
-public class Guardian extends Individual{
+/**
+ * Describes the properties of a guardian of the alleged victim.
+ * @author Matt Orsini
+ *
+ */
+public class Guardian extends PersonInfo {
 
-	private String relationshipToVictim;
+	//public Long id;
+	public String relationshipToVictim;
 	
 	public Guardian() {
-	
+		
 	}
 
 	public String getRelationshipToVictim() {

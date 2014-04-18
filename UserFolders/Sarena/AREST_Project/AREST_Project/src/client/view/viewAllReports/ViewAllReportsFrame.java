@@ -9,6 +9,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 
 import client.controller.Controller;
+import client.model.Report;
 import client.model.UserContainer;
 
 import java.awt.event.ActionEvent;
@@ -51,10 +52,10 @@ public class ViewAllReportsFrame extends JFrame{
 	private JTable table;
 	
 	private ObjectMapper mapper = new ObjectMapper();
-	private Resty getUser = new Resty();
+	private Resty getReport = new Resty();
 	private JSONResource getReportResponse;
 	private JSONArray getReportResponseArray;
-	List<UserContainer> listOfReports;
+	List<Report> listOfReports;
 	
 
 	/**
@@ -87,32 +88,42 @@ public class ViewAllReportsFrame extends JFrame{
 		
 		// Need to get table contents from connection manager
 		// Make this Object[100][3]
-		Object[][] tableContents = {{new Integer(1), "01/04/14", "Jane Doe"},
-									{new Integer(2), "02/20/14", "Cameron Diaz"},
-									{new Integer(3), "05/16/14", "Selina Gomez"}};
+		//Object[][] tableContents = {{new Integer(1), "01/04/14", "Jane Doe"},
+		//							{new Integer(2), "02/20/14", "Cameron Diaz"},
+		//							{new Integer(3), "05/16/14", "Selina Gomez"}};
+		
+		Object[][] tableContents = new Object[100][3];
 		
 		// Grab reports from server
-		// Grabe Users from the Server
-		getUser.alwaysSend("Content-Type", "application/json");
+		// Grab Users from the Server
+		getReport.alwaysSend("Content-Type", "application/json");
 		try {
-			getReportResponse = getUser.json("http://cs509-arest.herokuapp.com/report/getAll");
+			getReportResponse = getReport.json("http://cs509-arest.herokuapp.com/report/getAll");
 			getReportResponseArray = getReportResponse.array();
 			String print = Integer.toString(getReportResponseArray.length());
-			System.out.println("length of array = " + print);
+			System.out.println("length of array of reports = " + print);
 			
-			// Get the user container(s) from the JSONArray
-			
-			// PENDING REPORT CONTAINER CLASS
-			/*for(int i = 0; i < getReportResponseArray.length(); i ++)
+			// Get the report container(s) from the JSONArray
+
+			if(currentUser.isSupervisor)
 			{
-				ReportContainer report = mapper.readValue(getReportResponseArray.getString(i), UserContainer.class);
-				System.out.println("Report Id: " + user.id);
-				System.out.println("Last name: " + user.lastName);
-				System.out.println("Username: " + user.userName);
-				tableContents[i][0] = user.firstName;
-				tableContents[i][1] = user.lastName;
-				tableContents[i][2] = user.userName;
-			}*/
+				for(int i = 0; i < getReportResponseArray.length(); i ++)
+				{
+					Report report = mapper.readValue(getReportResponseArray.getString(i), Report.class);
+					System.out.println("Report Id: " + report.id);
+					System.out.println("Date: " + report.date);
+					System.out.println("Submitter: " + report.username);
+					String fullName = report.reporter.firstName + " " + report.reporter.lastName;
+					tableContents[i][0] = report.id;
+					tableContents[i][1] = report.date;
+					tableContents[i][2] = report.username;
+				}
+			}
+			else
+			{
+				//Report report = mapper.readValue(getReportResponseArray.getString(i), Report.class);
+				
+			}
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

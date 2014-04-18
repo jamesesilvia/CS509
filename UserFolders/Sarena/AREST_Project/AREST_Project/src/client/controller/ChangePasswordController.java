@@ -15,12 +15,15 @@ import org.codehaus.jackson.map.ObjectMapper;
 import client.model.UserContainer;
 
 public class ChangePasswordController {
+	UserContainer currentUser;
 	String json;
 	ObjectMapper mapper = new ObjectMapper();
 	Resty sendLogon = new Resty();
 	AbstractResource changePasswordResponse;	
 	
 	public void changePassword( UserContainer user) throws IOException{
+		currentUser = user;
+		
 		//Map java object to json object
 		json = mapper.writeValueAsString(user);
 		//Check Passwords
@@ -31,18 +34,18 @@ public class ChangePasswordController {
 			//If the change password was successful
 			if ( changePasswordResponse.status(200) == true ){
 				JOptionPane.showMessageDialog(null, "Changed Password!",
-						"Success!", JOptionPane.INFORMATION_MESSAGE);
-				//Go to home screen View
-				//Sarena
+						"Success!", JOptionPane.INFORMATION_MESSAGE);			
 			}
 			else{
 				//Something went wrong with server
 				//Not sure what to do here, maybe exit
 				System.out.println("Something went wrong");
 			}
+			goBackHome();
 		} catch( IOException e1 ){
 			JOptionPane.showMessageDialog(null, "Something went wrong.\n"
 					+ "Please try again.", "Change Password Error!", JOptionPane.ERROR_MESSAGE);
+			goBackHome();
 			
 		}
 	}
@@ -53,6 +56,12 @@ public class ChangePasswordController {
 		}
 		JOptionPane.showMessageDialog(null, "Passwords must be the same, try again.", "Password Error!", JOptionPane.ERROR_MESSAGE);
 		return false;
+	}
+	
+	public void goBackHome()
+	{
+		Controller homeScreen = new Controller(currentUser);
+		homeScreen.showFrame();
 	}
 
 }
