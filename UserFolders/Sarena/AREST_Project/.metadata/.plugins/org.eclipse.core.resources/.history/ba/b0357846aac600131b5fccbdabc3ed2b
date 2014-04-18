@@ -242,7 +242,7 @@ public class Controller {
 		
 		if(!currentUser.isSupervisor)
 		{
-			//viewAllReportsButton.setVisible(false);
+			viewAllReportsButton.setVisible(false);
 			viewAllUsersButton.setVisible(false);
 			deleteUserButton.setVisible(false);
 			createUserButton.setVisible(false);

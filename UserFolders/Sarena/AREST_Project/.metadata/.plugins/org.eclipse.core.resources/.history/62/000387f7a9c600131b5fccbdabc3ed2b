@@ -119,16 +119,15 @@ public class ViewAllReportsFrame extends JFrame{
 					tableContents[i][2] = report.username;
 				}
 				else
-				{
-					boolean result = currentUser.userName.equals(report.username);
-					if(currentUser.userName.equals(report.username) == true)
 					{
-						tableContents[index][0] = report.id;
-						tableContents[index][1] = report.date;
-						tableContents[index][2] = report.username;
-						index++;
+						if(report.username == currentUser.userName)
+						{
+							tableContents[index][0] = report.id;
+							tableContents[index][1] = report.date;
+							tableContents[index][2] = report.username;
+							index++;
+						}
 					}
-				}
 			}
 
 			

@@ -105,24 +105,30 @@ public class ViewAllReportsFrame extends JFrame{
 			
 			// Get the report container(s) from the JSONArray
 
-			if(currentUser.isSupervisor)
+			int index = 0;
+			for(int i = 0; i < getReportResponseArray.length(); i ++)
 			{
-				for(int i = 0; i < getReportResponseArray.length(); i ++)
+				Report report = mapper.readValue(getReportResponseArray.getString(i), Report.class);
+				System.out.println("Report Id: " + report.id);
+				System.out.println("Date: " + report.date);
+				System.out.println("Submitter: " + report.username);
+				if(currentUser.isSupervisor)
 				{
-					Report report = mapper.readValue(getReportResponseArray.getString(i), Report.class);
-					System.out.println("Report Id: " + report.id);
-					System.out.println("Date: " + report.date);
-					System.out.println("Submitter: " + report.username);
-					String fullName = report.reporter.firstName + " " + report.reporter.lastName;
 					tableContents[i][0] = report.id;
 					tableContents[i][1] = report.date;
 					tableContents[i][2] = report.username;
 				}
-			}
-			else
-			{
-				//Report report = mapper.readValue(getReportResponseArray.getString(i), Report.class);
-				
+				else
+				{
+					boolean result = currentUser.userName.equals(report.username);
+					if(currentUser.userName.equals(report.username) == true)
+					{
+						tableContents[index][0] = report.id;
+						tableContents[index][1] = report.date;
+						tableContents[index][2] = report.username;
+						index++;
+					}
+				}
 			}
 			
 		} catch (IOException e) {

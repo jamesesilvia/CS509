@@ -112,6 +112,7 @@ public class ViewAllReportsFrame extends JFrame{
 				System.out.println("Report Id: " + report.id);
 				System.out.println("Date: " + report.date);
 				System.out.println("Submitter: " + report.username);
+				String fullName = report.reporter.firstName + " " + report.reporter.lastName;
 				if(currentUser.isSupervisor)
 				{
 					tableContents[i][0] = report.id;
@@ -119,16 +120,15 @@ public class ViewAllReportsFrame extends JFrame{
 					tableContents[i][2] = report.username;
 				}
 				else
-				{
-					boolean result = currentUser.userName.equals(report.username);
-					if(currentUser.userName.equals(report.username) == true)
 					{
-						tableContents[index][0] = report.id;
-						tableContents[index][1] = report.date;
-						tableContents[index][2] = report.username;
-						index++;
+						if(report.username == currentUser.userName)
+						{
+							tableContents[index][0] = report.id;
+							tableContents[index][1] = report.date;
+							tableContents[index][2] = report.username;
+							index++;
+						}
 					}
-				}
 			}
 
 			
