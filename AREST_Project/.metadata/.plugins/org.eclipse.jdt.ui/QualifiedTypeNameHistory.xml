@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.awt.event.ActionEvent"/>
+<fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
+<fullyQualifiedTypeName name="client.model.Guardian"/>
+<fullyQualifiedTypeName name="java.awt.Dimension"/>
+<fullyQualifiedTypeName name="javax.swing.table.JTableHeader"/>
+<fullyQualifiedTypeName name="us.monoid.web.JSONResource"/>
+<fullyQualifiedTypeName name="com.sun.xml.internal.bind.v2.schemagen.xmlschema.List"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="org.codehaus.jackson.type.TypeReference"/>
+<fullyQualifiedTypeName name="client.view.LogonPanel"/>
+<fullyQualifiedTypeName name="org.codehaus.jackson.JsonNode"/>
+<fullyQualifiedTypeName name="us.monoid.json.JSONArray"/>
+<fullyQualifiedTypeName name="client.model.UserContainer"/>
+<fullyQualifiedTypeName name="javax.swing.JFrame"/>
+<fullyQualifiedTypeName name="java.awt.event.WindowEvent"/>
+<fullyQualifiedTypeName name="java.awt.event.WindowListener"/>
+<fullyQualifiedTypeName name="client.controller.Controller"/>
+<fullyQualifiedTypeName name="client.model.Report"/>
+</qualifiedTypeNameHistroy>
