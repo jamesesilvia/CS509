@@ -10,7 +10,7 @@ public class ReportPrinter
 {
 	public ReportPrinter(Report rep) throws Exception
 	{ 
-		File myFile = new File("C:/Users/470039/Documents/AREST/ARESTTemplate.pdf");
+		File myFile = new File("C:/AREST/ARESTTemplate.pdf");
 		FileInputStream fis = new FileInputStream(myFile);				
 		PDF pdf = new PDF(new PDFReader(fis));
 		Form form = pdf.getForm();
