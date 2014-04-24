@@ -20,6 +20,7 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import us.monoid.json.JSONArray;
 import us.monoid.json.JSONException;
 import us.monoid.web.JSONResource;
 import us.monoid.web.Resty;
@@ -59,7 +60,7 @@ public abstract class ReportGUI extends JFrame {
 	protected static GuardianGUI guardianGUI;
 	protected static DescriptionGUI descriptionGUI;
 	
-	protected static int componentIndex = 0;
+	protected int componentIndex = 0;
 	
 	protected final Object[] option = {"Yes", "No"};
 	
@@ -146,7 +147,7 @@ public abstract class ReportGUI extends JFrame {
 
 		mFrame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		mFrame.setResizable(false);
-		mFrame.setVisible(true);
+		//mFrame.setVisible(true);
 		mFrame.addWindowListener(new WindowListener() {
 			
 			@Override
@@ -257,7 +258,6 @@ public abstract class ReportGUI extends JFrame {
 		JSONResource getReportResp = null;
 		
 		String json = mapper.writeValueAsString(report);
-		System.out.println(json);
 		
 		rest.alwaysSend("Content-Type", "application/json");
 		
@@ -304,29 +304,52 @@ public abstract class ReportGUI extends JFrame {
 		ObjectMapper mapper = new ObjectMapper();
 		Resty rest = new Resty();
 		JSONResource getReportResp;
-		Report reportToGrab = new Report();
-		
-		// FIXME: this is hard-coded. Need to pass in the ID.
-		id = 62L;
-		reportToGrab.setId(id);
-		
-		String json = mapper.writeValueAsString(reportToGrab);
+		JSONArray getReportRespArray;
 		
 		rest.alwaysSend("Content-Type", "application/json");
-		getReportResp = rest.json("http://cs509-arest.herokuapp.com/report/get", content(json));
-		
-		Report report = mapper.readValue(getReportResp.object().toString(), Report.class);
-		
-		return report;
+		getReportResp = rest.json("http://cs509-arest.herokuapp.com/report/getAll");
+		getReportRespArray = getReportResp.array();
+		for(int i=0; i<getReportRespArray.length(); i++) {
+			Report report = mapper.readValue(getReportRespArray.getString(i), Report.class);
+			if(report.getId() == id) {
+				return report;
+			}
+		}
+		return null;
 	}
 	
 	
+	/**
+	 * Sets the user associated with this logged in session.
+	 * @param user - the user to set.
+	 */
 	public void setUser(UserContainer user) {
 		this.user = user;
 	}
 	
+	/**
+	 * Gets the user associated with this logged in session.
+	 * @return the user associated with this session.
+	 */
 	public UserContainer getUser() {
 		return user;
+	}
+	
+	/**
+	 * Determines if this user is a supervisor.
+	 * @return true if the current user is a supervisor, false otherwise.
+	 */
+	protected boolean isSupervisor() {
+		return user.isSupervisor;
+	}
+	
+	/**
+	 * Determines if this user created the report.
+	 * @param cUser - the current user logged in to the system.
+	 * @return true if the current user is the creator, false otherwise
+	 */
+	protected boolean isCreator(UserContainer cUser) {
+		return user.userName.equals(reportContainer.getUsername());
 	}
 	
 }

@@ -27,9 +27,20 @@ import us.monoid.web.Resty;
 public class EditReportGUI extends ViewReportGUI {
 
 	
-	public EditReportGUI() {
+	public EditReportGUI(UserContainer user) {
+		super(user);
 		componentIndex = 0;
 	}	
+	
+	@Override
+	protected void preconfigureView() {
+		setReportValid(true); // report must be valid, we already fetched it!
+	}
+	
+	@Override
+	protected void postconfigureView() {
+		// DO NOTHING! The viewReportGUI will remove enabled on all text fields, and we don't want that!
+	}
 	
 	// Override the view report GUI
 	@Override
@@ -104,14 +115,13 @@ public class EditReportGUI extends ViewReportGUI {
 						}
 						// Only proceed if the information is valid
 						if(validInfo){
+							buttonLeft.setEnabled(true);
 							if(componentIndex != (mCards.getComponents().length - 1)) {
 								clContainer.next(mCards);
 								incrementCardLayoutCounter();
 							}
 							if(componentIndex == (mCards.getComponentCount() -1)) {
 								buttonRight.setText("Submit");
-							} else {
-								buttonRight.setText("Next");
 							}
 						}
 					}

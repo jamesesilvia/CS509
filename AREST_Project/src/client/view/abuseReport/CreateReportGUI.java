@@ -32,10 +32,6 @@ import client.model.*;
 public class CreateReportGUI extends ReportGUI {
 
 	
-	public CreateReportGUI() {
-		
-	}
-	
 	/**
 	 * Create the panel.
 	 * @param the user responsbile for the creation of this report.
@@ -57,14 +53,19 @@ public class CreateReportGUI extends ReportGUI {
 		super.initialize();
 		
 		buttonLeft.setText("Previous");
+		buttonLeft.setEnabled(false);
 		buttonLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event ) {
 				if (event.getID() == ActionEvent.ACTION_PERFORMED) {
 					if(getCardComponentIndex() != 0) {
+						if(getCardComponentIndex() == 1) {
+							buttonLeft.setEnabled(false);
+						}
 						clContainer.previous(mCards);
 						buttonRight.setText("Next");
 					}
 					decrementCardLayoutCounter();
+					buttonRight.setText("Next");
 				}
 			}
 		});
@@ -124,16 +125,15 @@ public class CreateReportGUI extends ReportGUI {
 				
 					// Only proceed if the information is valid
 					if(validInfo){
+						buttonLeft.setEnabled(true);
 						if(componentIndex != (mCards.getComponents().length - 1)) {
 							clContainer.next(mCards);
 							incrementCardLayoutCounter();
 						}
-						if(componentIndex == (mCards.getComponentCount() -1)) {
-							buttonRight.setText("Submit");
-						} else {
-							buttonRight.setText("Next");
-						}
 					}
+					if(componentIndex == (mCards.getComponentCount() -1)) {
+						buttonRight.setText("Submit");
+					} 
 				}
 			}
 		});
@@ -159,6 +159,7 @@ public class CreateReportGUI extends ReportGUI {
 		});
 		
 		mFrame.pack();
+		mFrame.setVisible(true);
 	}
 	
 	
