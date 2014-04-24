@@ -259,7 +259,7 @@ public class Controller {
 		JTextPane txtpnCopyrightJ = new JTextPane();
 		txtpnCopyrightJ.setEditable(false);
 		txtpnCopyrightJ.setOpaque(false);
-		txtpnCopyrightJ.setText("Copyright 2014: J. Silvia, T. Carroll, S. Meas, T. Stroot, M. Orsini");
+		txtpnCopyrightJ.setText("Copyright 2014: J. Silvia, T. Carroll, S. Meas, T. Strott, M. Orsini");
 		GridBagConstraints gbc_txtpnCopyrightJ = new GridBagConstraints();
 		gbc_txtpnCopyrightJ.anchor = GridBagConstraints.NORTH;
 		gbc_txtpnCopyrightJ.gridx = 0;
