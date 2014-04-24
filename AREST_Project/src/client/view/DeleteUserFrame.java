@@ -23,7 +23,6 @@ public class DeleteUserFrame extends JFrame {
 	
 	public void start(){
 		this.setSize(300,200);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 	}
 
