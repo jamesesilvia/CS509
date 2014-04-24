@@ -160,6 +160,7 @@ public class CreateReportGUI extends ReportGUI {
 		
 		mFrame.pack();
 		mFrame.setVisible(true);
+		mFrame.setTitle("AREST: Create an Abuse Report");
 	}
 	
 	

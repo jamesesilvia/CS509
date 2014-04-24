@@ -70,6 +70,7 @@ public class Controller {
 	private JButton createUserButton;
 	private JButton changePasswordButton;
 	private JButton logOffButton;
+	private JTextPane nameText;
 	
 	/**
 	 * Create the application.
@@ -88,9 +89,9 @@ public class Controller {
 		mframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {300};
-		gridBagLayout.rowHeights = new int[] {0, 50, 50, 50, 50, 50, 50, 50, 50, 0};
+		gridBagLayout.rowHeights = new int[] {0, 42, 50, 50, 50, 50, 50, 50, 50, 50, 0};
 		gridBagLayout.columnWeights = new double[]{0.0};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0};
 		mframe.getContentPane().setLayout(gridBagLayout);
 		
 		// The following code kicks going to the create report frame
@@ -115,14 +116,26 @@ public class Controller {
 		gbc_welcomeText.insets = new Insets(10, 10, 10, 10);
 		gbc_welcomeText.gridx = 0;
 		gbc_welcomeText.gridy = 0;
-		welcomeText.setText("Welcome to AREST " + currentUser.firstName + " " + currentUser.lastName);
+		welcomeText.setText("Welcome to AREST,");
 		mframe.getContentPane().add(welcomeText, gbc_welcomeText);
+		
+		nameText = new JTextPane();
+		nameText.setOpaque(false);
+		nameText.setFont(new Font("Calibri", Font.BOLD, 16));
+		nameText.setEditable(false);
+		GridBagConstraints gbc_nameText = new GridBagConstraints();
+		gbc_nameText.insets = new Insets(0, 0, 5, 0);
+		gbc_nameText.fill = GridBagConstraints.VERTICAL;
+		gbc_nameText.gridx = 0;
+		gbc_nameText.gridy = 1;
+		nameText.setText(currentUser.firstName + " " + currentUser.lastName);
+		mframe.getContentPane().add(nameText, gbc_nameText);
 		GridBagConstraints gbc_createReportButton = new GridBagConstraints();
 		gbc_createReportButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_createReportButton.weighty = 0.5;
-		gbc_createReportButton.insets = mainScreenInsets;
+		gbc_createReportButton.insets = new Insets(10, 20, 10, 20);
 		gbc_createReportButton.gridx = 0;
-		gbc_createReportButton.gridy = 1;
+		gbc_createReportButton.gridy = 2;
 		mframe.getContentPane().add(createReportButton, gbc_createReportButton);
 		
 		// The following takes us to the view all reports frame
@@ -146,9 +159,9 @@ public class Controller {
 		GridBagConstraints gbc_viewAllReportsButton = new GridBagConstraints();
 		gbc_viewAllReportsButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_viewAllReportsButton.weighty = 0.5;
-		gbc_viewAllReportsButton.insets = mainScreenInsets;
+		gbc_viewAllReportsButton.insets = new Insets(10, 20, 10, 20);
 		gbc_viewAllReportsButton.gridx = 0;
-		gbc_viewAllReportsButton.gridy = 2;
+		gbc_viewAllReportsButton.gridy = 3;
 		mframe.getContentPane().add(viewAllReportsButton, gbc_viewAllReportsButton);
 		
 		viewReportButton = new JButton("View Report");
@@ -163,9 +176,9 @@ public class Controller {
 		GridBagConstraints gbc_viewReportButton = new GridBagConstraints();
 		gbc_viewReportButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_viewReportButton.weighty = 0.5;
-		gbc_viewReportButton.insets = mainScreenInsets;
+		gbc_viewReportButton.insets = new Insets(10, 20, 10, 20);
 		gbc_viewReportButton.gridx = 0;
-		gbc_viewReportButton.gridy = 3;
+		gbc_viewReportButton.gridy = 4;
 		mframe.getContentPane().add(viewReportButton, gbc_viewReportButton);
 		
 		
@@ -185,9 +198,9 @@ public class Controller {
 		GridBagConstraints gbc_viewAllUsersButton = new GridBagConstraints();
 		gbc_viewAllUsersButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_viewAllUsersButton.weighty = 0.5;
-		gbc_viewAllUsersButton.insets = mainScreenInsets;
+		gbc_viewAllUsersButton.insets = new Insets(10, 20, 10, 20);
 		gbc_viewAllUsersButton.gridx = 0;
-		gbc_viewAllUsersButton.gridy = 4;
+		gbc_viewAllUsersButton.gridy = 5;
 		mframe.getContentPane().add(viewAllUsersButton, gbc_viewAllUsersButton);
 		
 		deleteUserButton = new JButton("Delete User");
@@ -204,9 +217,9 @@ public class Controller {
 		GridBagConstraints gbc_deleteUserButton = new GridBagConstraints();
 		gbc_deleteUserButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_deleteUserButton.weighty = 0.5;
-		gbc_deleteUserButton.insets = mainScreenInsets;
+		gbc_deleteUserButton.insets = new Insets(10, 20, 10, 20);
 		gbc_deleteUserButton.gridx = 0;
-		gbc_deleteUserButton.gridy = 5;
+		gbc_deleteUserButton.gridy = 6;
 		mframe.getContentPane().add(deleteUserButton, gbc_deleteUserButton);
 		
 		createUserButton = new JButton("Create New User");
@@ -223,9 +236,9 @@ public class Controller {
 		GridBagConstraints gbc_createUserButton = new GridBagConstraints();
 		gbc_createUserButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_createUserButton.weighty = 0.5;
-		gbc_createUserButton.insets = mainScreenInsets;
+		gbc_createUserButton.insets = new Insets(10, 20, 10, 20);
 		gbc_createUserButton.gridx = 0;
-		gbc_createUserButton.gridy = 6;
+		gbc_createUserButton.gridy = 7;
 		mframe.getContentPane().add(createUserButton, gbc_createUserButton);
 		
 		changePasswordButton = new JButton("Change Password");
@@ -242,9 +255,9 @@ public class Controller {
 		GridBagConstraints gbc_changePasswordButton = new GridBagConstraints();
 		gbc_changePasswordButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_changePasswordButton.weighty = 0.5;
-		gbc_changePasswordButton.insets = mainScreenInsets;
+		gbc_changePasswordButton.insets = new Insets(10, 20, 10, 20);
 		gbc_changePasswordButton.gridx = 0;
-		gbc_changePasswordButton.gridy = 7;
+		gbc_changePasswordButton.gridy = 8;
 		mframe.getContentPane().add(changePasswordButton, gbc_changePasswordButton);
 		
 		logOffButton = new JButton("Log Off");
@@ -261,8 +274,8 @@ public class Controller {
 		gbc_logOffButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_logOffButton.weighty = 0.5;
 		gbc_logOffButton.gridx = 0;
-		gbc_logOffButton.gridy = 8;
-		gbc_logOffButton.insets = mainScreenInsets;
+		gbc_logOffButton.gridy = 9;
+		gbc_logOffButton.insets = new Insets(10, 20, 10, 20);
 		mframe.getContentPane().add(logOffButton, gbc_logOffButton);
 		
 		JTextPane txtpnCopyrightJ = new JTextPane();
@@ -272,7 +285,7 @@ public class Controller {
 		GridBagConstraints gbc_txtpnCopyrightJ = new GridBagConstraints();
 		gbc_txtpnCopyrightJ.anchor = GridBagConstraints.NORTH;
 		gbc_txtpnCopyrightJ.gridx = 0;
-		gbc_txtpnCopyrightJ.gridy = 9;
+		gbc_txtpnCopyrightJ.gridy = 10;
 		gbc_txtpnCopyrightJ.insets = mainScreenInsets;
 		mframe.getContentPane().add(txtpnCopyrightJ, gbc_txtpnCopyrightJ);
 		mframe.pack();

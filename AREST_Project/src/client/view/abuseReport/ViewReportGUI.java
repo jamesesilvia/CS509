@@ -231,6 +231,7 @@ public class ViewReportGUI extends ReportGUI implements ViewReportInterface {
 			});
 			mFrame.pack();
 			mFrame.setVisible(true);
+			mFrame.setTitle("AREST: View a Report by ID   (ID #" + reportContainer.getId() + ")");
 		} 
 	}
 	

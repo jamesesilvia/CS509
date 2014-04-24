@@ -50,6 +50,7 @@ public class EditReportGUI extends ViewReportGUI {
 		// remove the viewreportpanel and pack again
 		containerPanel.remove(viewReportPanel);
 		mFrame.pack();
+		mFrame.setTitle("AREST: Edit an Abuse Report by ID   (ID #" + reportContainer.getId() + ")");
 		
 		ActionListener[] al;
 		al = buttonRight.getActionListeners();
