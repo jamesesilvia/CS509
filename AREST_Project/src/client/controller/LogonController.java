@@ -14,6 +14,8 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import common.Sha1Conversion;
+
 import client.model.UserContainer;
 import client.view.ChangePasswordPanel;
 import client.view.LogonFrame;
@@ -21,17 +23,21 @@ import client.controller.Controller;
 import client.view.ChangePasswordFrame;
 
 public class LogonController {
-	String json, userJson;
+	String json, userJson, hashedPassword;
 	public UserContainer user = new UserContainer();
 	ObjectMapper mapper = new ObjectMapper();
 	Resty sendLogon = new Resty();
 	Resty getUser = new Resty();
 	AbstractResource logonResponse;
 	JSONResource getUserResponse;
+	private Sha1Conversion hashPassword = new Sha1Conversion();
 	
 	private Controller homeScreen;
 	
 	public void login(UserContainer userToLogin ) throws Exception{
+		//Hash Password
+		hashedPassword = hashPassword.makeSHA1Hash(userToLogin.password);
+		userToLogin.password = hashedPassword;
 		//Map java object to json object
 		json = mapper.writeValueAsString(userToLogin);
 		//Check User Password

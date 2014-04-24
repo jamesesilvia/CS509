@@ -22,6 +22,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 public class ChangePasswordPanel extends JPanel {
 	private JPasswordField txtPassword_1;	
@@ -60,6 +61,9 @@ public class ChangePasswordPanel extends JPanel {
 						mainFrame.dispose();
 						controller.changePassword(user);
 					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (NoSuchAlgorithmException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}					

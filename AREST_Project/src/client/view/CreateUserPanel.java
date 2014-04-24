@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 import client.controller.Controller;
 import client.controller.CreateUserController;
@@ -212,6 +213,9 @@ public class CreateUserPanel extends JPanel {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (NoSuchAlgorithmException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}

@@ -1,5 +1,6 @@
 package client.controller;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 import javax.swing.JOptionPane;
 
@@ -12,22 +13,28 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import client.model.UserContainer;
+import common.Sha1Conversion;
 
 public class CreateUserController{
 	public UserContainer user = new UserContainer();
 	ObjectMapper mapper = new ObjectMapper();
 	Resty sendCreate = new Resty();
 	JSONResource sendCreateResponse;
+	private Sha1Conversion hashPassword = new Sha1Conversion();
+	String hashedPassword;
+	
 	
 	public void createUser(String firstName, String lastName, String username, 
-			String password, String email, boolean supervisor, UserContainer _currentUser) throws JsonGenerationException, JsonMappingException, IOException{
-		
+			String password, String email, boolean supervisor, UserContainer _currentUser) throws JsonGenerationException, JsonMappingException, IOException, NoSuchAlgorithmException{
+		;
 		user.id = null;
 		user.firstLogon = true;
 		user.firstName = firstName;
 		user.lastName = lastName;
 		user.userName = username;
-		user.password = password;
+		//Hash Password
+		hashedPassword = hashPassword.makeSHA1Hash(password);
+		user.password = hashedPassword;
 		user.email = email;
 		user.isSupervisor = supervisor;
 		// Use random generator for this value
@@ -56,7 +63,6 @@ public class CreateUserController{
 	
 	public boolean checkPasswords(String pw_1, String pw_2) {
 		if (pw_1.equals(pw_2) == true) {
-			System.out.println("Passwords equal");
 			return true;
 		}
 		JOptionPane.showMessageDialog(null, "Passwords must be the same.", "Password Error!", JOptionPane.ERROR_MESSAGE);

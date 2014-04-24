@@ -1,6 +1,7 @@
 package client.controller;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 import javax.swing.JOptionPane;
 
@@ -12,18 +13,23 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import common.Sha1Conversion;
 import client.model.UserContainer;
 
 public class ChangePasswordController {
 	UserContainer currentUser;
-	String json;
+	String json, hashedPassword;
 	ObjectMapper mapper = new ObjectMapper();
 	Resty sendLogon = new Resty();
-	AbstractResource changePasswordResponse;	
+	AbstractResource changePasswordResponse;
+	private Sha1Conversion hashPassword = new Sha1Conversion();
 	
-	public void changePassword( UserContainer user) throws IOException{
+	public void changePassword( UserContainer user) throws IOException, NoSuchAlgorithmException{
 		currentUser = user;
 		
+		//Hash Password
+		hashedPassword = hashPassword.makeSHA1Hash(user.password);
+		user.password = hashedPassword;		
 		//Map java object to json object
 		json = mapper.writeValueAsString(user);
 		//Check Passwords
