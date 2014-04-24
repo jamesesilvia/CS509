@@ -348,8 +348,33 @@ public abstract class ReportGUI extends JFrame {
 	 * @param cUser - the current user logged in to the system.
 	 * @return true if the current user is the creator, false otherwise
 	 */
-	protected boolean isCreator(UserContainer cUser) {
+	protected boolean isCreator() {
 		return user.userName.equals(reportContainer.getUsername());
 	}
+
+	/**
+	 * Returns the button associated on the left of this screen.
+	 * @return the buttonLeft
+	 */
+	public JButton getButtonLeft() {
+		return buttonLeft;
+	}
+
+	/**
+	 * Returns the button associated with the center of this screen.
+	 * @return the buttonCenter
+	 */
+	public JButton getButtonCenter() {
+		return buttonCenter;
+	}
+
+	/**
+	 * Returns the button associated with the right of this screen.
+	 * @return the buttonRight
+	 */
+	public JButton getButtonRight() {
+		return buttonRight;
+	}
+
 	
 }

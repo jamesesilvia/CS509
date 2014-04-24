@@ -23,6 +23,14 @@ public class LogonFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 	}
+
+	public LogonPanel getCurrentPanel() {
+		return currentPanel;
+	}
+
+	public void setCurrentPanel(LogonPanel currentPanel) {
+		this.currentPanel = currentPanel;
+	}
 	
 
 }

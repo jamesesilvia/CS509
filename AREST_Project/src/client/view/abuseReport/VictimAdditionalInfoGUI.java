@@ -803,9 +803,7 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 			warnVictimAwarenessNotSet.setVisible(true);
 			validInfo = false;
 		}
-		
-		// FIXME: The month, day, and year are broken. Default text needs to be cleared.
-		// Check the Frequency of abuse panel.
+
 		if(!isCheckBoxSet(frequencyOfAbusePanel)){
 			warnFreqOfAbuseNotSet.setVisible(true);
 			validInfo = false;
@@ -814,6 +812,10 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 			warnFreqOfAbuseNotSet.setVisible(true);
 			validInfo = false;
 		} else if(txtMm.getText().equals("MM") || txtDd.getText().equals("DD") || txtYyyy.getText().equals("")) {
+			warnFreqOfAbuseNotSet.setVisible(true);
+			warnDateOfIncidentNotSet.setVisible(true);
+			validInfo = false;
+		} else if((txtMm.getText().length() != 2) || (txtDd.getText().length() != 2) || (txtYyyy.getText().length() != 4)) {
 			warnFreqOfAbuseNotSet.setVisible(true);
 			warnDateOfIncidentNotSet.setVisible(true);
 			validInfo = false;
@@ -863,7 +865,7 @@ public class VictimAdditionalInfoGUI extends JPanel implements CreateReportInter
 			if(container.getComponent(i) instanceof JCheckBox) {
 				JCheckBox myCb = (JCheckBox) container.getComponent(i);
 				if(myCb.isSelected() && !myCb.equals(other)){
-					contCheckBoxNames = contCheckBoxNames.concat(myCb.getText());
+					contCheckBoxNames = contCheckBoxNames.concat(myCb.getText() + " ");
 				} else if (myCb.isSelected() && myCb.equals(other)) {
 					isOtherSet = true;
 				}

@@ -62,6 +62,15 @@ public class Controller {
 	private Controller controller = this;
 	public static UserContainer currentUser;
 
+	private JButton createReportButton;
+	private JButton viewAllReportsButton;
+	private JButton viewReportButton;
+	private JButton viewAllUsersButton; 
+	private JButton deleteUserButton;
+	private JButton createUserButton;
+	private JButton changePasswordButton;
+	private JButton logOffButton;
+	
 	/**
 	 * Create the application.
 	 */
@@ -85,7 +94,7 @@ public class Controller {
 		mframe.getContentPane().setLayout(gridBagLayout);
 		
 		// The following code kicks going to the create report frame
-		JButton createReportButton = new JButton("Create Report");		
+		createReportButton = new JButton("Create Report");		
 		createReportButton.setToolTipText("Select this button to create a new Abuse Report.");
 		createReportButton.addActionListener(new ActionListener() {
 			@Override
@@ -117,7 +126,7 @@ public class Controller {
 		mframe.getContentPane().add(createReportButton, gbc_createReportButton);
 		
 		// The following takes us to the view all reports frame
-		JButton viewAllReportsButton = new JButton("View All Reports");
+		viewAllReportsButton = new JButton("View All Reports");
 		viewAllReportsButton.setToolTipText("Select this button to view all Abuse Reports on the Server. Returned abuse reports depend on your privilege level.");
 		viewAllReportsButton.addActionListener(new ActionListener() {
 			
@@ -142,7 +151,7 @@ public class Controller {
 		gbc_viewAllReportsButton.gridy = 2;
 		mframe.getContentPane().add(viewAllReportsButton, gbc_viewAllReportsButton);
 		
-		JButton viewReportButton = new JButton("View Report");
+		viewReportButton = new JButton("View Report");
 		viewReportButton.setToolTipText("Select this button to view an outstanding abuse report by ID.");
 		viewReportButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent action) {
@@ -161,7 +170,7 @@ public class Controller {
 		
 		
 		// The following takes us to the view all users frame
-		JButton viewAllUsersButton = new JButton("View All Users");
+		viewAllUsersButton = new JButton("View All Users");
 		viewAllUsersButton.setToolTipText("Select this button to view all users registered to the AREST system.");
 		viewAllUsersButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent action) {
@@ -181,7 +190,7 @@ public class Controller {
 		gbc_viewAllUsersButton.gridy = 4;
 		mframe.getContentPane().add(viewAllUsersButton, gbc_viewAllUsersButton);
 		
-		JButton deleteUserButton = new JButton("Delete User");
+		deleteUserButton = new JButton("Delete User");
 		deleteUserButton.setToolTipText("Select this button to delete a specific user.");
 		deleteUserButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent action) {
@@ -200,7 +209,7 @@ public class Controller {
 		gbc_deleteUserButton.gridy = 5;
 		mframe.getContentPane().add(deleteUserButton, gbc_deleteUserButton);
 		
-		JButton createUserButton = new JButton("Create New User");
+		createUserButton = new JButton("Create New User");
 		createUserButton.setToolTipText("Select this button to create a new user.");
 		createUserButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent action) {
@@ -219,7 +228,7 @@ public class Controller {
 		gbc_createUserButton.gridy = 6;
 		mframe.getContentPane().add(createUserButton, gbc_createUserButton);
 		
-		JButton changePasswordButton = new JButton("Change Password");
+		changePasswordButton = new JButton("Change Password");
 		changePasswordButton.setToolTipText("Select this button to change a password for a user.");
 		changePasswordButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent action) {
@@ -238,7 +247,7 @@ public class Controller {
 		gbc_changePasswordButton.gridy = 7;
 		mframe.getContentPane().add(changePasswordButton, gbc_changePasswordButton);
 		
-		JButton logOffButton = new JButton("Log Off");
+		logOffButton = new JButton("Log Off");
 		logOffButton.setToolTipText("Select this button to log off the AREST system.");
 		logOffButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent action) {
@@ -282,5 +291,68 @@ public class Controller {
 	
 	public void showFrame() {
 		mframe.setVisible(true);
+	}
+
+	/**
+	 * @return the createReportButton
+	 */
+	public JButton getCreateReportButton() {
+		return createReportButton;
+	}
+
+	/**
+	 * @return the viewAllReportsButton
+	 */
+	public JButton getViewAllReportsButton() {
+		return viewAllReportsButton;
+	}
+
+	/**
+	 * @return the viewReportButton
+	 */
+	public JButton getViewReportButton() {
+		return viewReportButton;
+	}
+
+	/**
+	 * @return the viewAllUsersButton
+	 */
+	public JButton getViewAllUsersButton() {
+		return viewAllUsersButton;
+	}
+
+	/**
+	 * @return the deleteUserButton
+	 */
+	public JButton getDeleteUserButton() {
+		return deleteUserButton;
+	}
+
+	/**
+	 * @return the createUserButton
+	 */
+	public JButton getCreateUserButton() {
+		return createUserButton;
+	}
+
+	/**
+	 * @return the changePasswordButton
+	 */
+	public JButton getChangePasswordButton() {
+		return changePasswordButton;
+	}
+
+	/**
+	 * @return the logOffButton
+	 */
+	public JButton getLogOffButton() {
+		return logOffButton;
+	}
+
+	/**
+	 * @return the mframe
+	 */
+	public JFrame getMframe() {
+		return mframe;
 	}
 }

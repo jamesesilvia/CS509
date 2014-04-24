@@ -97,5 +97,33 @@ public class LogonPanel extends JPanel {
 		btnSubmit.setBounds(107, 114, 88, 29);
 		this.add(btnSubmit);				
 	}
+
+	/**
+	 * @return the userNameField
+	 */
+	public JTextField getUserNameField() {
+		return userNameField;
+	}
+
+	/**
+	 * @return the passwordField
+	 */
+	public JPasswordField getPasswordField() {
+		return passwordField;
+	}
+
+	/**
+	 * @return the btnSubmit
+	 */
+	public JButton getBtnSubmit() {
+		return btnSubmit;
+	}
+
+	/**
+	 * @return the controller
+	 */
+	public LogonController getController() {
+		return controller;
+	}
 	
 }

@@ -29,6 +29,8 @@ public class LogonController {
 	AbstractResource logonResponse;
 	JSONResource getUserResponse;
 	
+	private Controller homeScreen;
+	
 	public void login(UserContainer userToLogin ) throws Exception{
 		//Map java object to json object
 		json = mapper.writeValueAsString(userToLogin);
@@ -58,7 +60,7 @@ public class LogonController {
 							+ "Continuing to Home Screen", "Success!", JOptionPane.INFORMATION_MESSAGE);
 									//Go to home screen View and pass user information
 					System.out.println("Successfully logged on");
-					Controller homeScreen = new Controller(user);
+					homeScreen = new Controller(user);
 					homeScreen.showFrame();
 				}
 				//Go to home screen View and pass user information

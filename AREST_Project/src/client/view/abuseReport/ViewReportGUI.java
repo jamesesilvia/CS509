@@ -301,9 +301,7 @@ public class ViewReportGUI extends ReportGUI implements ViewReportInterface {
 		if(reportContainer == null) {
 			reason = reasonEnum.INVALID_ID;
 		} else {
-			if(!isSupervisor()) {
-				reason = reasonEnum.NO_PRIVILEGES;
-			} else if(!isCreator(getUser())) {
+			if(!isSupervisor() && !isCreator()) {
 				reason = reasonEnum.NO_PRIVILEGES;
 			} else {
 				reason = reasonEnum.VALID;
