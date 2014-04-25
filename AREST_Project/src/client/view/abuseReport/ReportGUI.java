@@ -40,7 +40,7 @@ public abstract class ReportGUI extends JFrame {
 	final protected static String GUARDIAN_PANEL         = "Guardian Panel";
 	final protected static String DESCRIPTION_PANEL      = "Description Panel";
 	
-	protected static enum serverConnectionType {
+	public static enum serverConnectionType {
 		CREATE, EDIT, DELETE, VIEW
 	};
 	

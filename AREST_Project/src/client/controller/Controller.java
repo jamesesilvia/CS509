@@ -133,7 +133,7 @@ public class Controller {
 		GridBagConstraints gbc_createReportButton = new GridBagConstraints();
 		gbc_createReportButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_createReportButton.weighty = 0.5;
-		gbc_createReportButton.insets = new Insets(10, 20, 10, 20);
+		gbc_createReportButton.insets = new Insets(10, 30, 10, 30);
 		gbc_createReportButton.gridx = 0;
 		gbc_createReportButton.gridy = 2;
 		mframe.getContentPane().add(createReportButton, gbc_createReportButton);
@@ -159,7 +159,7 @@ public class Controller {
 		GridBagConstraints gbc_viewAllReportsButton = new GridBagConstraints();
 		gbc_viewAllReportsButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_viewAllReportsButton.weighty = 0.5;
-		gbc_viewAllReportsButton.insets = new Insets(10, 20, 10, 20);
+		gbc_viewAllReportsButton.insets = new Insets(10, 30, 10, 30);
 		gbc_viewAllReportsButton.gridx = 0;
 		gbc_viewAllReportsButton.gridy = 3;
 		mframe.getContentPane().add(viewAllReportsButton, gbc_viewAllReportsButton);
@@ -176,7 +176,7 @@ public class Controller {
 		GridBagConstraints gbc_viewReportButton = new GridBagConstraints();
 		gbc_viewReportButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_viewReportButton.weighty = 0.5;
-		gbc_viewReportButton.insets = new Insets(10, 20, 10, 20);
+		gbc_viewReportButton.insets = new Insets(10, 30, 10, 30);
 		gbc_viewReportButton.gridx = 0;
 		gbc_viewReportButton.gridy = 4;
 		mframe.getContentPane().add(viewReportButton, gbc_viewReportButton);
@@ -198,7 +198,7 @@ public class Controller {
 		GridBagConstraints gbc_viewAllUsersButton = new GridBagConstraints();
 		gbc_viewAllUsersButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_viewAllUsersButton.weighty = 0.5;
-		gbc_viewAllUsersButton.insets = new Insets(10, 20, 10, 20);
+		gbc_viewAllUsersButton.insets = new Insets(10, 30, 10, 30);
 		gbc_viewAllUsersButton.gridx = 0;
 		gbc_viewAllUsersButton.gridy = 5;
 		mframe.getContentPane().add(viewAllUsersButton, gbc_viewAllUsersButton);
@@ -217,7 +217,7 @@ public class Controller {
 		GridBagConstraints gbc_deleteUserButton = new GridBagConstraints();
 		gbc_deleteUserButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_deleteUserButton.weighty = 0.5;
-		gbc_deleteUserButton.insets = new Insets(10, 20, 10, 20);
+		gbc_deleteUserButton.insets = new Insets(10, 30, 10, 30);
 		gbc_deleteUserButton.gridx = 0;
 		gbc_deleteUserButton.gridy = 6;
 		mframe.getContentPane().add(deleteUserButton, gbc_deleteUserButton);
@@ -236,7 +236,7 @@ public class Controller {
 		GridBagConstraints gbc_createUserButton = new GridBagConstraints();
 		gbc_createUserButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_createUserButton.weighty = 0.5;
-		gbc_createUserButton.insets = new Insets(10, 20, 10, 20);
+		gbc_createUserButton.insets = new Insets(10, 30, 10, 30);
 		gbc_createUserButton.gridx = 0;
 		gbc_createUserButton.gridy = 7;
 		mframe.getContentPane().add(createUserButton, gbc_createUserButton);
@@ -255,7 +255,7 @@ public class Controller {
 		GridBagConstraints gbc_changePasswordButton = new GridBagConstraints();
 		gbc_changePasswordButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_changePasswordButton.weighty = 0.5;
-		gbc_changePasswordButton.insets = new Insets(10, 20, 10, 20);
+		gbc_changePasswordButton.insets = new Insets(10, 30, 10, 30);
 		gbc_changePasswordButton.gridx = 0;
 		gbc_changePasswordButton.gridy = 8;
 		mframe.getContentPane().add(changePasswordButton, gbc_changePasswordButton);
@@ -275,19 +275,19 @@ public class Controller {
 		gbc_logOffButton.weighty = 0.5;
 		gbc_logOffButton.gridx = 0;
 		gbc_logOffButton.gridy = 9;
-		gbc_logOffButton.insets = new Insets(10, 20, 10, 20);
+		gbc_logOffButton.insets = new Insets(10, 30, 10, 20);
 		mframe.getContentPane().add(logOffButton, gbc_logOffButton);
 		
-		JTextPane txtpnCopyrightJ = new JTextPane();
-		txtpnCopyrightJ.setEditable(false);
-		txtpnCopyrightJ.setOpaque(false);
-		txtpnCopyrightJ.setText("Copyright 2014: J. Silvia, T. Carroll, S. Meas, T. Strott, M. Orsini");
-		GridBagConstraints gbc_txtpnCopyrightJ = new GridBagConstraints();
-		gbc_txtpnCopyrightJ.anchor = GridBagConstraints.NORTH;
-		gbc_txtpnCopyrightJ.gridx = 0;
-		gbc_txtpnCopyrightJ.gridy = 10;
-		gbc_txtpnCopyrightJ.insets = mainScreenInsets;
-		mframe.getContentPane().add(txtpnCopyrightJ, gbc_txtpnCopyrightJ);
+		JTextPane txtpnSignature = new JTextPane();
+		txtpnSignature.setEditable(false);
+		txtpnSignature.setOpaque(false);
+		txtpnSignature.setText("(2014) Created By: J. Silvia, T. Carroll, S. Meas, T. Strott, M. Orsini");
+		GridBagConstraints gbc_txtpnSignature = new GridBagConstraints();
+		gbc_txtpnSignature.anchor = GridBagConstraints.NORTH;
+		gbc_txtpnSignature.gridx = 0;
+		gbc_txtpnSignature.gridy = 10;
+		gbc_txtpnSignature.insets = mainScreenInsets;
+		mframe.getContentPane().add(txtpnSignature, gbc_txtpnSignature);
 		mframe.pack();
 		mframe.setResizable(false);
 		
