@@ -275,7 +275,7 @@ public class Controller {
 		gbc_logOffButton.weighty = 0.5;
 		gbc_logOffButton.gridx = 0;
 		gbc_logOffButton.gridy = 9;
-		gbc_logOffButton.insets = new Insets(10, 30, 10, 20);
+		gbc_logOffButton.insets = new Insets(10, 30, 10, 30);
 		mframe.getContentPane().add(logOffButton, gbc_logOffButton);
 		
 		JTextPane txtpnSignature = new JTextPane();
