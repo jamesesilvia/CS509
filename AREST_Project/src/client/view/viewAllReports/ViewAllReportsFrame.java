@@ -79,7 +79,7 @@ public class ViewAllReportsFrame extends JFrame{
 	 */
 	private void initialize() {
 		mframe = new JFrame("View All Reports");
-		mframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		
 		// Table of All Reports in the system

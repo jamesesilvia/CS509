@@ -25,13 +25,13 @@ public class ReportPrinter
 		
 			bw.write("REPORTER");
 			bw.newLine();
-			bw.write("Reporter Name: " + rep.reporter.firstName + " " + rep.reporter.lastName);
+			bw.write("Reporter Name: Redacted");
 			bw.newLine();
 		
-			bw.write("Reporter Address: " + rep.reporter.address);
+			bw.write("Reporter Address: Redacted");
 			bw.newLine();
 		
-			bw.write("Reporter Telephone: " + rep.reporter.phoneNumber);
+			bw.write("Reporter Telephone: Redacted");
 			bw.newLine();
 		
 			if(rep.reporter.isMandated())
@@ -85,22 +85,22 @@ public class ReportPrinter
 		
 			bw.write("ABUSER");
 			bw.newLine();
-			bw.write("Abuser Name: " + rep.abuser.firstName + " " + rep.abuser.lastName);
+			bw.write("Abuser Name: Redacted");
 			bw.newLine();
 		
-			bw.write("Abuser Address: " + rep.abuser.address);
+			bw.write("Abuser Address: Redacted");
 			bw.newLine();
 		
 			bw.write("Abuser Relationship to Victim: " + rep.abuser.relationshipToVictim);
 			bw.newLine();
 		
-			bw.write("Abuser SSN: " + rep.abuser.social);
+			bw.write("Abuser SSN: Redacted");
 			bw.newLine();
 		
 			bw.write("Abuser Date of Birth: " + rep.abuser.dob);
 			bw.newLine();
 		
-			bw.write("Abuser Telephone: " + rep.abuser.phoneNumber);
+			bw.write("Abuser Telephone: Redacted");
 			bw.newLine();
 			bw.newLine();
 		
@@ -171,7 +171,7 @@ public class ReportPrinter
 			}
 		
 			disabled = disabled.trim();		
-			if(disabled != "")
+			if(!disabled.equals(""))
 			{
 				bw.write("Other: " + disabled);
 				bw.newLine();
@@ -196,13 +196,15 @@ public class ReportPrinter
 			}
 		
 			comms = comms.trim();
-			if(comms != "")
+			if(!comms.equals(""))
 			{
 				bw.write("Other: " + comms);
 				bw.newLine();
 			}
 			
+			bw.newLine();
 			bw.write("GUARDIAN");
+			bw.newLine();
 			if(rep.guardian.firstName != null && rep.guardian.lastName != null)
 			{
 				bw.write("Guardian Name: " + rep.guardian.firstName + " " + rep.guardian.lastName);
@@ -295,7 +297,7 @@ public class ReportPrinter
 			}
 		
 			served = served.trim();
-			if(served != "")
+			if(!served.equals(""))
 			{
 				bw.write("Other: " + served);
 				bw.newLine();
@@ -303,39 +305,48 @@ public class ReportPrinter
 			
 			bw.newLine();
 			bw.write("COLLATERAL CONTACTS");
-			bw.newLine();
-			String coll = null;
+			bw.newLine();			
 			if(rep.collateralContact1 != null)
 			{
-				if(rep.collateralContact1.firstName != null && rep.collateralContact1.lastName != null && rep.collateralContact1.phoneNumber != null)
-					coll += rep.collateralContact1.firstName + " " + rep.collateralContact1.getLastName() + "\n" + rep.collateralContact1.phoneNumber + "\n";
+				if(!rep.collateralContact1.firstName.equals("") && !rep.collateralContact1.lastName.equals("") && !rep.collateralContact1.phoneNumber.equals(""))
+				{
+					bw.write(rep.collateralContact1.firstName + " " + rep.collateralContact1.lastName + " " + rep.collateralContact1.phoneNumber);
+					bw.newLine();
+				}
 			}
 			if(rep.collateralContact2 != null)
 			{
-				if(rep.collateralContact2.firstName != null && rep.collateralContact2.lastName != null && rep.collateralContact2.phoneNumber != null)
-					coll += rep.collateralContact2.firstName + " " + rep.collateralContact2.getLastName() + "\n" + rep.collateralContact2.phoneNumber + "\n";
+				if(!rep.collateralContact2.firstName.equals("") && !rep.collateralContact2.lastName.equals("") && !rep.collateralContact2.phoneNumber.equals(""))
+				{
+					bw.write(rep.collateralContact2.firstName + " " + rep.collateralContact2.lastName + " " + rep.collateralContact2.phoneNumber);
+					bw.newLine();
+				}
 			}
 			if(rep.collateralContact3 != null)
 			{
-				if(rep.collateralContact3.firstName != null && rep.collateralContact3.lastName != null && rep.collateralContact3.phoneNumber != null)
-					coll += rep.collateralContact3.firstName + " " + rep.collateralContact3.getLastName() + "\n" + rep.collateralContact3.phoneNumber + "\n";
+				if(!rep.collateralContact3.firstName.equals("") && !rep.collateralContact3.lastName.equals("") && !rep.collateralContact3.phoneNumber.equals(""))
+				{
+					bw.write(rep.collateralContact3.firstName + " " + rep.collateralContact3.lastName + " " + rep.collateralContact3.phoneNumber);
+					bw.newLine();
+				}
 			}
 			if(rep.collateralContact4 != null)
 			{
-				if(rep.collateralContact4.firstName != null && rep.collateralContact4.lastName != null && rep.collateralContact4.phoneNumber != null)
-					coll += rep.collateralContact4.firstName + " " + rep.collateralContact4.getLastName() + "\n" + rep.collateralContact4.phoneNumber + "\n";
+				if(!rep.collateralContact4.firstName.equals("") && !rep.collateralContact4.lastName.equals("") && !rep.collateralContact4.phoneNumber.equals(""))
+				{
+					bw.write(rep.collateralContact4.firstName + " " + rep.collateralContact4.lastName + " " + rep.collateralContact4.phoneNumber);
+					bw.newLine();
+				}
 			}
 			if(rep.collateralContact5 != null)
 			{
-				if(rep.collateralContact5.firstName != null && rep.collateralContact5.lastName != null && rep.collateralContact5.phoneNumber != null)
-					coll += rep.collateralContact5.firstName + " " + rep.collateralContact5.getLastName() + "\n" + rep.collateralContact5.phoneNumber + "\n";
+				if(!rep.collateralContact5.firstName.equals("") && !rep.collateralContact5.lastName.equals("") && !rep.collateralContact5.phoneNumber.equals(""))
+				{
+					bw.write(rep.collateralContact5.firstName + " " + rep.collateralContact5.lastName + " " + rep.collateralContact5.phoneNumber);
+					bw.newLine();
+				}
 			}
-			if(coll != null)
-			{
-				bw.write(coll);
-				bw.newLine();
-			}
-			else
+			if(rep.collateralContact1 == null && rep.collateralContact2 == null && rep.collateralContact3 == null && rep.collateralContact4 == null && rep.collateralContact5 == null)
 			{
 				bw.write("None Listed");
 				bw.newLine();
@@ -395,7 +406,7 @@ public class ReportPrinter
 			}
 		
 			service = service.trim();
-			if(service != "")
+			if(!service.equals(""))
 			{
 				bw.write("Other: " + service);
 				bw.newLine();
@@ -441,7 +452,7 @@ public class ReportPrinter
 			}
 		
 			ethnicity = ethnicity.trim();
-			if(ethnicity != "")
+			if(!ethnicity.equals(""))
 			{
 				bw.write("Other: " + ethnicity);
 				bw.newLine();
@@ -544,7 +555,7 @@ public class ReportPrinter
 			}
 		
 			abuseType = abuseType.trim();
-			if(abuseType != "")
+			if(!abuseType.equals(""))
 			{
 				bw.write("Other: " + abuseType);
 				bw.newLine();
@@ -642,7 +653,6 @@ public class ReportPrinter
 			catch(IOException e)
 			{
 				JOptionPane.showMessageDialog(null, "Unable to write to output file.", "ERROR Writing to file", JOptionPane.INFORMATION_MESSAGE);
-				//System.out.println("File write error for " + myFile);
 			}
 	}
 }

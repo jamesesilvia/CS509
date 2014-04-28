@@ -149,7 +149,7 @@ public class Controller {
 					viewAllReportsFrame = new ViewAllReportsFrame(currentUser);
 					
 					// displose this frame as we are going to make a new one.
-					mframe.dispose();
+					//mframe.dispose();
 					
 					// Show the view all reports frame
 					viewAllReportsFrame.showFrame();
@@ -189,7 +189,7 @@ public class Controller {
 			public void actionPerformed(ActionEvent action) {
 				if(action.getID() == ActionEvent.ACTION_PERFORMED) {
 					viewAllUsersFrame = new ViewAllUsersFrame(currentUser);
-					mframe.dispose();
+					//mframe.dispose();
 					viewAllUsersFrame.showFrame();
 				
 				}
