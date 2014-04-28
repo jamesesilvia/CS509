@@ -34,6 +34,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
 import java.awt.Font;
@@ -71,6 +72,8 @@ public class Controller {
 	private JButton changePasswordButton;
 	private JButton logOffButton;
 	private JTextPane nameText;
+	
+	private final Object[] option = {"Yes", "No"};
 	
 	/**
 	 * Create the application.
@@ -265,8 +268,12 @@ public class Controller {
 		logOffButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent action) {
 				if(action.getID() == ActionEvent.ACTION_PERFORMED) {
-					// simply dispose window and exit applicaiton to log off
-					mframe.dispose();
+					int response = JOptionPane.showOptionDialog(mframe, "Are you sure you want to logoff?", 
+							"Are you sure?", JOptionPane.YES_NO_OPTION, 
+							JOptionPane.QUESTION_MESSAGE, null, option, option[1]);
+					if(response == JOptionPane.YES_OPTION) {
+						mframe.dispose();
+					}
 				}
 			}
 		});
