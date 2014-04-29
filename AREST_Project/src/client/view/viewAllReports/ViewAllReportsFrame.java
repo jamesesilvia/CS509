@@ -147,8 +147,7 @@ public class ViewAllReportsFrame extends JFrame{
 			public void actionPerformed(ActionEvent action) {
 				if(action.getID() == ActionEvent.ACTION_PERFORMED) {
 					controller = new Controller(currentUser);
-					mframe.setVisible(false);
-					controller.showFrame();
+					mframe.dispose();
 				}
 			}
 		});
