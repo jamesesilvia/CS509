@@ -189,6 +189,7 @@ public class ViewAllReportsFrame extends JFrame{
 		mframe.setSize(500, 500);
 		mframe.getContentPane().setLayout(groupLayout);
 		mframe.pack();
+		mframe.setResizable(false);
 	}
 	
 	public void showFrame() {

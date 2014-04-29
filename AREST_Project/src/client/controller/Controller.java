@@ -272,7 +272,7 @@ public class Controller {
 							"Are you sure?", JOptionPane.YES_NO_OPTION, 
 							JOptionPane.QUESTION_MESSAGE, null, option, option[1]);
 					if(response == JOptionPane.YES_OPTION) {
-						mframe.dispose();
+						System.exit(1);
 					}
 				}
 			}
