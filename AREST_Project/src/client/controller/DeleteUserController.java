@@ -33,22 +33,17 @@ public class DeleteUserController {
 		//DeleteUser
 		sendDelete.alwaysSend("Content-Type", "application/json");
 		try{
-			deleteResponse = sendDelete.json("http://cs509-arest.herokuapp.com/user/delete", content(json));			
+			deleteResponse = sendDelete.json("http://cs509-arest.herokuapp.com/user/delete", content(json));
 		} catch ( IOException e1 ){
+			//User Does not exist
 			JOptionPane.showMessageDialog(null, "User does not exist: \n"
-					+ username, "Error!", JOptionPane.ERROR_MESSAGE);			
+					+ username, "Error!", JOptionPane.ERROR_MESSAGE);
 		}
 		
 		// If user successfully deleted
-		if ( deleteResponse.status(200) == true ){
+		if ( deleteResponse != null && deleteResponse.status(200) == true ){
 			JOptionPane.showMessageDialog(null, "Removed user: \n"
 					+ username, "Success!", JOptionPane.INFORMATION_MESSAGE);
-			//Return to homescreen			
-		}
-		// User does not exist
-		else{
-			JOptionPane.showMessageDialog(null, "Problem deleting user: \n"
-					+ username, "Error!", JOptionPane.ERROR_MESSAGE);	
 		}
 		
 		Controller homeScreen = new Controller(currentUser);
