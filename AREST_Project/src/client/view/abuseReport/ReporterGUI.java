@@ -919,6 +919,9 @@ public class ReporterGUI extends ArestPanel implements CreateReportInterface, Vi
 		if(!isTextComponentValid(abuserDobDay, 2) || !isTextComponentValid(abuserDobMon, 2) || !isTextComponentValid(abuserDobYear, 4)) {
 			abuserDobNotSetWarning.setVisible(true);
 			validInfo = false;
+		} else if (abuserDobDay.getText().equals("DD") || abuserDobMon.getText().equals("MM") || abuserDobYear.getText().equals("YYYY")) {
+			abuserDobNotSetWarning.setVisible(true);
+			validInfo = false;
 		} else {
 			abuserDobNotSetWarning.setVisible(false);
 		}
