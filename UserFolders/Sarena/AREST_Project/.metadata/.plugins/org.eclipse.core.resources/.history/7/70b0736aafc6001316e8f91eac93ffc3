@@ -16,6 +16,7 @@ import javax.swing.JPasswordField;
 import client.controller.Controller;
 import client.controller.CreateUserController;
 import client.controller.DeleteUserController;
+import client.controller.LogonController;
 import client.model.UserContainer;
 
 import java.awt.event.ActionListener;
