@@ -26,7 +26,6 @@ public class CreateUserController{
 	
 	public void createUser(String firstName, String lastName, String username, 
 			String password, String email, boolean supervisor, UserContainer _currentUser) throws JsonGenerationException, JsonMappingException, IOException, NoSuchAlgorithmException{
-		;
 		user.id = null;
 		user.firstLogon = true;
 		user.firstName = firstName;
