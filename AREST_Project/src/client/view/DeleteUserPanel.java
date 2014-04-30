@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
@@ -51,6 +52,10 @@ public class DeleteUserPanel extends JPanel {
 				try {
 					_currentFrame.dispose();
 					controller.deleteUser(username, currentUser);
+					if(username.equals(currentUser.userName)) {
+						JOptionPane.showMessageDialog(_currentFrame, "Congrats! You've successfully deleted yourself! Bye!");
+						System.exit(1);
+					}
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
